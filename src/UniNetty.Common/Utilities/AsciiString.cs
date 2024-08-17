@@ -935,7 +935,7 @@ namespace UniNetty.Common.Utilities
         public string ToString(int start) => this.ToString(start, this.length);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe string ToString(int start, int end)
+        public string ToString(int start, int end)
         {
             int count = end - start;
             if (MathUtil.IsOutOfBounds(start, count, this.length))
@@ -947,10 +947,7 @@ namespace UniNetty.Common.Utilities
                 return string.Empty;
             }
 
-            fixed (byte* p = &this.value[this.offset + start])
-            {
-                return Marshal.PtrToStringAnsi((IntPtr)p, count);
-            }
+            return Encoding.ASCII.GetString(this.value, this.offset + start, count);
         }
 
         public bool ParseBoolean() => this.length >= 1 && this.value[this.offset] != 0;
