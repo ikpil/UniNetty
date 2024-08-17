@@ -12,7 +12,7 @@ namespace UniNetty.Tests.Common
         public static X509Certificate2 GetTestCertificate()
         {
             byte[] certData;
-            using (Stream resStream = typeof(TestResourceHelper).GetTypeInfo().Assembly.GetManifestResourceStream(typeof(TestResourceHelper).Namespace + "." + "UniNetty.com.pfx"))
+            using (Stream resStream = typeof(TestResourceHelper).GetTypeInfo().Assembly.GetManifestResourceStream(typeof(TestResourceHelper).Namespace + "." + "dotnetty.com.pfx"))
             using (var memStream = new MemoryStream())
             {
                 resStream.CopyTo(memStream);
