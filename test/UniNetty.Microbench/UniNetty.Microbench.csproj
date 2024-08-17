@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    
+    
+    
+    
+    
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net472' ">
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.0" />
+    <PackageReference Include="Microsoft.Diagnostics.Tracing.TraceEvent" Version="2.0.61" />
+    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.13.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\UniNetty.Codecs.Http\UniNetty.Codecs.Http.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Common\UniNetty.Common.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Buffers\UniNetty.Buffers.csproj" />
+  </ItemGroup>
+</Project>

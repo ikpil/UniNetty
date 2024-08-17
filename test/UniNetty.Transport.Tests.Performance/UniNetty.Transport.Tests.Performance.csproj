@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    
+    <ApplicationIcon />
+    <OutputTypeEx>library</OutputTypeEx>
+    <StartupObject />
+    
+    
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NBench" Version="2.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\UniNetty.Common\UniNetty.Common.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Buffers\UniNetty.Buffers.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Transport\UniNetty.Transport.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Codecs\UniNetty.Codecs.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Handlers\UniNetty.Handlers.csproj" />
+    <ProjectReference Include="..\UniNetty.Tests.Common\UniNetty.Tests.Common.csproj" />
+  </ItemGroup>
+</Project>
