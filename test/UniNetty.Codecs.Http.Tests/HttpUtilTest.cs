@@ -49,7 +49,7 @@ namespace UniNetty.Codecs.Http.Tests
             var message = new DefaultHttpResponse(HttpVersion.Http11, HttpResponseStatus.OK);
             message.Headers.Set(HttpHeaderNames.ContentType, QuotesCharsetContentType);
             Assert.Equal("\"utf8\"", HttpUtil.GetCharsetAsSequence(message).ToString());
-            Assert.Equal("\"utf8\"", HttpUtil.GetCharsetAsSequence(new AsciiString(QuotesCharsetContentType)));
+            Assert.Equal("\"utf8\"", HttpUtil.GetCharsetAsSequence(new AsciiString(QuotesCharsetContentType)).ToString());
 
             message.Headers.Set(HttpHeaderNames.ContentType, "text/html");
             Assert.Null(HttpUtil.GetCharsetAsSequence(message));
@@ -108,12 +108,12 @@ namespace UniNetty.Codecs.Http.Tests
             Assert.Null(HttpUtil.GetMimeType(message));
             Assert.Null(HttpUtil.GetMimeType(new AsciiString("")));
             message.Headers.Set(HttpHeaderNames.ContentType, SimpleContentType);
-            Assert.Equal("text/html", HttpUtil.GetMimeType(message));
-            Assert.Equal("text/html", HttpUtil.GetMimeType(new AsciiString(SimpleContentType)));
+            Assert.Equal("text/html", HttpUtil.GetMimeType(message).ToString());
+            Assert.Equal("text/html", HttpUtil.GetMimeType(new AsciiString(SimpleContentType)).ToString());
 
             message.Headers.Set(HttpHeaderNames.ContentType, NormalContentType);
-            Assert.Equal("text/html", HttpUtil.GetMimeType(message));
-            Assert.Equal("text/html", HttpUtil.GetMimeType(new AsciiString(NormalContentType)));
+            Assert.Equal("text/html", HttpUtil.GetMimeType(message).ToString());
+            Assert.Equal("text/html", HttpUtil.GetMimeType(new AsciiString(NormalContentType)).ToString());
         }
 
         [Fact]

@@ -66,7 +66,7 @@ namespace UniNetty.Codecs.Http.Tests
             // Passes
             ICharSequence value2 = headers.Get(HttpHeaderNames.Connection, null);
             Assert.NotNull(value2);
-            Assert.Equal(Connection, value2);
+            Assert.Equal(Connection, value2.ToString());
         }
 
         [Fact]
@@ -84,7 +84,7 @@ namespace UniNetty.Codecs.Http.Tests
 
             ICharSequence value2 = headers.Get(HttpHeaderNames.CacheControl, null);
             Assert.NotNull(value2);
-            Assert.Equal(CacheControl, value2);
+            Assert.Equal(CacheControl, value2.ToString());
         }
 
         [Fact]
@@ -94,12 +94,12 @@ namespace UniNetty.Codecs.Http.Tests
             headers.Add(HttpHeadersTestUtils.Of("Foo"), HttpHeadersTestUtils.Of("1"));
             headers.Add(HttpHeadersTestUtils.Of("Foo"), HttpHeadersTestUtils.Of("2"));
 
-            Assert.Equal("1", headers.Get(HttpHeadersTestUtils.Of("Foo"), null));
+            Assert.Equal("1", headers.Get(HttpHeadersTestUtils.Of("Foo"), null).ToString());
 
             IList<ICharSequence> values = headers.GetAll(HttpHeadersTestUtils.Of("Foo"));
             Assert.Equal(2, values.Count);
-            Assert.Equal("1", values[0]);
-            Assert.Equal("2", values[1]);
+            Assert.Equal("1", values[0].ToString());
+            Assert.Equal("2", values[1].ToString());
         }
 
         [Fact]

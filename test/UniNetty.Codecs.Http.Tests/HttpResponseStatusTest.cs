@@ -72,7 +72,7 @@ namespace UniNetty.Codecs.Http.Tests
         {
             HttpResponseStatus customStatus = HttpResponseStatus.ParseLine(new AsciiString("612 FOO"));
             Assert.Equal(612, customStatus.Code);
-            Assert.Equal("FOO", customStatus.ReasonPhrase);
+            Assert.Equal("FOO", customStatus.ReasonPhrase.ToString());
         }
 
         [Fact]

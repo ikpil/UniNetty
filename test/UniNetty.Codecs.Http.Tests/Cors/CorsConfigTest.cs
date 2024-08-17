@@ -119,7 +119,7 @@ namespace UniNetty.Codecs.Http.Tests.Cors
         {
             CorsConfig cors = CorsConfigBuilder.ForAnyOrigin().Build();
             Assert.NotNull(cors.PreflightResponseHeaders().Get(HttpHeaderNames.Date, null));
-            Assert.Equal("0", cors.PreflightResponseHeaders().Get(HttpHeaderNames.ContentLength, null));
+            Assert.Equal("0", cors.PreflightResponseHeaders().Get(HttpHeaderNames.ContentLength, null).ToString());
         }
 
         [Fact]

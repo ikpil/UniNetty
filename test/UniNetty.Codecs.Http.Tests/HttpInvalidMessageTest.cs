@@ -71,7 +71,7 @@ namespace UniNetty.Codecs.Http.Tests
             Assert.NotNull(dr);
             Assert.False(dr.IsSuccess);
             Assert.True(dr.IsFailure);
-            Assert.Equal("Maybe OK", res.Status.ReasonPhrase);
+            Assert.Equal("Maybe OK", res.Status.ReasonPhrase.ToString());
             Assert.Equal("Good Value", res.Headers.Get((AsciiString)"Good_Name", null).ToString());
             this.EnsureInboundTrafficDiscarded(ch);
         }
