@@ -11,18 +11,6 @@
     <PackageReference Include="Moq" Version="4.10.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Multipart\file-01.txt" />
-    <None Remove="Multipart\file-02.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Multipart\file-01.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Multipart\file-02.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\src\UniNetty.Codecs.Http\UniNetty.Codecs.Http.csproj" />
     <ProjectReference Include="..\..\src\UniNetty.Common\UniNetty.Common.csproj" />
     <ProjectReference Include="..\..\src\UniNetty.Buffers\UniNetty.Buffers.csproj" />

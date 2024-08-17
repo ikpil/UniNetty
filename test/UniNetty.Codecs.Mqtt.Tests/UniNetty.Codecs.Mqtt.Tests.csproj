@@ -2,11 +2,6 @@
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-    
-    
-    
-    
-    
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
@@ -22,8 +17,5 @@
     <ProjectReference Include="..\..\src\UniNetty.Codecs.Mqtt\UniNetty.Codecs.Mqtt.csproj" />
     <ProjectReference Include="..\..\src\UniNetty.Transport\UniNetty.Transport.csproj" />
     <ProjectReference Include="..\UniNetty.Tests.Common\UniNetty.Tests.Common.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
   </ItemGroup>
 </Project>

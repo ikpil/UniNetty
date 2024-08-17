@@ -3,14 +3,6 @@
     <OutputType>Exe</OutputType>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
-    
-    
-    
-    
-    
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net472' ">
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.0" />
