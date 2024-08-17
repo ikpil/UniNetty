@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Collections.Immutable" Version="1.5.0"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UniNetty.Common\UniNetty.Common.csproj"/>
+    <ProjectReference Include="..\UniNetty.Buffers\UniNetty.Buffers.csproj"/>
+    <ProjectReference Include="..\UniNetty.Transport\UniNetty.Transport.csproj"/>
+  </ItemGroup>
+</Project>
