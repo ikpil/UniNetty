@@ -197,14 +197,16 @@ namespace UniNetty.Common.Internal
         /// to the array.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe AsciiString SubStringUnsafe(int start, int end)
+        public AsciiString SubStringUnsafe(int start, int end)
         {
-            var bytes = new byte[end - start];
-            fixed (byte* src = &this.chars[start])
-            fixed (byte* dst = bytes)
-            {
-                PlatformDependent.CopyMemory(src, dst, bytes.Length);
-            }
+            var length = end - start;
+            var bytes = new byte[length];
+            Array.Copy(chars, start, bytes, 0, length);
+            // fixed (byte* src = &this.chars[start])
+            // fixed (byte* dst = bytes)
+            // {
+            //     PlatformDependent.CopyMemory(src, dst, bytes.Length);
+            // }
             return new AsciiString(bytes);
         }
 

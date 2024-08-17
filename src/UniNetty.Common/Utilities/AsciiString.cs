@@ -93,18 +93,20 @@ namespace UniNetty.Common.Utilities
         {
         }
 
-        public unsafe AsciiString(char[] value, int start, int length)
+        public AsciiString(char[] value, int start, int length)
         {
             if (MathUtil.IsOutOfBounds(start, length, value.Length))
             {
                 ThrowIndexOutOfRangeException_Start(start, length, value.Length);
             }
 
-            this.value = new byte[length];
-            fixed (char* chars = value)
-                fixed (byte* bytes = this.value)
-                    GetBytes(chars + start, length, bytes);
+            var bytes = new byte[length];
+            GetBytes(value, start, length, bytes);
+            // fixed (char* chars = value)
+            //     fixed (byte* bytes = this.value)
+            //         GetBytes(chars + start, length, bytes);
 
+            this.value = bytes;
             this.offset = 0;
             this.length = length;
         }
@@ -757,7 +759,7 @@ namespace UniNetty.Common.Utilities
             return new AsciiString(this.value, start, end - start + 1, false);
         }
 
-        public unsafe bool ContentEquals(string a)
+        public bool ContentEquals(string a)
         {
             if (a == null)
             {
@@ -774,15 +776,13 @@ namespace UniNetty.Common.Utilities
 
             if (this.length > 0)
             {
-                fixed (char* p = a)
-                    fixed (byte* b = &this.value[this.offset])
-                        for (int i = 0; i < this.length; ++i)
-                        {
-                            if (CharToByte(*(p + i)) != *(b + i) )
-                            {
-                                return false;
-                            }
-                        }
+                for (int i = 0; i < this.length; ++i)
+                {
+                    if (CharToByte(a[i]) != this.value[this.offset + i])
+                    {
+                        return false;
+                    } 
+                }
             }
 
             return true;
@@ -1485,20 +1485,19 @@ namespace UniNetty.Common.Utilities
 
         public static explicit operator AsciiString(string value) => value != null ? new AsciiString(value) : Empty;
 
-        static unsafe void GetBytes(char* chars, int length, byte* bytes)
+        static void GetBytes(char[] chars, int start, int length, byte[] bytes)
         {
-            char* charEnd = chars + length;
-            while (chars < charEnd)
+            for (int i = 0; i < length; ++i)
             {
-                char ch = *(chars++);
+                char ch = chars[start + i];
                 // ByteToChar
                 if (ch > MaxCharValue)
                 {
-                    *(bytes++) = Replacement; 
+                    bytes[i] = Replacement; 
                 }
                 else
                 {
-                    *(bytes++) = unchecked((byte)ch);
+                    bytes[i] = unchecked((byte)ch);
                 }
             }
         }
