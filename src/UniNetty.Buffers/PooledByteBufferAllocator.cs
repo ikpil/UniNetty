@@ -133,7 +133,7 @@ namespace UniNetty.Buffers
         {
         }
 
-        public unsafe PooledByteBufferAllocator(bool preferDirect)
+        public PooledByteBufferAllocator(bool preferDirect)
             : this(preferDirect, DefaultNumHeapArena, DefaultNumDirectArena, DefaultPageSize, DefaultMaxOrder)
         {
         }
@@ -143,7 +143,7 @@ namespace UniNetty.Buffers
         {
         }
 
-        public unsafe PooledByteBufferAllocator(bool preferDirect, int nHeapArena, int nDirectArena, int pageSize, int maxOrder)
+        public PooledByteBufferAllocator(bool preferDirect, int nHeapArena, int nDirectArena, int pageSize, int maxOrder)
             : this(preferDirect, nHeapArena, nDirectArena, pageSize, maxOrder,
                 DefaultTinyCacheSize, DefaultSmallCacheSize, DefaultNormalCacheSize)
         {
@@ -154,7 +154,7 @@ namespace UniNetty.Buffers
             : this(false, nHeapArena, nDirectArena, pageSize, maxOrder, tinyCacheSize, smallCacheSize, normalCacheSize)
         { }
 
-        public unsafe PooledByteBufferAllocator(bool preferDirect, int nHeapArena, int nDirectArena, int pageSize, int maxOrder,
+        public PooledByteBufferAllocator(bool preferDirect, int nHeapArena, int nDirectArena, int pageSize, int maxOrder,
             int tinyCacheSize, int smallCacheSize, int normalCacheSize)
             : base(preferDirect)
         {
@@ -254,7 +254,7 @@ namespace UniNetty.Buffers
             return ToLeakAwareBuffer(buf);
         }
 
-        protected unsafe override IByteBuffer NewDirectBuffer(int initialCapacity, int maxCapacity)
+        protected override IByteBuffer NewDirectBuffer(int initialCapacity, int maxCapacity)
         {
             PoolThreadCache<byte[]> cache = this.threadCache.Value;
             PoolArena<byte[]> directArena = cache.DirectArena;
