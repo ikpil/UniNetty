@@ -491,7 +491,7 @@ namespace UniNetty.Buffers
             return value;
         }
 
-        public virtual unsafe ICharSequence GetCharSequence(int index, int length, Encoding encoding)
+        public virtual ICharSequence GetCharSequence(int index, int length, Encoding encoding)
         {
             this.CheckIndex0(index, length);
             if (length == 0)
