@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+
 namespace UniNetty.Codecs.Http
 {
     using System.Text;
@@ -9,7 +11,7 @@ namespace UniNetty.Codecs.Http
     // Similar to java URLEncoder
     static class UrlEncoder
     {
-        public static unsafe string Encode(string s, Encoding encoding)
+        public static string Encode(string s, Encoding encoding)
         {
             if (string.IsNullOrEmpty(s))
             {
@@ -17,17 +19,16 @@ namespace UniNetty.Codecs.Http
             }
 
             int length = s.Length;
-            fixed (char* p = s)
             {
                 int count = encoding.GetMaxByteCount(1);
                 int total = length * count * 3; // bytes per char encoded maximum
-                char* bytes = stackalloc char[total];
-                byte* buf = stackalloc byte[count];
+                char[] bytes = new char[total];
+                byte[] buf = new byte[count];
 
                 int index = 0;
                 for (int i = 0; i < length; i++)
                 {
-                    char ch = *(p + i);
+                    char ch = s[i];
                     if ((ch >= 'a' && ch <= 'z')
                         || (ch >= 'A' && ch <= 'Z')
                         || (ch >= '0' && ch <= '9'))
@@ -36,7 +37,7 @@ namespace UniNetty.Codecs.Http
                     }
                     else
                     {
-                        total = encoding.GetBytes(p + i, 1, buf, count);
+                        total = encoding.GetBytes(s, i, 1, buf, 0);
                         for (int j = 0; j < total; j++)
                         {
                             bytes[index++] = '%';
@@ -45,6 +46,7 @@ namespace UniNetty.Codecs.Http
                         }
                     }
                 }
+
                 return new string(bytes, 0, index);
             }
         }
