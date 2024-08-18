@@ -39,8 +39,7 @@ namespace WebSockets.Client
             Uri uri = builder.Uri;
             ExampleHelper.SetConsoleLogger();
 
-            bool useLibuv = ClientSettings.UseLibuv;
-            Console.WriteLine("Transport type : " + (useLibuv ? "Libuv" : "Socket"));
+            Console.WriteLine("Transport type : Socket");
 
             IEventLoopGroup group;
             group = new MultithreadEventLoopGroup();

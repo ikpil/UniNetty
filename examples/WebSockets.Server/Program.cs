@@ -32,8 +32,7 @@ namespace WebSockets.Server
                 + $"\n{RuntimeInformation.ProcessArchitecture} {RuntimeInformation.FrameworkDescription}"
                 + $"\nProcessor Count : {Environment.ProcessorCount}\n");
 
-            bool useLibuv = ServerSettings.UseLibuv;
-            Console.WriteLine("Transport type : " + (useLibuv ? "Libuv" : "Socket"));
+            Console.WriteLine("Transport type : Socket");
 
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
