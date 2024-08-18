@@ -1,4 +1,8 @@
-﻿namespace UniNetty.Tests.Common
+// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+namespace UniNetty.Tests.Common
 {
     using Microsoft.Extensions.Logging;
     using Xunit.Abstractions;
