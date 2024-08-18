@@ -127,7 +127,7 @@ namespace UniNetty.Buffers
             return ref this.array[0];
         }
 
-        public override IntPtr AddressOfPinnedMemory() => IntPtr.Zero;
+        public override Span<byte> AddressOfPinnedMemory() => null;
 
         public override IByteBuffer GetBytes(int index, IByteBuffer dst, int dstIndex, int length)
         {

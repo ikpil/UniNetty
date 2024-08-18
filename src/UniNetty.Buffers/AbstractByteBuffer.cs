@@ -465,10 +465,10 @@ namespace UniNetty.Buffers
 
             if (this.HasMemoryAddress)
             {
-                IntPtr ptr = this.AddressOfPinnedMemory();
-                if (ptr != IntPtr.Zero)
+                Span<byte> ptr = this.AddressOfPinnedMemory();
+                if (ptr != null)
                 {
-                    return UnsafeByteBufferUtil.GetString((byte*)(ptr + index), length, encoding);
+                    return UnsafeByteBufferUtil.GetString(ptr.Slice(index), length, encoding);
                 }
                 else 
                 {
@@ -501,10 +501,10 @@ namespace UniNetty.Buffers
 
             if (this.HasMemoryAddress)
             {
-                IntPtr ptr = this.AddressOfPinnedMemory();
-                if (ptr != IntPtr.Zero)
+                Span<byte> ptr = this.AddressOfPinnedMemory();
+                if (ptr != null)
                 {
-                    return new StringCharSequence(UnsafeByteBufferUtil.GetString((byte*)(ptr + index), length, encoding));
+                    return new StringCharSequence(UnsafeByteBufferUtil.GetString(ptr.Slice(index), length, encoding));
                 }
                 else
                 {
@@ -1513,7 +1513,7 @@ namespace UniNetty.Buffers
 
         public abstract ref byte GetPinnableMemoryAddress();
 
-        public abstract IntPtr AddressOfPinnedMemory();
+        public abstract Span<byte> AddressOfPinnedMemory();
 
         public abstract IByteBuffer Unwrap();
 

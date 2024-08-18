@@ -194,12 +194,12 @@ namespace UniNetty.Buffers
             {
                 if (copy.HasMemoryAddress)
                 {
-                    IntPtr ptr = copy.AddressOfPinnedMemory();
-                    if (ptr != IntPtr.Zero)
+                    Span<byte> ptr = copy.AddressOfPinnedMemory();
+                    if (ptr != null)
                     {
                         PlatformDependent.CopyMemory(
-                            new Span<byte>(addr, length), 
-                            new Span<byte>((byte*)ptr, length), 
+                            new Span<byte>(addr, length),
+                            ptr,
                             length
                         );
                     }
@@ -208,8 +208,8 @@ namespace UniNetty.Buffers
                         fixed (byte* dst = &copy.GetPinnableMemoryAddress())
                         {
                             PlatformDependent.CopyMemory(
-                                new Span<byte>(addr, length), 
-                                new Span<byte>(dst, length), 
+                                new Span<byte>(addr, length),
+                                new Span<byte>(dst, length),
                                 length
                             );
                         }
@@ -291,10 +291,10 @@ namespace UniNetty.Buffers
 
             if (dst.HasMemoryAddress)
             {
-                IntPtr ptr = dst.AddressOfPinnedMemory();
-                if (ptr != IntPtr.Zero)
+                Span<byte> ptr = dst.AddressOfPinnedMemory();
+                if (ptr != null)
                 {
-                    PlatformDependent.CopyMemory(new Span<byte>(addr, length), new Span<byte>((byte*)(ptr + dstIndex), length), length);
+                    PlatformDependent.CopyMemory(new Span<byte>(addr, length), ptr.Slice(dstIndex), length);
                 }
                 else
                 {
@@ -342,10 +342,10 @@ namespace UniNetty.Buffers
             {
                 if (src.HasMemoryAddress)
                 {
-                    IntPtr ptr = src.AddressOfPinnedMemory();
-                    if (ptr != IntPtr.Zero)
+                    Span<byte> ptr = src.AddressOfPinnedMemory();
+                    if (ptr != null)
                     {
-                        PlatformDependent.CopyMemory(new Span<byte>((byte*)(ptr + srcIndex), length), new Span<byte>(addr, length), length);
+                        PlatformDependent.CopyMemory(ptr.Slice(srcIndex), new Span<byte>(addr, length), length);
                     }
                     else
                     {
@@ -411,6 +411,13 @@ namespace UniNetty.Buffers
             return new string(chars, 0, charCount);
 #endif
         }
+
+        internal static string GetString(ReadOnlySpan<byte> src, int length, Encoding encoding)
+        {
+            // TODO: ikpil test 
+            return encoding.GetString(src.Slice(0, length).ToArray());
+        }
+
 
         internal static UnpooledUnsafeDirectByteBuffer NewUnsafeDirectByteBuffer(IByteBufferAllocator alloc, int initialCapacity, int maxCapacity) =>
             new UnpooledUnsafeDirectByteBuffer(alloc, initialCapacity, maxCapacity);

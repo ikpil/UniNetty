@@ -47,14 +47,15 @@ namespace UniNetty.Buffers
 
         public override ref byte GetPinnableMemoryAddress() => ref Unsafe.Add(ref this.Unwrap().GetPinnableMemoryAddress(), this.adjustment);
 
-        public override IntPtr AddressOfPinnedMemory()
+        public override Span<byte> AddressOfPinnedMemory()
         {
-            IntPtr ptr = this.Unwrap().AddressOfPinnedMemory();
-            if (ptr == IntPtr.Zero)
+            Span<byte> ptr = this.Unwrap().AddressOfPinnedMemory();
+            if (ptr == null)
             {
                 return ptr;
             }
-            return ptr + this.adjustment;
+
+            return ptr.Slice(this.adjustment);
         }
 
         public override ArraySegment<byte> GetIoBuffer(int index, int length)

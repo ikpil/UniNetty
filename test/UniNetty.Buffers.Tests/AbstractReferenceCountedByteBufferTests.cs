@@ -129,7 +129,7 @@ namespace UniNetty.Buffers.Tests
 
             public override bool HasMemoryAddress => throw new NotSupportedException();
 
-            public override IntPtr AddressOfPinnedMemory() => throw new NotSupportedException();
+            public override Span<byte> AddressOfPinnedMemory() => throw new NotSupportedException();
 
             public override ref byte GetPinnableMemoryAddress() => throw new NotSupportedException();
 

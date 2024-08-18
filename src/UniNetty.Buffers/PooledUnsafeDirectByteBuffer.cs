@@ -165,7 +165,7 @@ namespace UniNetty.Buffers
             return ref this.Memory[this.Offset];
         }
 
-        public override IntPtr AddressOfPinnedMemory() => (IntPtr)this.memoryAddress;
+        public override Span<byte> AddressOfPinnedMemory() => new Span<byte>(this.memoryAddress, Length);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         byte* Addr(int index) => this.memoryAddress + index;

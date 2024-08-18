@@ -681,7 +681,7 @@ namespace UniNetty.Buffers
             }
         }
 
-        public override IntPtr AddressOfPinnedMemory()
+        public override Span<byte> AddressOfPinnedMemory()
         {
             switch (this.components.Count)
             {

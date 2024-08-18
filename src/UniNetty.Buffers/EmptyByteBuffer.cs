@@ -441,7 +441,7 @@ namespace UniNetty.Buffers
 
         public ref byte GetPinnableMemoryAddress() => throw new NotSupportedException();
 
-        public IntPtr AddressOfPinnedMemory() => IntPtr.Zero;
+        public Span<byte> AddressOfPinnedMemory() => null;
 
         public string ToString(Encoding encoding) => string.Empty;
 

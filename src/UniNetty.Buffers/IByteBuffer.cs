@@ -1149,7 +1149,7 @@ namespace UniNetty.Buffers
         /// Returns the pointer address of the buffer if the memory is pinned.
         /// </summary>
         /// <returns>IntPtr.Zero if not pinned.</returns>
-        IntPtr AddressOfPinnedMemory();
+        Span<byte> AddressOfPinnedMemory();
 
         /// <summary>
         ///     Creates a deep clone of the existing byte array and returns it

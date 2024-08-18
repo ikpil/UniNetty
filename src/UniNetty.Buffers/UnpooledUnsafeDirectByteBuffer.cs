@@ -148,7 +148,7 @@ namespace UniNetty.Buffers
             return ref this.buffer[0];
         }
 
-        public override IntPtr AddressOfPinnedMemory() => IntPtr.Zero;
+        public override Span<byte> AddressOfPinnedMemory() => null;
 
         protected internal override byte _GetByte(int index) => this.buffer[index];
 

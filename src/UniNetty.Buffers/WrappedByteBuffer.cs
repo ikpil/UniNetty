@@ -32,7 +32,7 @@ namespace UniNetty.Buffers
 
         public ref byte GetPinnableMemoryAddress() => ref this.Buf.GetPinnableMemoryAddress();
 
-        public IntPtr AddressOfPinnedMemory() => this.Buf.AddressOfPinnedMemory();
+        public Span<byte> AddressOfPinnedMemory() => this.Buf.AddressOfPinnedMemory();
 
         public int Capacity => this.Buf.Capacity;
 

@@ -64,7 +64,7 @@ namespace UniNetty.Buffers
 
         public override ref byte GetPinnableMemoryAddress() => ref this.Unwrap().GetPinnableMemoryAddress();
 
-        public override IntPtr AddressOfPinnedMemory() => this.Unwrap().AddressOfPinnedMemory();
+        public override Span<byte> AddressOfPinnedMemory() => this.Unwrap().AddressOfPinnedMemory();
 
         protected internal override byte _GetByte(int index) => this.UnwrapCore()._GetByte(index);
 

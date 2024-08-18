@@ -176,6 +176,6 @@ namespace UniNetty.Buffers
             return ref this.Memory[this.Offset];
         }
 
-        public override IntPtr AddressOfPinnedMemory() => IntPtr.Zero;
+        public override Span<byte> AddressOfPinnedMemory() => null;
     }
 }
