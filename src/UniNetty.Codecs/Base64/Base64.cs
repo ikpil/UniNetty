@@ -23,12 +23,13 @@ namespace UniNetty.Codecs.Base64
 
         public static IByteBuffer Encode(IByteBuffer src, int offset, int length, bool breakLines, Base64Dialect dialect) => Encode(src, offset, length, breakLines, dialect, src.Allocator);
 
-        static unsafe int EncodeUsingPointer(byte* alphabet, IByteBuffer src, IByteBuffer dest, int offset, int length, bool breakLines)
+        static int EncodeUsingPointer(Span<byte> alphabet, IByteBuffer src, IByteBuffer dest, int offset, int length, bool breakLines)
         {
             //avoid unnecessary range checking
-            fixed (byte* srcArray = src.Array, d = dest.Array)
+            Span<byte> srcArray = src.Array;
+            Span<byte> d = dest.Array;
             {
-                byte* destArray = d + dest.ArrayOffset + dest.WriterIndex;
+                Span<byte> destArray = d.Slice(dest.ArrayOffset + dest.WriterIndex);
                 int j = 0;
                 int charCount = 0;
                 //the real offset of the array, is ArrayOfffset + offset
@@ -83,7 +84,7 @@ namespace UniNetty.Codecs.Base64
             }
         }
 
-        static unsafe int EncodeUsingGetSet(byte* alphabet, IByteBuffer src, IByteBuffer dest, int offset, int length, bool breakLines)
+        static int EncodeUsingGetSet(Span<byte> alphabet, IByteBuffer src, IByteBuffer dest, int offset, int length, bool breakLines)
         {
             int i = 0;
             int j = 0;
@@ -144,7 +145,7 @@ namespace UniNetty.Codecs.Base64
             return destLength;
         }
 
-        public static unsafe IByteBuffer Encode(IByteBuffer src, int offset, int length, bool breakLines, Base64Dialect dialect, IByteBufferAllocator allocator)
+        public static IByteBuffer Encode(IByteBuffer src, int offset, int length, bool breakLines, Base64Dialect dialect, IByteBufferAllocator allocator)
         {
             if (src == null)
             {
@@ -171,17 +172,15 @@ namespace UniNetty.Codecs.Base64
             int destLength = 0;
             int destIndex = dest.WriterIndex;
 
-            fixed (byte* alphabet = dialect.alphabet)
+            if ((src.IoBufferCount == 1) && (dest.IoBufferCount == 1))
             {
-                if ((src.IoBufferCount == 1) && (dest.IoBufferCount == 1))
-                {
-                    destLength = EncodeUsingPointer(alphabet, src, dest, offset, length, breakLines);
-                }
-                else
-                {
-                    destLength = EncodeUsingGetSet(alphabet, src, dest, offset, length, breakLines);
-                }
+                destLength = EncodeUsingPointer(dialect.alphabet, src, dest, offset, length, breakLines);
             }
+            else
+            {
+                destLength = EncodeUsingGetSet(dialect.alphabet, src, dest, offset, length, breakLines);
+            }
+                
             return dest.SetIndex(destIndex, destIndex + destLength);
         }
 
@@ -191,13 +190,14 @@ namespace UniNetty.Codecs.Base64
 
         public static IByteBuffer Decode(IByteBuffer src, int offset, int length, Base64Dialect dialect) => Decode(src, offset, length, dialect, src.Allocator);
 
-        static unsafe int DecodeUsingPointer(IByteBuffer src, IByteBuffer dest, sbyte* decodabet, int offset, int length)
+        static int DecodeUsingPointer(IByteBuffer src, IByteBuffer dest, Span<sbyte> decodabet, int offset, int length)
         {
             int charCount = 0;
-            fixed (byte* srcArray = src.Array, d = dest.Array)
+            Span<byte> srcArray = src.Array;
+            Span<byte> d = dest.Array;
             {
-                byte* destArray = d + dest.ArrayOffset + dest.WriterIndex;
-                byte* b4 = stackalloc byte[4];
+                Span<byte> destArray = d.Slice(dest.ArrayOffset + dest.WriterIndex);
+                Span<byte> b4 = stackalloc byte[4];
                 int b4Count = 0;
                 int i = src.ArrayOffset + offset;
                 int calcLength = src.ArrayOffset + offset + length;
@@ -251,11 +251,11 @@ namespace UniNetty.Codecs.Base64
             return charCount;
         }
 
-        static unsafe int DecodeUsingGetSet(IByteBuffer src, IByteBuffer dest, sbyte* decodabet, int offset, int length)
+        static int DecodeUsingGetSet(IByteBuffer src, IByteBuffer dest, Span<sbyte> decodabet, int offset, int length)
         {
             int charCount = 0;
 
-            byte* b4 = stackalloc byte[4];
+            Span<byte> b4 = stackalloc byte[4];
             int b4Count = 0;
             int i = 0;
 
@@ -308,7 +308,7 @@ namespace UniNetty.Codecs.Base64
             return charCount;
         }
 
-        public static unsafe IByteBuffer Decode(IByteBuffer src, int offset, int length, Base64Dialect dialect, IByteBufferAllocator allocator)
+        public static IByteBuffer Decode(IByteBuffer src, int offset, int length, Base64Dialect dialect, IByteBufferAllocator allocator)
         {
             if (src == null)
             {
@@ -333,16 +333,13 @@ namespace UniNetty.Codecs.Base64
             int charCount = 0;
             int destIndex = dest.WriterIndex;
 
-            fixed (sbyte* decodabet = dialect.decodabet)
+            if ((src.IoBufferCount == 1) && (dest.IoBufferCount == 1))
             {
-                if ((src.IoBufferCount == 1) && (dest.IoBufferCount == 1))
-                {
-                    charCount = DecodeUsingPointer(src, dest, decodabet, offset, length);
-                }
-                else
-                {
-                    charCount = DecodeUsingGetSet(src, dest, decodabet, offset, length);
-                }
+                charCount = DecodeUsingPointer(src, dest, dialect.decodabet, offset, length);
+            }
+            else
+            {
+                charCount = DecodeUsingGetSet(src, dest, dialect.decodabet, offset, length);
             }
 
             return dest.SetIndex(destIndex, destIndex + charCount);
