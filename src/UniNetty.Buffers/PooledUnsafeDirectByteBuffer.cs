@@ -9,9 +9,9 @@ namespace UniNetty.Buffers
     using System.Threading;
     using System.Threading.Tasks;
 
-    sealed unsafe class PooledUnsafeDirectByteBuffer : PooledByteBuffer<byte[]>
+    sealed class PooledUnsafeDirectByteBuffer : PooledByteBuffer<byte[]>
     {
-        byte* memoryAddress;
+        Memory<byte> memoryAddress;
 
         internal static PooledUnsafeDirectByteBuffer NewInstance(int maxCapacity)
         {
@@ -38,7 +38,7 @@ namespace UniNetty.Buffers
 
         void InitMemoryAddress()
         {
-            this.memoryAddress = (byte*)Unsafe.AsPointer(ref this.Memory[this.Offset]);
+            this.memoryAddress = new Memory<byte>(this.Memory, this.Offset, Length);
         }
 
         public override bool IsDirect => true;
@@ -51,7 +51,7 @@ namespace UniNetty.Buffers
             this.DiscardMarks();
         }
 
-        protected internal override byte _GetByte(int index) => *(this.memoryAddress + index);
+        protected internal override byte _GetByte(int index) => this.memoryAddress.Span[index];
 
         protected internal override short _GetShort(int index) => UnsafeByteBufferUtil.GetShort(this.Addr(index));
 
@@ -72,24 +72,24 @@ namespace UniNetty.Buffers
         public override IByteBuffer GetBytes(int index, IByteBuffer dst, int dstIndex, int length)
         {
             this.CheckIndex(index, length);
-            UnsafeByteBufferUtil.GetBytes(this, this.Addr(index), index, dst, dstIndex, length);
+            UnsafeByteBufferUtil.GetBytes(this, memoryAddress.Span, index, dst, dstIndex, length);
             return this;
         }
 
         public override IByteBuffer GetBytes(int index, byte[] dst, int dstIndex, int length)
         {
             this.CheckIndex(index, length);
-            UnsafeByteBufferUtil.GetBytes(this, this.Addr(index), index, dst, dstIndex, length);
+            UnsafeByteBufferUtil.GetBytes(this, memoryAddress.Span, index, dst, dstIndex, length);
             return this;
         }
 
         public override IByteBuffer GetBytes(int index, Stream output, int length)
         {
-            UnsafeByteBufferUtil.GetBytes(this, this.Addr(index), index, output, length);
+            UnsafeByteBufferUtil.GetBytes(this, memoryAddress.Span, index, output, length);
             return this;
         }
 
-        protected internal override void _SetByte(int index, int value) => *(this.memoryAddress + index) = unchecked((byte)value);
+        protected internal override void _SetByte(int index, int value) => this.memoryAddress.Span[index] = unchecked((byte)value);
 
         protected internal override void _SetShort(int index, int value) => UnsafeByteBufferUtil.SetShort(this.Addr(index), value);
 
@@ -110,27 +110,27 @@ namespace UniNetty.Buffers
         public override IByteBuffer SetBytes(int index, IByteBuffer src, int srcIndex, int length)
         {
             this.CheckIndex(index, length);
-            UnsafeByteBufferUtil.SetBytes(this, this.Addr(index), index, src, srcIndex, length);
+            UnsafeByteBufferUtil.SetBytes(this, memoryAddress.Span, index, src, srcIndex, length);
             return this;
         }
 
         public override IByteBuffer SetBytes(int index, byte[] src, int srcIndex, int length)
         {
             this.CheckIndex(index, length);
-            UnsafeByteBufferUtil.SetBytes(this, this.Addr(index), index, src, srcIndex, length);
+            UnsafeByteBufferUtil.SetBytes(this, memoryAddress.Span, index, src, srcIndex, length);
             return this;
         }
 
         public override Task<int> SetBytesAsync(int index, Stream src, int length, CancellationToken cancellationToken)
         {
             this.CheckIndex(index, length);
-            return UnsafeByteBufferUtil.SetBytesAsync(this, this.Addr(index), index, src, length, cancellationToken);
+            return UnsafeByteBufferUtil.SetBytesAsync(this, memoryAddress, index, src, length, cancellationToken);
         }
 
         public override IByteBuffer Copy(int index, int length)
         {
             this.CheckIndex(index, length);
-            return UnsafeByteBufferUtil.Copy(this, this.Addr(index), index, length);
+            return UnsafeByteBufferUtil.Copy(this, memoryAddress.Span, index, length);
         }
 
         public override int IoBufferCount => 1;
@@ -165,10 +165,10 @@ namespace UniNetty.Buffers
             return new Span<byte>(this.Memory, this.Offset, this.Length);
         }
 
-        public override Span<byte> AddressOfPinnedMemory() => new Span<byte>(this.memoryAddress, Length);
+        public override Span<byte> AddressOfPinnedMemory() => this.memoryAddress.Span;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        byte* Addr(int index) => this.memoryAddress + index;
+        Span<byte> Addr(int index) => this.memoryAddress.Span.Slice(index);
 
         public override IByteBuffer SetZero(int index, int length)
         {
