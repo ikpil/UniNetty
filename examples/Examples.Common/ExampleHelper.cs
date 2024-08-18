@@ -32,6 +32,17 @@ namespace Examples.Common
 
         public static IConfigurationRoot Configuration { get; }
 
-        public static void SetConsoleLogger() => InternalLoggerFactory.DefaultFactory = LoggerFactory.Create(builder => builder.AddConsole());
+        public static void SetConsoleLogger()
+        {
+            InternalLoggerFactory.DefaultFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddConsole();
+                var logConf = Configuration.GetSection("Logging");
+                if (logConf.Exists())
+                {
+                    builder.AddConfiguration(logConf);
+                }
+            });
+        }
     }
 }
