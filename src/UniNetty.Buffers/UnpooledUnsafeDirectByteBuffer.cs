@@ -14,7 +14,7 @@ namespace UniNetty.Buffers
     using UniNetty.Common.Internal;
     using UniNetty.Common.Utilities;
 
-    public unsafe class UnpooledUnsafeDirectByteBuffer : AbstractReferenceCountedByteBuffer
+    public class UnpooledUnsafeDirectByteBuffer : AbstractReferenceCountedByteBuffer
     {
         readonly IByteBufferAllocator allocator;
 
@@ -154,65 +154,63 @@ namespace UniNetty.Buffers
 
         protected internal override short _GetShort(int index)
         {
-            fixed (byte* addr = &this.Addr(index))
-                return UnsafeByteBufferUtil.GetShort(addr);
+            var addr = this.Addr(index);
+            return UnsafeByteBufferUtil2.GetShort(addr);
         }
 
         protected internal override short _GetShortLE(int index)
         {
-            fixed (byte* addr = &this.Addr(index))
-                return UnsafeByteBufferUtil.GetShortLE(addr);
+            var addr = this.Addr(index);
+            return UnsafeByteBufferUtil2.GetShortLE(addr);
         }
 
         protected internal override int _GetUnsignedMedium(int index)
         {
-            fixed (byte* addr = &this.Addr(index))
-                return UnsafeByteBufferUtil.GetUnsignedMedium(addr);
+            var addr = this.Addr(index);
+            return UnsafeByteBufferUtil2.GetUnsignedMedium(addr);
         }
 
         protected internal override int _GetUnsignedMediumLE(int index)
         {
-            fixed (byte* addr = &this.Addr(index))
-                return UnsafeByteBufferUtil.GetUnsignedMediumLE(addr);
+            var addr = this.Addr(index);
+            return UnsafeByteBufferUtil2.GetUnsignedMediumLE(addr);
         }
 
         protected internal override int _GetInt(int index)
         {
-            fixed (byte* addr = &this.Addr(index))
-                return UnsafeByteBufferUtil.GetInt(addr);
+            var addr = this.Addr(index);
+            return UnsafeByteBufferUtil2.GetInt(addr);
         }
 
         protected internal override int _GetIntLE(int index)
         {
-            fixed (byte* addr = &this.Addr(index))
-                return UnsafeByteBufferUtil.GetIntLE(addr);
+            var addr = this.Addr(index);
+            return UnsafeByteBufferUtil2.GetIntLE(addr);
         }
 
         protected internal override long _GetLong(int index)
         {
-            fixed (byte* addr = &this.Addr(index))
-                return UnsafeByteBufferUtil.GetLong(addr);
+            var addr = this.Addr(index);
+            return UnsafeByteBufferUtil2.GetLong(addr);
         }
 
         protected internal override long _GetLongLE(int index)
         {
-            fixed (byte* addr = &this.Addr(index))
-                return UnsafeByteBufferUtil.GetLongLE(addr);
+            var addr = this.Addr(index);
+            return UnsafeByteBufferUtil2.GetLongLE(addr);
         }
 
         public override IByteBuffer GetBytes(int index, IByteBuffer dst, int dstIndex, int length)
         {
             this.CheckIndex(index, length);
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.GetBytes(this, addr, index, dst, dstIndex, length);
+            UnsafeByteBufferUtil2.GetBytes(this, buffer, index, dst, dstIndex, length);
             return this;
         }
 
         public override IByteBuffer GetBytes(int index, byte[] dst, int dstIndex, int length)
         {
             this.CheckIndex(index, length);
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.GetBytes(this, addr, index, dst, dstIndex, length);
+            UnsafeByteBufferUtil2.GetBytes(this, buffer, index, dst, dstIndex, length);
             return this;
         }
 
@@ -220,57 +218,56 @@ namespace UniNetty.Buffers
 
         protected internal override void _SetShort(int index, int value)
         {
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.SetShort(addr, value);
+            var addr = this.Addr(index);
+            UnsafeByteBufferUtil2.SetShort(addr, value);
         }
 
         protected internal override void _SetShortLE(int index, int value)
         {
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.SetShortLE(addr, value);
+            var addr = this.Addr(index);
+            UnsafeByteBufferUtil2.SetShortLE(addr, value);
         }
 
         protected internal override void _SetMedium(int index, int value)
         {
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.SetMedium(addr, value);
+            var addr = this.Addr(index);
+            UnsafeByteBufferUtil2.SetMedium(addr, value);
         }
 
         protected internal override void _SetMediumLE(int index, int value)
         {
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.SetMediumLE(addr, value);
+            var addr = this.Addr(index);
+            UnsafeByteBufferUtil2.SetMediumLE(addr, value);
         }
 
         protected internal override void _SetInt(int index, int value)
         {
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.SetInt(addr, value);
+            var addr = this.Addr(index);
+            UnsafeByteBufferUtil2.SetInt(addr, value);
         }
 
         protected internal override void _SetIntLE(int index, int value)
         {
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.SetIntLE(addr, value);
+            var addr = this.Addr(index);
+            UnsafeByteBufferUtil2.SetIntLE(addr, value);
         }
 
         protected internal override void _SetLong(int index, long value)
         {
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.SetLong(addr, value);
+            var addr = this.Addr(index);
+            UnsafeByteBufferUtil2.SetLong(addr, value);
         }
 
         protected internal override void _SetLongLE(int index, long value)
         {
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.SetLongLE(addr, value);
+            var addr = this.Addr(index);
+            UnsafeByteBufferUtil2.SetLongLE(addr, value);
         }
 
         public override IByteBuffer SetBytes(int index, IByteBuffer src, int srcIndex, int length)
         {
             this.CheckIndex(index, length);
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.SetBytes(this, addr, index, src, srcIndex, length);
+            UnsafeByteBufferUtil2.SetBytes(this, buffer, index, src, srcIndex, length);
             return this;
         }
 
@@ -279,8 +276,7 @@ namespace UniNetty.Buffers
             this.CheckIndex(index, length);
             if (length != 0)
             {
-                fixed (byte* addr = &this.Addr(index))
-                    UnsafeByteBufferUtil.SetBytes(this, addr, index, src, srcIndex, length);
+                UnsafeByteBufferUtil2.SetBytes(this, buffer, index, src, srcIndex, length);
             }
             return this;
         }
@@ -288,18 +284,14 @@ namespace UniNetty.Buffers
         public override IByteBuffer GetBytes(int index, Stream output, int length)
         {
             this.CheckIndex(index, length);
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.GetBytes(this, addr, index, output, length);
+            UnsafeByteBufferUtil2.GetBytes(this, buffer, index, output, length);
             return this;
         }
 
         public override Task<int> SetBytesAsync(int index, Stream src, int length, CancellationToken cancellationToken)
         {
             this.CheckIndex(index, length);
-            fixed (byte* addr = &this.Addr(index))
-            {
-                return UnsafeByteBufferUtil.SetBytesAsync(this, addr, index, src, length, cancellationToken);
-            }
+            return UnsafeByteBufferUtil2.SetBytesAsync(this, new ArraySegment<byte>(buffer), index, src, length, cancellationToken);
         }
 
         public override int IoBufferCount => 1;
@@ -315,8 +307,7 @@ namespace UniNetty.Buffers
         public override IByteBuffer Copy(int index, int length)
         {
             this.CheckIndex(index, length);
-            fixed (byte* addr = &this.Addr(index))
-                return UnsafeByteBufferUtil.Copy(this, addr, index, length);
+            return UnsafeByteBufferUtil2.Copy(this, buffer, index, length);
         }
 
         protected internal override void Deallocate()
@@ -337,14 +328,15 @@ namespace UniNetty.Buffers
 
         public override IByteBuffer Unwrap() => null;
 
+        // TODO: ikpil test
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        ref byte Addr(int index) => ref this.buffer[index];
+        Span<byte> Addr(int index) => this.buffer.AsSpan(index);
 
         public override IByteBuffer SetZero(int index, int length)
         {
             this.CheckIndex(index, length);
-            fixed (byte* addr = &this.Addr(index))
-                UnsafeByteBufferUtil.SetZero(addr, length);
+            var addr = this.Addr(index);
+            UnsafeByteBufferUtil2.SetZero(addr, length);
             return this;
         }
 
@@ -352,8 +344,8 @@ namespace UniNetty.Buffers
         {
             this.EnsureWritable(length);
             int wIndex = this.WriterIndex;
-            fixed (byte* addr = &this.Addr(wIndex))
-                UnsafeByteBufferUtil.SetZero(addr, length);
+            var addr = this.Addr(wIndex);
+            UnsafeByteBufferUtil2.SetZero(addr, length);
             this.SetWriterIndex(wIndex + length);
             return this;
         }
