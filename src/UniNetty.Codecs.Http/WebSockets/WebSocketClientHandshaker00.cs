@@ -21,7 +21,7 @@ namespace UniNetty.Codecs.Http.WebSockets
         {
         }
 
-        protected internal override unsafe IFullHttpRequest NewHandshakeRequest()
+        protected internal override IFullHttpRequest NewHandshakeRequest()
         {
             // Make keys
             int spaces1 = WebSocketUtil.RandomNumber(1, 12);
@@ -46,12 +46,11 @@ namespace UniNetty.Codecs.Http.WebSockets
             key2 = InsertSpaces(key2, spaces2);
 
             byte[] key3 = WebSocketUtil.RandomBytes(8);
-            var challenge = new byte[16];
-            fixed (byte* bytes = challenge)
+            byte[] challenge = new byte[16];
             {
-                Unsafe.WriteUnaligned(bytes, number1);
-                Unsafe.WriteUnaligned(bytes + 4, number2);
-                PlatformDependent.CopyMemory(key3, 0, new Span<byte>(bytes + 8, 8), 8);
+                Unsafe.WriteUnaligned(ref challenge[0], number1);
+                Unsafe.WriteUnaligned(ref challenge[4], number2);
+                PlatformDependent.CopyMemory(key3, 0, challenge, 8, 8);
             }
 
             this.expectedChallengeResponseBytes = Unpooled.WrappedBuffer(WebSocketUtil.Md5(challenge));

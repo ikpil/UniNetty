@@ -39,10 +39,10 @@ namespace UniNetty.Codecs.Http.WebSockets
             this.random = new Random();
         }
 
-        protected override unsafe void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
+        protected override void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
         {
             IByteBuffer data = msg.Content;
-            var mask = stackalloc byte[4];
+            Span<byte> mask = stackalloc byte[4];
 
             byte opcode = 0;
             if (msg is TextWebSocketFrame)
@@ -145,10 +145,10 @@ namespace UniNetty.Codecs.Http.WebSockets
 
                     // Mask bytes in BE
                     uint unsignedValue = (uint)intMask;
-                    *mask = (byte)(unsignedValue >> 24);
-                    *(mask + 1) = (byte)(unsignedValue >> 16);
-                    *(mask + 2) = (byte)(unsignedValue >> 8);
-                    *(mask + 3) = (byte)unsignedValue;
+                    mask[0] = (byte)(unsignedValue >> 24);
+                    mask[1] = (byte)(unsignedValue >> 16);
+                    mask[2] = (byte)(unsignedValue >> 8);
+                    mask[3] = (byte)unsignedValue;
 
                     // Mask in BE
                     buf.WriteInt(intMask);
