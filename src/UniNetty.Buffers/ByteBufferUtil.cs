@@ -1,6 +1,9 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Buffers.Binary;
+using System.Runtime.InteropServices;
+
 namespace UniNetty.Buffers
 {
     using System;
@@ -1182,14 +1185,20 @@ namespace UniNetty.Buffers
             return true;
         }
 
-        public static unsafe int SingleToInt32Bits(float value)
+        // TODO: ikpil test
+        public static int SingleToInt32Bits(float value)
         {
-            return *(int*)(&value);
+            Span<byte> destination = stackalloc byte[sizeof(float)];
+            MemoryMarshal.Write(destination, ref value);
+            return MemoryMarshal.Read<int>(destination);
         }
 
-        public static unsafe float Int32BitsToSingle(int value)
+        // TODO: ikpil test
+        public static float Int32BitsToSingle(int value)
         {
-            return *(float*)(&value);
+            byte[] destination = new byte[sizeof(int)];
+            MemoryMarshal.Write(destination, ref value);
+            return MemoryMarshal.Read<float>(destination);
         }
 
         /// <summary>
