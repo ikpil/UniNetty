@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Threading.Tasks;
+
 namespace Discard.Client
 {
     using System;
@@ -37,10 +39,13 @@ namespace Discard.Client
         {
             try
             {
+                Random.Shared.NextBytes(array);
+                
                 IByteBuffer buffer = Unpooled.WrappedBuffer(this.array);
                 // Flush the outbound buffer to the socket.
                 // Once flushed, generate the same amount of traffic again.
                 await this.ctx.WriteAndFlushAsync(buffer);
+                await Task.Delay(1000);
                 this.GenerateTraffic();
             }
             catch
