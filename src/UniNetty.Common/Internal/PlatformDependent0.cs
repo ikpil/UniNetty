@@ -52,37 +52,37 @@ namespace UniNetty.Common.Internal
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static unsafe int HashCodeAscii(byte* bytes, int length)
+        internal static int HashCodeAscii(byte[] bytes, int offset, int length)
         {
             int hash = HashCodeAsciiSeed;
             int remainingBytes = length & 7;
-            byte* end = bytes + remainingBytes;
-            for (byte* i = bytes - 8 + length; i >= end; i -= 8)
+            int end = offset + remainingBytes;
+            for (int i = offset - 8 + length; i >= end; i -= 8)
             {
-                hash = HashCodeAsciiCompute(Unsafe.ReadUnaligned<long>(i), hash);
+                hash = HashCodeAsciiCompute(BitConverter.ToInt64(bytes, i), hash);
             }
 
             switch (remainingBytes)
             {
                 case 7:
-                    return ((hash * HashCodeC1 + HashCodeAsciiSanitize(*bytes))
-                            * HashCodeC2 + HashCodeAsciiSanitize(Unsafe.ReadUnaligned<short>(bytes + 1)))
-                        * HashCodeC1 + HashCodeAsciiSanitize(Unsafe.ReadUnaligned<int>(bytes + 3));
+                    return ((hash * HashCodeC1 + HashCodeAsciiSanitize(bytes[offset]))
+                            * HashCodeC2 + HashCodeAsciiSanitize(BitConverter.ToInt16(bytes, offset + 1)))
+                        * HashCodeC1 + HashCodeAsciiSanitize(BitConverter.ToInt32(bytes, offset + 3));
                 case 6:
-                    return (hash * HashCodeC1 + HashCodeAsciiSanitize(Unsafe.ReadUnaligned<short>(bytes)))
-                        * HashCodeC2 + HashCodeAsciiSanitize(Unsafe.ReadUnaligned<int>(bytes + 2));
+                    return (hash * HashCodeC1 + HashCodeAsciiSanitize(BitConverter.ToInt16(bytes, offset)))
+                        * HashCodeC2 + HashCodeAsciiSanitize(BitConverter.ToInt32(bytes, offset + 2));
                 case 5:
-                    return (hash * HashCodeC1 + HashCodeAsciiSanitize(*bytes))
-                        * HashCodeC2 + HashCodeAsciiSanitize(Unsafe.ReadUnaligned<int>(bytes + 1));
+                    return (hash * HashCodeC1 + HashCodeAsciiSanitize(bytes[offset]))
+                        * HashCodeC2 + HashCodeAsciiSanitize(BitConverter.ToInt32(bytes, offset + 1));
                 case 4:
-                    return hash * HashCodeC1 + HashCodeAsciiSanitize(Unsafe.ReadUnaligned<int>(bytes));
+                    return hash * HashCodeC1 + HashCodeAsciiSanitize(BitConverter.ToInt32(bytes, offset));
                 case 3:
-                    return (hash * HashCodeC1 + HashCodeAsciiSanitize(*bytes))
-                        * HashCodeC2 + HashCodeAsciiSanitize(Unsafe.ReadUnaligned<short>(bytes + 1));
+                    return (hash * HashCodeC1 + HashCodeAsciiSanitize(bytes[offset]))
+                        * HashCodeC2 + HashCodeAsciiSanitize(BitConverter.ToInt16(bytes, offset + 1));
                 case 2:
-                    return hash * HashCodeC1 + HashCodeAsciiSanitize(Unsafe.ReadUnaligned<short>(bytes));
+                    return hash * HashCodeC1 + HashCodeAsciiSanitize(BitConverter.ToInt16(bytes, offset));
                 case 1:
-                    return hash * HashCodeC1 + HashCodeAsciiSanitize(*bytes);
+                    return hash * HashCodeC1 + HashCodeAsciiSanitize(bytes[offset]);
                 default:
                     return hash;
             }

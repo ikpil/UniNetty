@@ -2,6 +2,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 // ReSharper disable ConvertToAutoPropertyWhenPossible
+
 namespace UniNetty.Common.Internal
 {
     using System;
@@ -12,7 +13,6 @@ namespace UniNetty.Common.Internal
     using System.Threading;
     using UniNetty.Common.Internal.Logging;
     using UniNetty.Common.Utilities;
-
     using static PlatformDependent0;
 
     public static class PlatformDependent
@@ -57,15 +57,14 @@ namespace UniNetty.Common.Internal
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe int HashCodeAscii(byte[] bytes, int startPos, int length)
+        public static int HashCodeAscii(byte[] bytes, int startPos, int length)
         {
             if (length == 0)
             {
                 return HashCodeAsciiSeed;
             }
 
-            fixed (byte* array = &bytes[startPos])
-                return PlatformDependent0.HashCodeAscii(array, length);
+            return PlatformDependent0.HashCodeAscii(bytes, startPos, length);
         }
 
         public static int HashCodeAscii(ICharSequence bytes)
@@ -131,29 +130,31 @@ namespace UniNetty.Common.Internal
                     {
                         hash = HashCodeAsciiCompute(bytes, i, hash);
                     }
+
                     break;
             }
+
             switch (remainingBytes)
             {
                 case 7:
                     return ((hash
-                        * HashCodeC1 + HashCodeAsciiSanitizsByte(bytes[0]))
-                        * HashCodeC2 + HashCodeAsciiSanitizeShort(bytes, 1))
+                                * HashCodeC1 + HashCodeAsciiSanitizsByte(bytes[0]))
+                            * HashCodeC2 + HashCodeAsciiSanitizeShort(bytes, 1))
                         * HashCodeC1 + HashCodeAsciiSanitizeInt(bytes, 3);
                 case 6:
                     return (hash
-                        * HashCodeC1 + HashCodeAsciiSanitizeShort(bytes, 0))
+                            * HashCodeC1 + HashCodeAsciiSanitizeShort(bytes, 0))
                         * HashCodeC2 + HashCodeAsciiSanitizeInt(bytes, 2);
                 case 5:
                     return (hash
-                        * HashCodeC1 + HashCodeAsciiSanitizsByte(bytes[0]))
+                            * HashCodeC1 + HashCodeAsciiSanitizsByte(bytes[0]))
                         * HashCodeC2 + HashCodeAsciiSanitizeInt(bytes, 1);
                 case 4:
                     return hash
                         * HashCodeC1 + HashCodeAsciiSanitizeInt(bytes, 0);
                 case 3:
                     return (hash
-                        * HashCodeC1 + HashCodeAsciiSanitizsByte(bytes[0]))
+                            * HashCodeC1 + HashCodeAsciiSanitizsByte(bytes[0]))
                         * HashCodeC2 + HashCodeAsciiSanitizeShort(bytes, 1);
                 case 2:
                     return hash
@@ -172,16 +173,17 @@ namespace UniNetty.Common.Internal
             if (!IsLittleEndian)
             {
                 return hash * HashCodeC1 +
-                    // Low order int
-                    HashCodeAsciiSanitizeInt(value, offset + 4) * HashCodeC2 +
-                    // High order int
-                    HashCodeAsciiSanitizeInt(value, offset);
+                       // Low order int
+                       HashCodeAsciiSanitizeInt(value, offset + 4) * HashCodeC2 +
+                       // High order int
+                       HashCodeAsciiSanitizeInt(value, offset);
             }
+
             return hash * HashCodeC1 +
-                // Low order int
-                HashCodeAsciiSanitizeInt(value, offset) * HashCodeC2 +
-                // High order int
-                HashCodeAsciiSanitizeInt(value, offset + 4);
+                   // Low order int
+                   HashCodeAsciiSanitizeInt(value, offset) * HashCodeC2 +
+                   // High order int
+                   HashCodeAsciiSanitizeInt(value, offset + 4);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -191,15 +193,15 @@ namespace UniNetty.Common.Internal
             {
                 // mimic a unsafe.getInt call on a big endian machine
                 return (value[offset + 3] & 0x1f)
-                    | (value[offset + 2] & 0x1f) << 8
-                    | (value[offset + 1] & 0x1f) << 16
-                    | (value[offset] & 0x1f) << 24;
+                       | (value[offset + 2] & 0x1f) << 8
+                       | (value[offset + 1] & 0x1f) << 16
+                       | (value[offset] & 0x1f) << 24;
             }
 
             return (value[offset + 3] & 0x1f) << 24
-                | (value[offset + 2] & 0x1f) << 16
-                | (value[offset + 1] & 0x1f) << 8
-                | (value[offset] & 0x1f);
+                   | (value[offset + 2] & 0x1f) << 16
+                   | (value[offset + 1] & 0x1f) << 8
+                   | (value[offset] & 0x1f);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -209,11 +211,11 @@ namespace UniNetty.Common.Internal
             {
                 // mimic a unsafe.getShort call on a big endian machine
                 return (value[offset + 1] & 0x1f)
-                    | (value[offset] & 0x1f) << 8;
+                       | (value[offset] & 0x1f) << 8;
             }
 
             return (value[offset + 1] & 0x1f) << 8
-                | (value[offset] & 0x1f);
+                   | (value[offset] & 0x1f);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
