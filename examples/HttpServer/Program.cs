@@ -75,9 +75,12 @@ namespace HttpServer
                         pipeline.AddLast("handler", new HelloServerHandler());
                     }));
 
-                IChannel bootstrapChannel = await bootstrap.BindAsync(IPAddress.IPv6Any, ServerSettings.Port);
+                IChannel bootstrapChannel = await bootstrap.BindAsync(IPAddress.Loopback, ServerSettings.Port);
 
-                Console.WriteLine($"Httpd started. Listening on {bootstrapChannel.LocalAddress}");
+                Console.WriteLine($"Open your web browser and navigate to ");
+                Console.WriteLine($"{(ServerSettings.IsSsl ? "https" : "http")}://127.0.0.1:{ServerSettings.Port}/plaintext");
+                Console.WriteLine($"{(ServerSettings.IsSsl ? "https" : "http")}://127.0.0.1:{ServerSettings.Port}/json");
+                
                 Console.ReadLine();
 
                 await bootstrapChannel.CloseAsync();
