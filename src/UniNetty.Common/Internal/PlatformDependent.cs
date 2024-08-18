@@ -229,29 +229,27 @@ namespace UniNetty.Common.Internal
             }
         }
 
-        public static unsafe void CopyMemory(byte* src, byte* dst, int length)
+        public static void CopyMemory(Span<byte> src, Span<byte> dst, int length)
         {
             if (length > 0)
             {
-                Unsafe.CopyBlockUnaligned(dst, src, unchecked((uint)length));
+                Unsafe.CopyBlockUnaligned(ref dst[0], ref src[0], unchecked((uint)length));
             }
         }
 
-        public static unsafe void CopyMemory(byte* src, byte[] dst, int dstIndex, int length)
+        public static void CopyMemory(Span<byte> src, byte[] dst, int dstIndex, int length)
         {
             if (length > 0)
             {
-                fixed (byte* destination = &dst[dstIndex])
-                    Unsafe.CopyBlockUnaligned(destination, src, unchecked((uint)length));
+                Unsafe.CopyBlockUnaligned(ref dst[dstIndex], ref src[0], unchecked((uint)length));
             }
         }
 
-        public static unsafe void CopyMemory(byte[] src, int srcIndex, byte* dst, int length)
+        public static void CopyMemory(Span<byte> src, int srcIndex, Span<byte> dst, int length)
         {
             if (length > 0)
             {
-                fixed (byte* source = &src[srcIndex])
-                    Unsafe.CopyBlockUnaligned(dst, source, unchecked((uint)length));
+                Unsafe.CopyBlockUnaligned(ref dst[0], ref src[srcIndex], unchecked((uint)length));
             }
         }
 
@@ -263,11 +261,11 @@ namespace UniNetty.Common.Internal
             }
         }
 
-        public static unsafe void SetMemory(byte* src, int length, byte value)
+        public static void SetMemory(Span<byte> src, int length, byte value)
         {
             if (length > 0)
             {
-                Unsafe.InitBlockUnaligned(src, value, unchecked((uint)length));
+                Unsafe.InitBlockUnaligned(ref src[0], value, unchecked((uint)length));
             }
         }
 

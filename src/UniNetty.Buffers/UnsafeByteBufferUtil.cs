@@ -183,6 +183,7 @@ namespace UniNetty.Buffers
             {
                 return;
             }
+
             PlatformDependent.SetMemory(array, index, length, Zero);
         }
 
@@ -196,15 +197,24 @@ namespace UniNetty.Buffers
                     IntPtr ptr = copy.AddressOfPinnedMemory();
                     if (ptr != IntPtr.Zero)
                     {
-                        PlatformDependent.CopyMemory(addr, (byte*)ptr, length);
+                        PlatformDependent.CopyMemory(
+                            new Span<byte>(addr, length), 
+                            new Span<byte>((byte*)ptr, length), 
+                            length
+                        );
                     }
                     else
                     {
                         fixed (byte* dst = &copy.GetPinnableMemoryAddress())
                         {
-                            PlatformDependent.CopyMemory(addr, dst, length);
+                            PlatformDependent.CopyMemory(
+                                new Span<byte>(addr, length), 
+                                new Span<byte>(dst, length), 
+                                length
+                            );
                         }
                     }
+
                     copy.SetIndex(0, length);
                 }
                 else
@@ -212,6 +222,7 @@ namespace UniNetty.Buffers
                     copy.WriteBytes(buf, index, length);
                 }
             }
+
             return copy;
         }
 
@@ -230,7 +241,7 @@ namespace UniNetty.Buffers
                 int readBytes = input.Read(tmp, offset, length);
                 if (readBytes > 0)
                 {
-                    PlatformDependent.CopyMemory(tmp, offset, addr, readBytes);
+                    PlatformDependent.CopyMemory(tmp, offset, new Span<byte>(addr, readBytes), readBytes);
                 }
 
                 return readBytes;
@@ -250,14 +261,16 @@ namespace UniNetty.Buffers
 
             IByteBuffer tmpBuf = buf.Allocator.HeapBuffer(length);
             return tmpBuf.SetBytesAsync(0, input, length, cancellationToken)
-                .ContinueWith(t => {
+                .ContinueWith(t =>
+                {
                     try
                     {
                         var read = t.Result;
                         if (read > 0)
                         {
-                            PlatformDependent.CopyMemory(tmpBuf.Array, tmpBuf.ArrayOffset, addr, read);
+                            PlatformDependent.CopyMemory(tmpBuf.Array, tmpBuf.ArrayOffset, new Span<byte>(addr, read), read);
                         }
+
                         return read;
                     }
                     finally
@@ -281,19 +294,19 @@ namespace UniNetty.Buffers
                 IntPtr ptr = dst.AddressOfPinnedMemory();
                 if (ptr != IntPtr.Zero)
                 {
-                    PlatformDependent.CopyMemory(addr, (byte*)(ptr + dstIndex), length);
+                    PlatformDependent.CopyMemory(new Span<byte>(addr, length), new Span<byte>((byte*)(ptr + dstIndex), length), length);
                 }
                 else
                 {
                     fixed (byte* destination = &dst.GetPinnableMemoryAddress())
                     {
-                        PlatformDependent.CopyMemory(addr, destination + dstIndex, length);
+                        PlatformDependent.CopyMemory(new Span<byte>(addr, length), new Span<byte>(destination + dstIndex, length), length);
                     }
                 }
             }
             else if (dst.HasArray)
             {
-                PlatformDependent.CopyMemory(addr, dst.Array, dst.ArrayOffset + dstIndex, length);
+                PlatformDependent.CopyMemory(new Span<byte>(addr, length), dst.Array, dst.ArrayOffset + dstIndex, length);
             }
             else
             {
@@ -309,9 +322,10 @@ namespace UniNetty.Buffers
             {
                 ThrowHelper.ThrowIndexOutOfRangeException_DstIndex(dstIndex);
             }
+
             if (length != 0)
             {
-                PlatformDependent.CopyMemory(addr, dst, dstIndex, length);
+                PlatformDependent.CopyMemory(new Span<byte>(addr, length), dst, dstIndex, length);
             }
         }
 
@@ -331,19 +345,19 @@ namespace UniNetty.Buffers
                     IntPtr ptr = src.AddressOfPinnedMemory();
                     if (ptr != IntPtr.Zero)
                     {
-                        PlatformDependent.CopyMemory((byte*)(ptr + srcIndex), addr, length);
+                        PlatformDependent.CopyMemory(new Span<byte>((byte*)(ptr + srcIndex), length), new Span<byte>(addr, length), length);
                     }
                     else
                     {
                         fixed (byte* source = &src.GetPinnableMemoryAddress())
                         {
-                            PlatformDependent.CopyMemory(source + srcIndex, addr, length);
+                            PlatformDependent.CopyMemory(new Span<byte>(source + srcIndex, length), new Span<byte>(addr, length), length);
                         }
                     }
                 }
                 else if (src.HasArray)
                 {
-                    PlatformDependent.CopyMemory(src.Array, src.ArrayOffset + srcIndex, addr, length);
+                    PlatformDependent.CopyMemory(src.Array, src.ArrayOffset + srcIndex, new Span<byte>(addr, length), length);
                 }
                 else
                 {
@@ -354,7 +368,7 @@ namespace UniNetty.Buffers
 
         // No need to check length zero, the calling method already done it
         internal static void SetBytes(AbstractByteBuffer buf, byte* addr, int index, byte[] src, int srcIndex, int length) =>
-                PlatformDependent.CopyMemory(src, srcIndex, addr, length);
+            PlatformDependent.CopyMemory(src, srcIndex, new Span<byte>(addr, length), length);
 
         internal static void GetBytes(AbstractByteBuffer buf, byte* addr, int index, Stream output, int length)
         {
@@ -365,7 +379,7 @@ namespace UniNetty.Buffers
                 {
                     byte[] tmp = tmpBuf.Array;
                     int offset = tmpBuf.ArrayOffset;
-                    PlatformDependent.CopyMemory(addr, tmp, offset, length);
+                    PlatformDependent.CopyMemory(new Span<byte>(addr, length), tmp, offset, length);
                     output.Write(tmp, offset, length);
                 }
                 finally
@@ -381,7 +395,9 @@ namespace UniNetty.Buffers
             {
                 return;
             }
-            PlatformDependent.SetMemory(addr, length, Zero);
+
+            var span = new Span<byte>(addr, length);
+            PlatformDependent.SetMemory(span, length, Zero);
         }
 
         internal static string GetString(byte* src, int length, Encoding encoding)
@@ -396,7 +412,7 @@ namespace UniNetty.Buffers
 #endif
         }
 
-        internal static UnpooledUnsafeDirectByteBuffer NewUnsafeDirectByteBuffer(IByteBufferAllocator alloc, int initialCapacity, int maxCapacity) =>  
+        internal static UnpooledUnsafeDirectByteBuffer NewUnsafeDirectByteBuffer(IByteBufferAllocator alloc, int initialCapacity, int maxCapacity) =>
             new UnpooledUnsafeDirectByteBuffer(alloc, initialCapacity, maxCapacity);
     }
 }

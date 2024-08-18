@@ -51,7 +51,7 @@ namespace UniNetty.Codecs.Http.WebSockets
             {
                 Unsafe.WriteUnaligned(bytes, number1);
                 Unsafe.WriteUnaligned(bytes + 4, number2);
-                PlatformDependent.CopyMemory(key3, 0, bytes + 8, 8);
+                PlatformDependent.CopyMemory(key3, 0, new Span<byte>(bytes + 8, 8), 8);
             }
 
             this.expectedChallengeResponseBytes = Unpooled.WrappedBuffer(WebSocketUtil.Md5(challenge));

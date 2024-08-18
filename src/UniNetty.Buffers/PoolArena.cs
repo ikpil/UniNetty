@@ -755,7 +755,7 @@ namespace UniNetty.Buffers
             PooledUnsafeDirectByteBuffer.NewInstance(maxCapacity);
 
         protected override unsafe void MemoryCopy(byte[] src, int srcOffset, byte[] dst, int dstOffset, int length) =>
-                PlatformDependent.CopyMemory((byte*)Unsafe.AsPointer(ref src[srcOffset]), (byte*)Unsafe.AsPointer(ref dst[dstOffset]), length);
+                PlatformDependent.CopyMemory(src, srcOffset, dst, dstOffset, length);
 
         protected internal override void DestroyChunk(PoolChunk<byte[]> chunk)
         {
