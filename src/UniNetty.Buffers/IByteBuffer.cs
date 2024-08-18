@@ -1143,7 +1143,7 @@ namespace UniNetty.Buffers
         ///  Returns the low-level memory address that point to the first byte of ths backing data.
         /// </summary>
         /// <returns>The low-level memory address</returns>
-        ref byte GetPinnableMemoryAddress();
+        Span<byte> GetPinnableMemoryAddress();
 
         /// <summary>
         /// Returns the pointer address of the buffer if the memory is pinned.

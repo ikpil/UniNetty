@@ -205,11 +205,11 @@ namespace UniNetty.Buffers
                     }
                     else
                     {
-                        fixed (byte* dst = &copy.GetPinnableMemoryAddress())
+                        var dst = copy.GetPinnableMemoryAddress();
                         {
                             PlatformDependent.CopyMemory(
                                 new Span<byte>(addr, length),
-                                new Span<byte>(dst, length),
+                                dst,
                                 length
                             );
                         }
@@ -298,10 +298,9 @@ namespace UniNetty.Buffers
                 }
                 else
                 {
-                    fixed (byte* destination = &dst.GetPinnableMemoryAddress())
-                    {
-                        PlatformDependent.CopyMemory(new Span<byte>(addr, length), new Span<byte>(destination + dstIndex, length), length);
-                    }
+                    var destination = dst.GetPinnableMemoryAddress();
+                    PlatformDependent.CopyMemory(new Span<byte>(addr, length), destination.Slice(dstIndex), length);
+                    
                 }
             }
             else if (dst.HasArray)
@@ -349,10 +348,9 @@ namespace UniNetty.Buffers
                     }
                     else
                     {
-                        fixed (byte* source = &src.GetPinnableMemoryAddress())
-                        {
-                            PlatformDependent.CopyMemory(new Span<byte>(source + srcIndex, length), new Span<byte>(addr, length), length);
-                        }
+                        var source = src.GetPinnableMemoryAddress();
+                        PlatformDependent.CopyMemory(source.Slice(srcIndex), new Span<byte>(addr, length), length);
+                        
                     }
                 }
                 else if (src.HasArray)

@@ -670,12 +670,12 @@ namespace UniNetty.Buffers
             }
         }
 
-        public override ref byte GetPinnableMemoryAddress()
+        public override Span<byte> GetPinnableMemoryAddress()
         {
             switch (this.components.Count)
             {
                 case 1:
-                    return ref this.components[0].Buffer.GetPinnableMemoryAddress();
+                    return this.components[0].Buffer.GetPinnableMemoryAddress();
                 default:
                     throw new NotSupportedException();
             }

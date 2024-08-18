@@ -62,7 +62,7 @@ namespace UniNetty.Buffers
 
         public override bool HasMemoryAddress => this.Unwrap().HasMemoryAddress;
 
-        public override ref byte GetPinnableMemoryAddress() => ref this.Unwrap().GetPinnableMemoryAddress();
+        public override Span<byte> GetPinnableMemoryAddress() => this.Unwrap().GetPinnableMemoryAddress();
 
         public override Span<byte> AddressOfPinnedMemory() => this.Unwrap().AddressOfPinnedMemory();
 
