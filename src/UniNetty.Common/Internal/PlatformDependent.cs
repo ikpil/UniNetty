@@ -46,16 +46,14 @@ namespace UniNetty.Common.Internal
 
         public static Random GetThreadLocalRandom() => ThreadLocalRandom.Value;
 
-        public static unsafe bool ByteArrayEquals(byte[] bytes1, int startPos1, byte[] bytes2, int startPos2, int length)
+        public static bool ByteArrayEquals(byte[] bytes1, int startPos1, byte[] bytes2, int startPos2, int length)
         {
             if (length <= 0)
             {
                 return true;
             }
 
-            fixed (byte* array1 = &bytes1[startPos1])
-                fixed (byte* array2 = &bytes2[startPos2])
-                    return PlatformDependent0.ByteArrayEquals(array1, array2, length);
+            return PlatformDependent0.ByteArrayEquals(bytes1, startPos1, bytes2, startPos2, length);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
