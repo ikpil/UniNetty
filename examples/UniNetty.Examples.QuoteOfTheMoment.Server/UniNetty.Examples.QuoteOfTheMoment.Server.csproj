@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>netstandard2.0;net6.0;net8.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\shared\dotnetty.com.pfx" Link="dotnetty.com.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\UniNetty.Buffers\UniNetty.Buffers.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Common\UniNetty.Common.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Handlers\UniNetty.Handlers.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Transport\UniNetty.Transport.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.Common\UniNetty.Examples.Common.csproj" />
+  </ItemGroup>
+</Project>

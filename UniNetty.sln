@@ -53,43 +53,43 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Transport.Tests", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{5DCBEDA2-257E-48A8-8360-097674E1AF26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.Common", "examples\Examples.Common\Examples.Common.csproj", "{0B486EC3-2BE8-4E24-9742-8B55370CA77C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.Common", "examples\UniNetty.Examples.Common\UniNetty.Examples.Common.csproj", "{0B486EC3-2BE8-4E24-9742-8B55370CA77C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discard.Server", "examples\Discard.Server\Discard.Server.csproj", "{25870F71-B597-40F3-A5BD-63D8B26B6703}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.Discard.Server", "examples\UniNetty.Examples.Discard.Server\UniNetty.Examples.Discard.Server.csproj", "{25870F71-B597-40F3-A5BD-63D8B26B6703}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Discard.Client", "examples\Discard.Client\Discard.Client.csproj", "{76668241-9100-4B86-BC6D-D6E82940355A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.Discard.Client", "examples\UniNetty.Examples.Discard.Client\UniNetty.Examples.Discard.Client.csproj", "{76668241-9100-4B86-BC6D-D6E82940355A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Echo.Server", "examples\Echo.Server\Echo.Server.csproj", "{DF1271C2-710F-4FD3-AA3A-BD43DB33E0B5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.Echo.Server", "examples\UniNetty.Examples.Echo.Server\UniNetty.Examples.Echo.Server.csproj", "{DF1271C2-710F-4FD3-AA3A-BD43DB33E0B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Echo.Client", "examples\Echo.Client\Echo.Client.csproj", "{45022E7B-7056-4795-B18D-86C46CDFAD36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.Echo.Client", "examples\UniNetty.Examples.Echo.Client\UniNetty.Examples.Echo.Client.csproj", "{45022E7B-7056-4795-B18D-86C46CDFAD36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factorial", "examples\Factorial\Factorial.csproj", "{C934AAC5-3712-4F5A-993C-FC5890CECA62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.Factorial", "examples\UniNetty.Examples.Factorial\UniNetty.Examples.Factorial.csproj", "{C934AAC5-3712-4F5A-993C-FC5890CECA62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factorial.Server", "examples\Factorial.Server\Factorial.Server.csproj", "{DC4C9187-A3F2-446D-A3E1-C9F72627F6BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.Factorial.Server", "examples\UniNetty.Examples.Factorial.Server\UniNetty.Examples.Factorial.Server.csproj", "{DC4C9187-A3F2-446D-A3E1-C9F72627F6BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Factorial.Client", "examples\Factorial.Client\Factorial.Client.csproj", "{7CFBD4DF-3DAC-4310-B6EC-401CD6F196F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.Factorial.Client", "examples\UniNetty.Examples.Factorial.Client\UniNetty.Examples.Factorial.Client.csproj", "{7CFBD4DF-3DAC-4310-B6EC-401CD6F196F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpServer", "examples\HttpServer\HttpServer.csproj", "{0773735C-08BB-4D73-B57A-2D5E20D708DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.HttpServer", "examples\UniNetty.Examples.HttpServer\UniNetty.Examples.HttpServer.csproj", "{0773735C-08BB-4D73-B57A-2D5E20D708DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuoteOfTheMoment.Client", "examples\QuoteOfTheMoment.Client\QuoteOfTheMoment.Client.csproj", "{CA04BED8-9A53-43A0-8376-B0B7F0E8DE19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.QuoteOfTheMoment.Client", "examples\UniNetty.Examples.QuoteOfTheMoment.Client\UniNetty.Examples.QuoteOfTheMoment.Client.csproj", "{CA04BED8-9A53-43A0-8376-B0B7F0E8DE19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuoteOfTheMoment.Server", "examples\QuoteOfTheMoment.Server\QuoteOfTheMoment.Server.csproj", "{F49B8862-FEE6-454D-AE2A-32FACC21A145}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.QuoteOfTheMoment.Server", "examples\UniNetty.Examples.QuoteOfTheMoment.Server\UniNetty.Examples.QuoteOfTheMoment.Server.csproj", "{F49B8862-FEE6-454D-AE2A-32FACC21A145}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureChat.Client", "examples\SecureChat.Client\SecureChat.Client.csproj", "{A04E3AF0-3019-44F3-926F-3CF38BA39E39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.SecureChat.Client", "examples\UniNetty.Examples.SecureChat.Client\UniNetty.Examples.SecureChat.Client.csproj", "{A04E3AF0-3019-44F3-926F-3CF38BA39E39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureChat.Server", "examples\SecureChat.Server\SecureChat.Server.csproj", "{A0F1D17D-9C4A-4742-8BE9-09051F699C58}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.SecureChat.Server", "examples\UniNetty.Examples.SecureChat.Server\UniNetty.Examples.SecureChat.Server.csproj", "{A0F1D17D-9C4A-4742-8BE9-09051F699C58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telnet.Client", "examples\Telnet.Client\Telnet.Client.csproj", "{41F56F8A-D94E-453A-886C-8EE1E764CDE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.Telnet.Client", "examples\UniNetty.Examples.Telnet.Client\UniNetty.Examples.Telnet.Client.csproj", "{41F56F8A-D94E-453A-886C-8EE1E764CDE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Telnet.Server", "examples\Telnet.Server\Telnet.Server.csproj", "{DED39370-4F00-4F9F-A562-4E2D66153D2E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.Telnet.Server", "examples\UniNetty.Examples.Telnet.Server\UniNetty.Examples.Telnet.Server.csproj", "{DED39370-4F00-4F9F-A562-4E2D66153D2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSockets.Client", "examples\WebSockets.Client\WebSockets.Client.csproj", "{4D09B0A9-5B9E-4242-B58D-A2EAA6E12216}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.WebSockets.Client", "examples\UniNetty.Examples.WebSockets.Client\UniNetty.Examples.WebSockets.Client.csproj", "{4D09B0A9-5B9E-4242-B58D-A2EAA6E12216}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSockets.Server", "examples\WebSockets.Server\WebSockets.Server.csproj", "{B2884C46-4C8A-47C8-A412-631CD57B4D70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Examples.WebSockets.Server", "examples\UniNetty.Examples.WebSockets.Server\UniNetty.Examples.WebSockets.Server.csproj", "{B2884C46-4C8A-47C8-A412-631CD57B4D70}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{B4ECF0D1-57E5-4AD1-87AC-DB6C61BC0BD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddCopyrightHeaderToSourceFiles", "tools\AddCopyrightHeaderToSourceFiles\AddCopyrightHeaderToSourceFiles.csproj", "{D64CAFF8-3321-46CF-9A27-8EDF89E06182}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniNetty.Tools.AddCopyrightHeaderToSourceFiles", "tools\UniNetty.Tools.AddCopyrightHeaderToSourceFiles\UniNetty.Tools.AddCopyrightHeaderToSourceFiles.csproj", "{D64CAFF8-3321-46CF-9A27-8EDF89E06182}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
