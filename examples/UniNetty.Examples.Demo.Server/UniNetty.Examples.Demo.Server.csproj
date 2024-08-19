@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UniNetty.Examples.Common\UniNetty.Examples.Common.csproj"/>
-    <ProjectReference Include="..\UniNetty.Examples.WebSockets.Server\UniNetty.Examples.WebSockets.Server.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -22,4 +17,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\UniNetty.Examples.Common\UniNetty.Examples.Common.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Telnet.Server\UniNetty.Examples.Telnet.Server.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.WebSockets.Server\UniNetty.Examples.WebSockets.Server.csproj" />
+  </ItemGroup>
+  
 </Project>

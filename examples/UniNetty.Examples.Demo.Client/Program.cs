@@ -12,4 +12,6 @@ class Program
         var client = new WebSocketClient();
         client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port, ExampleHelper.Configuration["path"]).Wait();
     }
+    
+
 }

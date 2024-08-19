@@ -3,11 +3,12 @@ using System.Runtime;
 using System.Runtime.InteropServices;
 using UniNetty.Common;
 using UniNetty.Examples.Common;
+using UniNetty.Examples.Telnet.Server;
 using UniNetty.Examples.WebSockets.Server;
 
 namespace UniNetty.Examples.Demo.Server;
 
-class Program
+public static class Program
 {
     static void Main()
     {
@@ -31,7 +32,19 @@ class Program
         Console.WriteLine($"Current latency mode for garbage collection: {GCSettings.LatencyMode}");
         Console.WriteLine("\n");
 
+        RunWebSocketServer();
+        RunTelnetServer();
+    }
+
+    static void RunWebSocketServer()
+    {
         var server = new WebSocketServer();
+        server.RunServerAsync(ServerSettings.Cert, ServerSettings.Port).Wait();
+    }
+
+    static void RunTelnetServer()
+    {
+        var server = new TelnetServer();
         server.RunServerAsync(ServerSettings.Cert, ServerSettings.Port).Wait();
     }
 }
