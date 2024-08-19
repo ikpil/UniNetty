@@ -2,6 +2,9 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Dynamic;
+using System.Security.Cryptography.X509Certificates;
+
 namespace UniNetty.Examples.Common
 {
     public static class ServerSettings
@@ -14,6 +17,10 @@ namespace UniNetty.Examples.Common
                 return !string.IsNullOrEmpty(ssl) && bool.Parse(ssl);
             }
         }
+
+        public static X509Certificate2 Cert => !IsSsl
+            ? null
+            : ExampleHelper.LoadCertificate2();
 
         public static int Port => int.Parse(ExampleHelper.Configuration["port"]);
     }

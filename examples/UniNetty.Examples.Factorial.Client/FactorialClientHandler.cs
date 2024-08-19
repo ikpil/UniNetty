@@ -10,10 +10,17 @@ namespace UniNetty.Examples.Factorial.Client
 
     public class FactorialClientHandler : SimpleChannelInboundHandler<BigInteger>
     {
+        private int _count;
         IChannelHandlerContext ctx;
         int receivedMessages;
         int next = 1;
         readonly BlockingCollection<BigInteger> answer = new BlockingCollection<BigInteger>();
+
+        public FactorialClientHandler(int count)
+        {
+            _count = count;
+        }
+            
 
         public BigInteger GetFactorial() => this.answer.Take();
 
@@ -26,7 +33,7 @@ namespace UniNetty.Examples.Factorial.Client
         protected override void ChannelRead0(IChannelHandlerContext ctx, BigInteger msg)
         {
             this.receivedMessages++;
-            if (this.receivedMessages == ClientSettings.Count)
+            if (this.receivedMessages == _count)
             {
                 ctx.CloseAsync().ContinueWith(t => this.answer.Add(msg));
             }
@@ -34,7 +41,7 @@ namespace UniNetty.Examples.Factorial.Client
 
         void SendNumbers()
         {
-            for (int i = 0; (i < 4096) && (this.next <= ClientSettings.Count); i++)
+            for (int i = 0; (i < 4096) && (this.next <= _count); i++)
             {
                 this.ctx.WriteAsync(new BigInteger(this.next));
                 this.next++;

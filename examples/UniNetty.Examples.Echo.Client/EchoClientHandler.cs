@@ -12,7 +12,7 @@ namespace UniNetty.Examples.Echo.Client
 
     public class EchoClientHandler : ChannelHandlerAdapter
     {
-        readonly IByteBuffer initialMessage;
+        private readonly IByteBuffer initialMessage;
 
         public EchoClientHandler()
         {

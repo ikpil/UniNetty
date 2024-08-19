@@ -21,13 +21,13 @@ namespace UniNetty.Examples.HttpServer
 
     class Program
     {
-        static Program()
+        static void Main()
         {
-            ResourceLeakDetector.Level = ResourceLeakDetector.DetectionLevel.Disabled;
-        }
+            ExampleHelper.SetConsoleLogger();
 
-        static async Task RunServerAsync()
-        {
+            // test
+            ResourceLeakDetector.Level = ResourceLeakDetector.DetectionLevel.Disabled;
+
             Console.WriteLine(
                 $"\n{RuntimeInformation.OSArchitecture} {RuntimeInformation.OSDescription}"
                 + $"\n{RuntimeInformation.ProcessArchitecture} {RuntimeInformation.FrameworkDescription}"
@@ -43,54 +43,8 @@ namespace UniNetty.Examples.HttpServer
             Console.WriteLine($"Server garbage collection: {GCSettings.IsServerGC}");
             Console.WriteLine($"Current latency mode for garbage collection: {GCSettings.LatencyMode}");
 
-            IEventLoopGroup group;
-            IEventLoopGroup workGroup;
-            group = new MultithreadEventLoopGroup(1);
-            workGroup = new MultithreadEventLoopGroup();
-
-            X509Certificate2 tlsCertificate = null;
-            if (ServerSettings.IsSsl)
-            {
-                tlsCertificate = new X509Certificate2(Path.Combine(ExampleHelper.ProcessDirectory, "dotnetty.com.pfx"), "password");
-            }
-
-            try
-            {
-                var bootstrap = new ServerBootstrap();
-                bootstrap.Group(group, workGroup);
-                bootstrap.Channel<TcpServerSocketChannel>();
-
-                bootstrap
-                    .Option(ChannelOption.SoBacklog, 8192)
-                    .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
-                    {
-                        IChannelPipeline pipeline = channel.Pipeline;
-                        if (tlsCertificate != null)
-                        {
-                            pipeline.AddLast(TlsHandler.Server(tlsCertificate));
-                        }
-
-                        pipeline.AddLast("encoder", new HttpResponseEncoder());
-                        pipeline.AddLast("decoder", new HttpRequestDecoder(4096, 8192, 8192, false));
-                        pipeline.AddLast("handler", new HelloServerHandler());
-                    }));
-
-                IChannel bootstrapChannel = await bootstrap.BindAsync(IPAddress.Loopback, ServerSettings.Port);
-
-                Console.WriteLine($"Open your web browser and navigate to ");
-                Console.WriteLine($"{(ServerSettings.IsSsl ? "https" : "http")}://127.0.0.1:{ServerSettings.Port}/plaintext");
-                Console.WriteLine($"{(ServerSettings.IsSsl ? "https" : "http")}://127.0.0.1:{ServerSettings.Port}/json");
-                
-                Console.ReadLine();
-
-                await bootstrapChannel.CloseAsync();
-            }
-            finally
-            {
-                group.ShutdownGracefullyAsync().Wait();
-            }
+            var server = new HttpServer();
+            server.RunServerAsync(ServerSettings.Cert, ServerSettings.Port).Wait();
         }
-
-        static void Main() => RunServerAsync().Wait();
     }
 }
