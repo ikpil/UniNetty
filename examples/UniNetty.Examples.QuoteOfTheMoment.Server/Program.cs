@@ -14,36 +14,12 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Server
 
     class Program
     {
-        static async Task RunServerAsync()
+        static void Main()
         {
             ExampleHelper.SetConsoleLogger();
 
-            var group = new MultithreadEventLoopGroup();
-            try
-            {
-                var bootstrap = new Bootstrap();
-                bootstrap
-                    .Group(group)
-                    .Channel<SocketDatagramChannel>()
-                    .Option(ChannelOption.SoBroadcast, true)
-                    .Handler(new LoggingHandler("SRV-LSTN"))
-                    .Handler(new ActionChannelInitializer<IChannel>(channel =>
-                    {
-                        channel.Pipeline.AddLast("Quote", new QuoteOfTheMomentServerHandler());
-                    }));
-
-                IChannel boundChannel = await bootstrap.BindAsync(ServerSettings.Port);
-                Console.WriteLine("Press any key to terminate the server.");
-                Console.ReadLine();
-
-                await boundChannel.CloseAsync();
-            }
-            finally
-            {
-                await group.ShutdownGracefullyAsync(TimeSpan.FromMilliseconds(100), TimeSpan.FromSeconds(1));
-            }
+            var server = new QuoteOfTheMomentServer();
+            server.RunServerAsync(ServerSettings.Port).Wait();
         }
-
-        static void Main() => RunServerAsync().Wait();
     }
 }

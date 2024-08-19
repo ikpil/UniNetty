@@ -12,7 +12,7 @@ namespace UniNetty.Examples.HttpServer
     using System;
     using UniNetty.Common;
 
-    sealed class HelloServerHandler : ChannelHandlerAdapter
+    sealed class HelloHttpServerHandler : ChannelHandlerAdapter
     {
         static readonly ThreadLocalCache Cache = new ThreadLocalCache();
 

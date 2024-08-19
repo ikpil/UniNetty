@@ -1,25 +1,27 @@
 ﻿using System;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using UniNetty.Codecs.Http;
+using UniNetty.Examples.Common;
 using UniNetty.Handlers.Tls;
 using UniNetty.Transport.Bootstrapping;
 using UniNetty.Transport.Channels;
 using UniNetty.Transport.Channels.Sockets;
 
-namespace UniNetty.Examples.HttpServer
+namespace UniNetty.Examples.WebSockets.Server
 {
-    public class HttpServer
+    public class WebSocketServer
     {
         public async Task RunServerAsync(X509Certificate2 cert, int port)
         {
-            var group = new MultithreadEventLoopGroup(1);
+            var bossGroup = new MultithreadEventLoopGroup(1);
             var workGroup = new MultithreadEventLoopGroup();
 
             try
             {
                 var bootstrap = new ServerBootstrap();
-                bootstrap.Group(group, workGroup);
+                bootstrap.Group(bossGroup, workGroup);
                 bootstrap.Channel<TcpServerSocketChannel>();
 
                 bootstrap
@@ -32,24 +34,27 @@ namespace UniNetty.Examples.HttpServer
                             pipeline.AddLast(TlsHandler.Server(cert));
                         }
 
-                        pipeline.AddLast("encoder", new HttpResponseEncoder());
-                        pipeline.AddLast("decoder", new HttpRequestDecoder(4096, 8192, 8192, false));
-                        pipeline.AddLast("handler", new HelloServerHandler());
+                        pipeline.AddLast(new HttpServerCodec());
+                        pipeline.AddLast(new HttpObjectAggregator(65536));
+                        pipeline.AddLast(new WebSocketServerHandler());
                     }));
 
                 IChannel bootstrapChannel = await bootstrap.BindAsync(port);
 
-                Console.WriteLine($"Open your web browser and navigate to ");
-                Console.WriteLine($"{(null != cert ? "https" : "http")}://127.0.0.1:{port}/plaintext");
-                Console.WriteLine($"{(null != cert ? "https" : "http")}://127.0.0.1:{port}/json");
-
+                Console.WriteLine("Open your web browser and navigate to "
+                                  + $"{(ServerSettings.IsSsl ? "https" : "http")}"
+                                  + $"://127.0.0.1:{port}/");
+                Console.WriteLine("Listening on "
+                                  + $"{(ServerSettings.IsSsl ? "wss" : "ws")}"
+                                  + $"://127.0.0.1:{port}/websocket");
                 Console.ReadLine();
 
                 await bootstrapChannel.CloseAsync();
             }
             finally
             {
-                group.ShutdownGracefullyAsync().Wait();
+                workGroup.ShutdownGracefullyAsync().Wait();
+                bossGroup.ShutdownGracefullyAsync().Wait();
             }
         }
     }

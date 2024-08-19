@@ -43,7 +43,7 @@ namespace UniNetty.Examples.HttpServer
             Console.WriteLine($"Server garbage collection: {GCSettings.IsServerGC}");
             Console.WriteLine($"Current latency mode for garbage collection: {GCSettings.LatencyMode}");
 
-            var server = new HttpServer();
+            var server = new HelloHttpServer();
             server.RunServerAsync(ServerSettings.Cert, ServerSettings.Port).Wait();
         }
     }

@@ -21,13 +21,12 @@ namespace UniNetty.Examples.WebSockets.Server
 
     class Program
     {
-        static Program()
+        static void Main()
         {
-            ResourceLeakDetector.Level = ResourceLeakDetector.DetectionLevel.Disabled;
-        }
+            ExampleHelper.SetConsoleLogger();
 
-        static async Task RunServerAsync()
-        {
+            ResourceLeakDetector.Level = ResourceLeakDetector.DetectionLevel.Disabled;
+
             Console.WriteLine(
                 $"\n{RuntimeInformation.OSArchitecture} {RuntimeInformation.OSDescription}"
                 + $"\n{RuntimeInformation.ProcessArchitecture} {RuntimeInformation.FrameworkDescription}"
@@ -44,58 +43,8 @@ namespace UniNetty.Examples.WebSockets.Server
             Console.WriteLine($"Current latency mode for garbage collection: {GCSettings.LatencyMode}");
             Console.WriteLine("\n");
 
-            IEventLoopGroup bossGroup;
-            IEventLoopGroup workGroup;
-            bossGroup = new MultithreadEventLoopGroup(1);
-            workGroup = new MultithreadEventLoopGroup();
-
-            X509Certificate2 tlsCertificate = null;
-            if (ServerSettings.IsSsl)
-            {
-                tlsCertificate = new X509Certificate2(Path.Combine(ExampleHelper.ProcessDirectory, "dotnetty.com.pfx"), "password");
-            }
-
-            try
-            {
-                var bootstrap = new ServerBootstrap();
-                bootstrap.Group(bossGroup, workGroup);
-                bootstrap.Channel<TcpServerSocketChannel>();
-
-                bootstrap
-                    .Option(ChannelOption.SoBacklog, 8192)
-                    .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
-                    {
-                        IChannelPipeline pipeline = channel.Pipeline;
-                        if (tlsCertificate != null)
-                        {
-                            pipeline.AddLast(TlsHandler.Server(tlsCertificate));
-                        }
-
-                        pipeline.AddLast(new HttpServerCodec());
-                        pipeline.AddLast(new HttpObjectAggregator(65536));
-                        pipeline.AddLast(new WebSocketServerHandler());
-                    }));
-
-                int port = ServerSettings.Port;
-                IChannel bootstrapChannel = await bootstrap.BindAsync(IPAddress.Loopback, port);
-
-                Console.WriteLine("Open your web browser and navigate to "
-                                  + $"{(ServerSettings.IsSsl ? "https" : "http")}"
-                                  + $"://127.0.0.1:{port}/");
-                Console.WriteLine("Listening on "
-                                  + $"{(ServerSettings.IsSsl ? "wss" : "ws")}"
-                                  + $"://127.0.0.1:{port}/websocket");
-                Console.ReadLine();
-
-                await bootstrapChannel.CloseAsync();
-            }
-            finally
-            {
-                workGroup.ShutdownGracefullyAsync().Wait();
-                bossGroup.ShutdownGracefullyAsync().Wait();
-            }
+            var server = new WebSocketServer();
+            server.RunServerAsync(ServerSettings.Cert, ServerSettings.Port).Wait();
         }
-
-        static void Main() => RunServerAsync().Wait();
     }
 }
