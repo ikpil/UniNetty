@@ -5,7 +5,6 @@
 namespace UniNetty.Examples.Factorial
 {
     using System.Collections.Generic;
-    using System.Numerics;
     using UniNetty.Buffers;
     using UniNetty.Codecs;
     using UniNetty.Transport.Channels;

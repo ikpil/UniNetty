@@ -14,12 +14,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\UniNetty.Buffers\UniNetty.Buffers.csproj" />
-    <ProjectReference Include="..\..\src\UniNetty.Codecs.Http\UniNetty.Codecs.Http.csproj" />
-    <ProjectReference Include="..\..\src\UniNetty.Codecs\UniNetty.Codecs.csproj" />
-    <ProjectReference Include="..\..\src\UniNetty.Common\UniNetty.Common.csproj" />
-    <ProjectReference Include="..\..\src\UniNetty.Handlers\UniNetty.Handlers.csproj" />
-    <ProjectReference Include="..\..\src\UniNetty.Transport\UniNetty.Transport.csproj" />
     <ProjectReference Include="..\UniNetty.Examples.Common\UniNetty.Examples.Common.csproj" />
   </ItemGroup>
 </Project>
