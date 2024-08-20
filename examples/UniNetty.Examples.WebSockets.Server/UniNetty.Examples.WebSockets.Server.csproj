@@ -4,9 +4,8 @@
     <IsPackable>false</IsPackable>
     <ServerGarbageCollection>true</ServerGarbageCollection>
   </PropertyGroup>
-  
   <ItemGroup>
-    <ProjectReference Include="..\UniNetty.Examples.Common\UniNetty.Examples.Common.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Codecs.Http\UniNetty.Codecs.Http.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Transport\UniNetty.Transport.csproj" />
   </ItemGroup>
-  
 </Project>

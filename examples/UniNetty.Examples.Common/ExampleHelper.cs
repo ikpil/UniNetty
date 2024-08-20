@@ -22,17 +22,7 @@ namespace UniNetty.Examples.Common
                 .Build();
         }
 
-        public static string ProcessDirectory
-        {
-            get
-            {
-#if NETSTANDARD2_0 || NETCOREAPP3_1_OR_GREATER || NET5_0_OR_GREATER
-                return AppContext.BaseDirectory;
-#else
-                return AppDomain.CurrentDomain.BaseDirectory;
-#endif
-            }
-        }
+        public static string ProcessDirectory => AppContext.BaseDirectory;
 
         public static IConfigurationRoot Configuration { get; }
 

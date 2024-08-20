@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Numerics;
+
 namespace UniNetty.Examples.Factorial
 {
     using System.Collections.Generic;
@@ -9,13 +11,13 @@ namespace UniNetty.Examples.Factorial
     using UniNetty.Codecs;
     using UniNetty.Transport.Channels;
 
-    public class NumberEncoder : MessageToMessageEncoder<System.Numerics.BigInteger>
+    public class NumberEncoder : MessageToMessageEncoder<BigInteger>
     {
-        protected override void Encode(IChannelHandlerContext context, System.Numerics.BigInteger message, List<object> output)
+        protected override void Encode(IChannelHandlerContext context, BigInteger message, List<object> output)
         {
             IByteBuffer buffer = context.Allocator.Buffer();
 
-            //https://msdn.microsoft.com/en-us/library/system.numerics.biginteger.tobytearray(v=vs.110).aspx
+            //https://msdn.microsoft.com/en-us/library/BigInteger.tobytearray(v=vs.110).aspx
             //BigInteger.ToByteArray() return a Little-Endian bytes
             //IByteBuffer is Big-Endian by default
             byte[] data = message.ToByteArray();

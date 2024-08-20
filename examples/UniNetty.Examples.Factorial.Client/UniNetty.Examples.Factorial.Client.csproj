@@ -4,7 +4,9 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UniNetty.Examples.Common\UniNetty.Examples.Common.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Codecs\UniNetty.Codecs.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Handlers\UniNetty.Handlers.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Transport\UniNetty.Transport.csproj" />
     <ProjectReference Include="..\UniNetty.Examples.Factorial\UniNetty.Examples.Factorial.csproj" />
   </ItemGroup>
 </Project>

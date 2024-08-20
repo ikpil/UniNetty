@@ -3,7 +3,6 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using UniNetty.Codecs.Http;
-using UniNetty.Examples.Common;
 using UniNetty.Handlers.Tls;
 using UniNetty.Transport.Bootstrapping;
 using UniNetty.Transport.Channels;
@@ -36,16 +35,16 @@ namespace UniNetty.Examples.WebSockets.Server
 
                         pipeline.AddLast(new HttpServerCodec());
                         pipeline.AddLast(new HttpObjectAggregator(65536));
-                        pipeline.AddLast(new WebSocketServerHandler());
+                        pipeline.AddLast(new WebSocketServerHandler(null != cert));
                     }));
 
                 IChannel bootstrapChannel = await bootstrap.BindAsync(port);
 
                 Console.WriteLine("Open your web browser and navigate to "
-                                  + $"{(ServerSettings.IsSsl ? "https" : "http")}"
+                                  + $"{(null != cert ? "https" : "http")}"
                                   + $"://127.0.0.1:{port}/");
                 Console.WriteLine("Listening on "
-                                  + $"{(ServerSettings.IsSsl ? "wss" : "ws")}"
+                                  + $"{(null != cert ? "wss" : "ws")}"
                                   + $"://127.0.0.1:{port}/websocket");
                 Console.ReadLine();
 

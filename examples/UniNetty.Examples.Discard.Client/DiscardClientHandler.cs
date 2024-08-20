@@ -9,22 +9,23 @@ namespace UniNetty.Examples.Discard.Client
     using System;
     using UniNetty.Buffers;
     using UniNetty.Transport.Channels;
-    using Examples.Common;
 
     public class DiscardClientHandler : SimpleChannelInboundHandler<object>
     {
         private Random _random;
-        IChannelHandlerContext ctx;
-        byte[] array;
+        private IChannelHandlerContext ctx;
+        private byte[] array;
+        private int _size;
 
-        public DiscardClientHandler()
+        public DiscardClientHandler(int size)
         {
             _random = new Random((int)DateTime.UtcNow.Ticks);
+            _size = size;
         }
 
         public override void ChannelActive(IChannelHandlerContext ctx)
         {
-            this.array = new byte[ClientSettings.Size];
+            this.array = new byte[_size];
             this.ctx = ctx;
 
             // Send the initial messages.

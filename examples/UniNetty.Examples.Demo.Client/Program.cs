@@ -40,28 +40,28 @@ class Program
         var client = new SecureChatClient();
         client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port).Wait();
     }
-    
+
     static void RunQuoteOfTheMomentClient()
     {
         var client = new QuoteOfTheMomentClient();
         client.RunClientAsync(ClientSettings.Port).Wait();
     }
-    
+
     static void RunFactorialClient()
     {
         var client = new FactorialClient();
         client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port, ClientSettings.Count).Wait();
     }
-    
+
     static void RunEchoClient()
     {
         var client = new EchoClient();
-        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port).Wait();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port, ClientSettings.Size).Wait();
     }
-    
+
     public static void RunDiscardClient()
     {
         var client = new DiscardClient();
-        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port).Wait();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port, ClientSettings.Size).Wait();
     }
 }

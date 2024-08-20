@@ -13,7 +13,6 @@ namespace UniNetty.Examples.WebSockets.Server
     using UniNetty.Codecs.Http.WebSockets;
     using UniNetty.Common.Utilities;
     using UniNetty.Transport.Channels;
-    using UniNetty.Examples.Common;
 
     using static UniNetty.Codecs.Http.HttpVersion;
     using static UniNetty.Codecs.Http.HttpResponseStatus;
@@ -22,7 +21,13 @@ namespace UniNetty.Examples.WebSockets.Server
     {
         const string WebsocketPath = "/websocket";
 
+        private bool _ssl;
         WebSocketServerHandshaker handshaker;
+
+        public WebSocketServerHandler(bool ssl)
+        {
+            _ssl = ssl;
+        }
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, object msg)
         {
@@ -142,13 +147,13 @@ namespace UniNetty.Examples.WebSockets.Server
             ctx.CloseAsync();
         }
 
-        static string GetWebSocketLocation(IFullHttpRequest req)
+        private string GetWebSocketLocation(IFullHttpRequest req)
         {
             bool result = req.Headers.TryGet(HttpHeaderNames.Host, out ICharSequence value);
             Debug.Assert(result, "Host header does not exist.");
             string location= value.ToString() + WebsocketPath;
 
-            if (ServerSettings.IsSsl)
+            if (_ssl)
             {
                 return "wss://" + location;
             }

@@ -14,7 +14,7 @@ namespace UniNetty.Examples.Discard.Client
 {
     public class DiscardClient
     {
-        public async Task RunClientAsync(X509Certificate2 cert, IPAddress host, int port)
+        public async Task RunClientAsync(X509Certificate2 cert, IPAddress host, int port, int size)
         {
             var group = new MultithreadEventLoopGroup();
 
@@ -41,7 +41,7 @@ namespace UniNetty.Examples.Discard.Client
                         }
 
                         pipeline.AddLast(new LoggingHandler());
-                        pipeline.AddLast(new DiscardClientHandler());
+                        pipeline.AddLast(new DiscardClientHandler(size));
                     }));
 
                 IChannel bootstrapChannel = await bootstrap.ConnectAsync(new IPEndPoint(host, port));

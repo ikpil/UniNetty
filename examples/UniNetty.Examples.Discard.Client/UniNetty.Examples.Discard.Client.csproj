@@ -3,7 +3,8 @@
     <TargetFrameworks>netstandard2.0;net6.0;net8.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-  <ItemGroup>    
-    <ProjectReference Include="..\UniNetty.Examples.Common\UniNetty.Examples.Common.csproj" />
-  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\UniNetty.Codecs\UniNetty.Codecs.csproj" />
+    <ProjectReference Include="..\..\src\UniNetty.Handlers\UniNetty.Handlers.csproj" />
+  </ItemGroup>  
 </Project>

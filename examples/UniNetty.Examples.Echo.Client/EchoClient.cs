@@ -14,7 +14,7 @@ namespace UniNetty.Examples.Echo.Client
 {
     public class EchoClient
     {
-        public async Task RunClientAsync(X509Certificate2 cert, IPAddress host, int port)
+        public async Task RunClientAsync(X509Certificate2 cert, IPAddress host, int port, int size)
         {
             var group = new MultithreadEventLoopGroup();
 
@@ -39,7 +39,7 @@ namespace UniNetty.Examples.Echo.Client
                         pipeline.AddLast("framing-enc", new LengthFieldPrepender(2));
                         pipeline.AddLast("framing-dec", new LengthFieldBasedFrameDecoder(ushort.MaxValue, 0, 2, 0, 2));
 
-                        pipeline.AddLast("echo", new EchoClientHandler());
+                        pipeline.AddLast("echo", new EchoClientHandler(size));
                     }));
 
                 IChannel clientChannel = await bootstrap.ConnectAsync(new IPEndPoint(host, port));

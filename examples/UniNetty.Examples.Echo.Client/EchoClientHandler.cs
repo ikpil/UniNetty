@@ -8,15 +8,16 @@ namespace UniNetty.Examples.Echo.Client
     using System.Text;
     using UniNetty.Buffers;
     using UniNetty.Transport.Channels;
-    using UniNetty.Examples.Common;
 
     public class EchoClientHandler : ChannelHandlerAdapter
     {
         private readonly IByteBuffer initialMessage;
+        private int _size;
 
-        public EchoClientHandler()
+        public EchoClientHandler(int size)
         {
-            this.initialMessage = Unpooled.Buffer(ClientSettings.Size);
+            _size = size;
+            this.initialMessage = Unpooled.Buffer(size);
             byte[] messageBytes = Encoding.UTF8.GetBytes("Hello world");
             this.initialMessage.WriteBytes(messageBytes);
         }
