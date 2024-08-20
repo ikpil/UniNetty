@@ -2,11 +2,12 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 
 namespace UniNetty.Examples.Demo
 {
-    public static class ServerSettings
+    public class Settings
     {
         public static bool IsSsl
         {
@@ -21,6 +22,12 @@ namespace UniNetty.Examples.Demo
             ? null
             : ExampleHelper.LoadCertificate2();
 
+        public static IPAddress Host => IPAddress.Parse(ExampleHelper.Configuration["host"]);
+
         public static int Port => int.Parse(ExampleHelper.Configuration["port"]);
+
+        public static int Size => int.Parse(ExampleHelper.Configuration["size"]);
+
+        public static int Count => int.Parse(ExampleHelper.Configuration["count"]);
     }
 }
