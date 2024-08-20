@@ -1,4 +1,8 @@
-﻿using UniNetty.Examples.Common;
+// Copyright (c) Microsoft. All rights reserved.
+// Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
+using UniNetty.Examples.Common;
 using UniNetty.Examples.Discard.Client;
 using UniNetty.Examples.Echo.Client;
 using UniNetty.Examples.Factorial.Client;
