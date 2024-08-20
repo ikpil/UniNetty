@@ -1,4 +1,9 @@
 ﻿using UniNetty.Examples.Common;
+using UniNetty.Examples.Discard.Client;
+using UniNetty.Examples.Echo.Client;
+using UniNetty.Examples.Factorial.Client;
+using UniNetty.Examples.QuoteOfTheMoment.Client;
+using UniNetty.Examples.SecureChat.Client;
 using UniNetty.Examples.Telnet.Client;
 using UniNetty.Examples.WebSockets.Client;
 
@@ -12,6 +17,10 @@ class Program
 
         RunWebSocketClient();
         RunTelentClient();
+        RunSecureChatClient();
+        RunQuoteOfTheMomentClient();
+        RunFactorialClient();
+        RunEchoClient();
     }
 
     static void RunWebSocketClient()
@@ -19,10 +28,40 @@ class Program
         var client = new WebSocketClient();
         client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port, ExampleHelper.Configuration["path"]).Wait();
     }
-    
+
     static void RunTelentClient()
     {
         var client = new TelnetClient();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port).Wait();
+    }
+
+    static void RunSecureChatClient()
+    {
+        var client = new SecureChatClient();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port).Wait();
+    }
+    
+    static void RunQuoteOfTheMomentClient()
+    {
+        var client = new QuoteOfTheMomentClient();
+        client.RunClientAsync(ClientSettings.Port).Wait();
+    }
+    
+    static void RunFactorialClient()
+    {
+        var client = new FactorialClient();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port, ClientSettings.Count).Wait();
+    }
+    
+    static void RunEchoClient()
+    {
+        var client = new EchoClient();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port).Wait();
+    }
+    
+    public static void RunDiscardClient()
+    {
+        var client = new DiscardClient();
         client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port).Wait();
     }
 }

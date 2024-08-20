@@ -3,6 +3,12 @@ using System.Runtime;
 using System.Runtime.InteropServices;
 using UniNetty.Common;
 using UniNetty.Examples.Common;
+using UniNetty.Examples.Discard.Server;
+using UniNetty.Examples.Echo.Server;
+using UniNetty.Examples.Factorial.Server;
+using UniNetty.Examples.HttpServer;
+using UniNetty.Examples.QuoteOfTheMoment.Server;
+using UniNetty.Examples.SecureChat.Server;
 using UniNetty.Examples.Telnet.Server;
 using UniNetty.Examples.WebSockets.Server;
 
@@ -34,6 +40,12 @@ public static class Program
 
         RunWebSocketServer();
         RunTelnetServer();
+        RunSecureChatServer();
+        QuoteOfTheMomentServer();
+        RunHelloHttpServer();
+        RunFactorialServer();
+        RunEchoServer();
+        RunDiscardServer();
     }
 
     static void RunWebSocketServer()
@@ -45,6 +57,42 @@ public static class Program
     static void RunTelnetServer()
     {
         var server = new TelnetServer();
+        server.RunServerAsync(ServerSettings.Cert, ServerSettings.Port).Wait();
+    }
+
+    static void RunSecureChatServer()
+    {
+        var server = new SecureChatServer();
+        server.RunServerAsync(ServerSettings.Cert, ServerSettings.Port).Wait();
+    }
+
+    static void QuoteOfTheMomentServer()
+    {
+        var server = new QuoteOfTheMomentServer();
+        server.RunServerAsync(ServerSettings.Port).Wait();
+    }
+
+    static void RunHelloHttpServer()
+    {
+        var server = new HelloHttpServer();
+        server.RunServerAsync(ServerSettings.Cert, ServerSettings.Port).Wait();
+    }
+
+    static void RunFactorialServer()
+    {
+        var server = new FactorialServer();
+        server.RunServerAsync(ServerSettings.Cert, ServerSettings.Port).Wait();
+    }
+
+    static void RunEchoServer()
+    {
+        var server = new EchoServer();
+        server.RunServerAsync(ServerSettings.Cert, ServerSettings.Port).Wait();
+    }
+
+    static void RunDiscardServer()
+    {
+        var server = new DiscardServer();
         server.RunServerAsync(ServerSettings.Cert, ServerSettings.Port).Wait();
     }
 }

@@ -20,6 +20,12 @@
   
   <ItemGroup>
     <ProjectReference Include="..\UniNetty.Examples.Common\UniNetty.Examples.Common.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Discard.Server\UniNetty.Examples.Discard.Server.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.Echo.Server\UniNetty.Examples.Echo.Server.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.Factorial.Server\UniNetty.Examples.Factorial.Server.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.HttpServer\UniNetty.Examples.HttpServer.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.QuoteOfTheMoment.Server\UniNetty.Examples.QuoteOfTheMoment.Server.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.SecureChat.Server\UniNetty.Examples.SecureChat.Server.csproj" />
     <ProjectReference Include="..\UniNetty.Examples.Telnet.Server\UniNetty.Examples.Telnet.Server.csproj"/>
     <ProjectReference Include="..\UniNetty.Examples.WebSockets.Server\UniNetty.Examples.WebSockets.Server.csproj" />
   </ItemGroup>
