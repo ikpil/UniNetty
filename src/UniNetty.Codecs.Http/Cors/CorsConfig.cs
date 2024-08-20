@@ -4,15 +4,17 @@
 
 // ReSharper disable ConvertToAutoProperty
 // ReSharper disable ConvertToAutoPropertyWhenPossible
+
+
 namespace UniNetty.Codecs.Http.Cors
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Linq;
     using System.Text;
     using UniNetty.Common.Concurrency;
     using UniNetty.Common.Utilities;
+    using UniNetty.Common.Collections.Immutable;
 
     // Configuration for Cross-Origin Resource Sharing (CORS).
     public sealed class CorsConfig
@@ -54,15 +56,15 @@ namespace UniNetty.Codecs.Http.Cors
 
         public bool IsNullOriginAllowed => this.allowNullOrigin;
 
-        public ISet<ICharSequence> ExposedHeaders() => this.exposeHeaders.ToImmutableHashSet();
+        public ISet<ICharSequence> ExposedHeaders() => this.exposeHeaders.ToUniImmutableHashSet();
 
         public bool IsCredentialsAllowed => this.allowCredentials;
 
         public long MaxAge => this.maxAge;
 
-        public ISet<HttpMethod> AllowedRequestMethods() => this.allowedRequestMethods.ToImmutableHashSet();
+        public ISet<HttpMethod> AllowedRequestMethods() => this.allowedRequestMethods.ToUniImmutableHashSet();
 
-        public ISet<AsciiString> AllowedRequestHeaders() => this.allowedRequestHeaders.ToImmutableHashSet();
+        public ISet<AsciiString> AllowedRequestHeaders() => this.allowedRequestHeaders.ToUniImmutableHashSet();
 
         public HttpHeaders PreflightResponseHeaders()
         {

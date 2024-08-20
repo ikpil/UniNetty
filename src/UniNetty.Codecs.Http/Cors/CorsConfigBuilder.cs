@@ -3,14 +3,16 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 // ReSharper disable InconsistentNaming
+
+
 namespace UniNetty.Codecs.Http.Cors
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Diagnostics.Contracts;
     using UniNetty.Common.Concurrency;
     using UniNetty.Common.Utilities;
+    using UniNetty.Common.Collections.Immutable;
 
     public sealed class CorsConfigBuilder
     {
@@ -47,7 +49,7 @@ namespace UniNetty.Codecs.Http.Cors
         CorsConfigBuilder()
         {
             this.anyOrigin = true;
-            this.origins = ImmutableHashSet<ICharSequence>.Empty;
+            this.origins = UniImmutableHashSet<ICharSequence>.Empty;
         }
 
         public CorsConfigBuilder AllowNullOrigin()

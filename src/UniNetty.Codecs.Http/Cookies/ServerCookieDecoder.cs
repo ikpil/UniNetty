@@ -2,12 +2,13 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+
 namespace UniNetty.Codecs.Http.Cookies
 {
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Diagnostics.Contracts;
     using UniNetty.Common.Utilities;
+    using UniNetty.Common.Collections.Immutable;
 
     // http://tools.ietf.org/html/rfc6265 
     // compliant cookie decoder to be used server side.
@@ -43,7 +44,7 @@ namespace UniNetty.Codecs.Http.Cookies
             int headerLen = header.Length;
             if (headerLen == 0)
             {
-                return ImmutableHashSet<ICookie>.Empty;
+                return UniImmutableHashSet<ICookie>.Empty;
             }
 
             var cookies = new SortedSet<ICookie>();

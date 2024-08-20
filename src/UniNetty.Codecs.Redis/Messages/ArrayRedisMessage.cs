@@ -5,11 +5,11 @@
 namespace UniNetty.Codecs.Redis.Messages
 {
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Diagnostics.Contracts;
     using System.Text;
     using UniNetty.Common;
     using UniNetty.Common.Utilities;
+    using UniNetty.Common.Collections.Immutable;
 
     public sealed class ArrayRedisMessage : AbstractReferenceCounted, IArrayRedisMessage
     {
@@ -70,7 +70,7 @@ namespace UniNetty.Codecs.Redis.Messages
 
             public bool Release(int decrement) => false;
 
-            public IList<IRedisMessage> Children => ImmutableList<IRedisMessage>.Empty;
+            public IList<IRedisMessage> Children => UniImmutableArray<IRedisMessage>.Empty;
 
             public override string ToString() => nameof(NullArrayRedisMessage);
         }
@@ -93,7 +93,7 @@ namespace UniNetty.Codecs.Redis.Messages
 
             public bool Release(int decrement) => false;
 
-            public IList<IRedisMessage> Children => ImmutableList<IRedisMessage>.Empty;
+            public IList<IRedisMessage> Children => UniImmutableArray<IRedisMessage>.Empty;
 
             public override string ToString() => nameof(EmptyArrayRedisMessage);
         }

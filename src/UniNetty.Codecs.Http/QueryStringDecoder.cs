@@ -4,14 +4,17 @@
 
 // ReSharper disable ConvertToAutoPropertyWhenPossible
 // ReSharper disable ConvertToAutoProperty
+
+
+
 namespace UniNetty.Codecs.Http
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Diagnostics.Contracts;
     using System.Text;
     using UniNetty.Common.Utilities;
+    using UniNetty.Common.Collections.Immutable;
 
     public class QueryStringDecoder
     {
@@ -106,7 +109,7 @@ namespace UniNetty.Codecs.Http
             int len = s.Length;
             if (from >= len)
             {
-                return ImmutableDictionary<string, List<string>>.Empty;
+                return UniImmutableDictionary<string, List<string>>.Empty;
             }
             if (s[from] == '?')
             {

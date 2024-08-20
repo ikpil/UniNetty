@@ -2,15 +2,16 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+
 namespace UniNetty.Codecs.Http
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Diagnostics;
     using System.Runtime.CompilerServices;
     using UniNetty.Codecs;
     using UniNetty.Common.Utilities;
+    using UniNetty.Common.Collections.Immutable;
 
     public class DefaultHttpHeaders : HttpHeaders
     {
@@ -173,7 +174,7 @@ namespace UniNetty.Codecs.Http
         {
             if (this.IsEmpty)
             {
-                return ImmutableList<HeaderEntry<AsciiString, ICharSequence>>.Empty;
+                return UniImmutableArray<HeaderEntry<AsciiString, ICharSequence>>.Empty;
             }
             var entriesConverted = new List<HeaderEntry<AsciiString, ICharSequence>>(this.headers.Size);
             foreach(HeaderEntry<AsciiString, ICharSequence> entry in this)

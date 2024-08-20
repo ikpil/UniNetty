@@ -2,13 +2,14 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+
 namespace UniNetty.Codecs.Http.Cookies
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Diagnostics.Contracts;
     using System.Text;
+    using UniNetty.Common.Collections.Immutable;
 
     using static CookieUtil;
 
@@ -116,7 +117,7 @@ namespace UniNetty.Codecs.Http.Cookies
         {
             if (cookies == null || cookies.Length == 0)
             {
-                return ImmutableList<string>.Empty;
+                return UniImmutableArray<string>.Empty;
             }
 
             var encoded = new List<string>(cookies.Length);
@@ -147,7 +148,7 @@ namespace UniNetty.Codecs.Http.Cookies
             Contract.Requires(cookies != null);
             if (cookies.Count == 0)
             {
-                return ImmutableList<string>.Empty;
+                return UniImmutableArray<string>.Empty;
             }
 
             var encoded = new List<string>();

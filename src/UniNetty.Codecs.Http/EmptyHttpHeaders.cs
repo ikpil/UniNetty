@@ -2,13 +2,14 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+
 namespace UniNetty.Codecs.Http
 {
     using System;
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Linq;
     using UniNetty.Common.Utilities;
+    using UniNetty.Common.Collections.Immutable;
 
     public class EmptyHttpHeaders : HttpHeaders
     {
@@ -51,9 +52,9 @@ namespace UniNetty.Codecs.Http
 
         public override long GetTimeMillis(AsciiString name, long defaultValue) => defaultValue;
 
-        public override IList<ICharSequence> GetAll(AsciiString name) => ImmutableList<ICharSequence>.Empty;
+        public override IList<ICharSequence> GetAll(AsciiString name) => UniImmutableArray<ICharSequence>.Empty;
 
-        public override IList<HeaderEntry<AsciiString, ICharSequence>> Entries() => ImmutableList<HeaderEntry<AsciiString, ICharSequence>>.Empty;
+        public override IList<HeaderEntry<AsciiString, ICharSequence>> Entries() => UniImmutableArray<HeaderEntry<AsciiString, ICharSequence>>.Empty;
 
         public override bool Contains(AsciiString name) => false;
 
@@ -61,7 +62,7 @@ namespace UniNetty.Codecs.Http
 
         public override int Size => 0;
 
-        public override ISet<AsciiString> Names() => ImmutableHashSet<AsciiString>.Empty;
+        public override ISet<AsciiString> Names() => UniImmutableHashSet<AsciiString>.Empty;
 
         public override HttpHeaders AddInt(AsciiString name, int value) => throw new NotSupportedException("read only");
 

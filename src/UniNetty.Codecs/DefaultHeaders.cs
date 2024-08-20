@@ -7,14 +7,16 @@
 // ReSharper disable ForCanBeConvertedToForeach
 // ReSharper disable PossibleUnintendedReferenceComparison
 // ReSharper disable EmptyGeneralCatchClause
+
+
 namespace UniNetty.Codecs
 {
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Collections.Immutable;
     using System.Runtime.CompilerServices;
     using UniNetty.Common.Utilities;
+    using UniNetty.Common.Collections.Immutable;
 
     using static Common.Internal.MathUtil;
     using static HeadersUtils;
@@ -190,7 +192,7 @@ namespace UniNetty.Codecs
         {
             if (this.IsEmpty)
             {
-                return ImmutableHashSet<TKey>.Empty;
+                return UniImmutableHashSet<TKey>.Empty;
             }
 
             var names = new HashSet<TKey>(this.hashingStrategy);
