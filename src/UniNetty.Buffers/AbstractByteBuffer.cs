@@ -473,8 +473,8 @@ namespace UniNetty.Buffers
                 }
                 else
                 {
-                    Span<byte> p = this.GetPinnableMemoryAddress();
-                    return UnsafeByteBufferUtil.GetString(p.Slice(index), length, encoding);
+                    var p = this.GetPinnableMemoryAddress();
+                    return UnsafeByteBufferUtil.GetString(p.Span.Slice(index), length, encoding);
                 }
             }
             if (this.HasArray)
@@ -509,8 +509,8 @@ namespace UniNetty.Buffers
                 }
                 else
                 {
-                    Span<byte> p = this.GetPinnableMemoryAddress();
-                    return new StringCharSequence(UnsafeByteBufferUtil.GetString(p.Slice(index), length, encoding));
+                    var p = this.GetPinnableMemoryAddress();
+                    return new StringCharSequence(UnsafeByteBufferUtil.GetString(p.Span.Slice(index), length, encoding));
                 }
             }
             if (this.HasArray)
@@ -1512,7 +1512,7 @@ namespace UniNetty.Buffers
 
         public abstract bool HasMemoryAddress { get; }
 
-        public abstract Span<byte> GetPinnableMemoryAddress();
+        public abstract Memory<byte> GetPinnableMemoryAddress();
 
         public abstract Span<byte> AddressOfPinnedMemory();
 

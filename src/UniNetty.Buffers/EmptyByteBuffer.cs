@@ -440,7 +440,7 @@ namespace UniNetty.Buffers
 
         public bool HasMemoryAddress => false;
 
-        public Span<byte> GetPinnableMemoryAddress() => throw new NotSupportedException();
+        public Memory<byte> GetPinnableMemoryAddress() => throw new NotSupportedException();
 
         public Span<byte> AddressOfPinnedMemory() => null;
 

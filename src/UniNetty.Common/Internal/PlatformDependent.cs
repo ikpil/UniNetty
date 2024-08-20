@@ -222,6 +222,7 @@ namespace UniNetty.Common.Internal
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static int HashCodeAsciiSanitizsByte(char value) => value & 0x1f;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void CopyMemory(byte[] src, int srcIndex, byte[] dst, int dstIndex, int length)
         {
             if (length > 0)
@@ -230,6 +231,7 @@ namespace UniNetty.Common.Internal
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void CopyMemory(Span<byte> src, Span<byte> dst, int length)
         {
             if (length > 0)
@@ -238,6 +240,7 @@ namespace UniNetty.Common.Internal
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void CopyMemory(Span<byte> src, byte[] dst, int dstIndex, int length)
         {
             if (length > 0)
@@ -246,6 +249,7 @@ namespace UniNetty.Common.Internal
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void CopyMemory(Span<byte> src, int srcIndex, Span<byte> dst, int length)
         {
             if (length > 0)
@@ -254,6 +258,7 @@ namespace UniNetty.Common.Internal
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Clear(byte[] src, int srcIndex, int length)
         {
             if (length > 0)
@@ -262,6 +267,7 @@ namespace UniNetty.Common.Internal
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetMemory(Span<byte> src, int length, byte value)
         {
             if (length > 0)
@@ -270,6 +276,7 @@ namespace UniNetty.Common.Internal
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetMemory(byte[] src, int srcIndex, int length, byte value)
         {
             if (length > 0)

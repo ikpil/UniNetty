@@ -160,10 +160,10 @@ namespace UniNetty.Buffers
 
         public override bool HasMemoryAddress => true;
 
-        public override Span<byte> GetPinnableMemoryAddress()
+        public override Memory<byte> GetPinnableMemoryAddress()
         {
             this.EnsureAccessible();
-            return new Span<byte>(this.Memory, this.Offset, this.Length);
+            return new Memory<byte>(this.Memory, this.Offset, this.Length);
         }
 
         public override Span<byte> AddressOfPinnedMemory() => this.memoryAddress.Span;

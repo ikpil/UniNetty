@@ -671,7 +671,7 @@ namespace UniNetty.Buffers
             }
         }
 
-        public override Span<byte> GetPinnableMemoryAddress()
+        public override Memory<byte> GetPinnableMemoryAddress()
         {
             switch (this.components.Count)
             {

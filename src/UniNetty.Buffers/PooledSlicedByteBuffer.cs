@@ -46,7 +46,7 @@ namespace UniNetty.Buffers
 
         public override int ArrayOffset => this.Idx(this.Unwrap().ArrayOffset);
 
-        public override Span<byte> GetPinnableMemoryAddress() => this.Unwrap().GetPinnableMemoryAddress().Slice(this.adjustment);
+        public override Memory<byte> GetPinnableMemoryAddress() => this.Unwrap().GetPinnableMemoryAddress().Slice(this.adjustment);
 
         public override Span<byte> AddressOfPinnedMemory()
         {

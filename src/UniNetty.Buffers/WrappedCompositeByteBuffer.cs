@@ -673,7 +673,7 @@ namespace UniNetty.Buffers
 
         public sealed override Span<byte> AddressOfPinnedMemory() => this.wrapped.AddressOfPinnedMemory();
 
-        public sealed override Span<byte> GetPinnableMemoryAddress() => this.wrapped.GetPinnableMemoryAddress();
+        public sealed override Memory<byte> GetPinnableMemoryAddress() => this.wrapped.GetPinnableMemoryAddress();
 
         public sealed override bool HasMemoryAddress => this.wrapped.HasMemoryAddress;
 
