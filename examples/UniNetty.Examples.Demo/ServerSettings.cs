@@ -4,11 +4,9 @@
 
 using System.Security.Cryptography.X509Certificates;
 
-namespace UniNetty.Examples.Common
+namespace UniNetty.Examples.Demo
 {
-    using System.Net;
-
-    public class ClientSettings
+    public static class ServerSettings
     {
         public static bool IsSsl
         {
@@ -22,13 +20,7 @@ namespace UniNetty.Examples.Common
         public static X509Certificate2 Cert => !IsSsl
             ? null
             : ExampleHelper.LoadCertificate2();
-        
-        public static IPAddress Host => IPAddress.Parse(ExampleHelper.Configuration["host"]);
 
         public static int Port => int.Parse(ExampleHelper.Configuration["port"]);
-
-        public static int Size => int.Parse(ExampleHelper.Configuration["size"]);
-        
-        public static int Count => int.Parse(ExampleHelper.Configuration["count"]);
     }
 }

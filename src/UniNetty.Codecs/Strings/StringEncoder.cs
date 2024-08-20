@@ -2,14 +2,14 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace UniNetty.Codecs
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using UniNetty.Buffers;
-    using UniNetty.Transport.Channels;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using UniNetty.Buffers;
+using UniNetty.Transport.Channels;
 
+namespace UniNetty.Codecs.Strings
+{
     /**
     * Encodes the requested {@link String} into a {@link ByteBuf}.
     * A typical setup for a text-based line protocol in a TCP/IP socket would be:

@@ -2,14 +2,14 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace UniNetty.Codecs
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using UniNetty.Buffers;
-    using UniNetty.Transport.Channels;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using UniNetty.Buffers;
+using UniNetty.Transport.Channels;
 
+namespace UniNetty.Codecs.Strings
+{
     /*
     * Decodes a received {@link ByteBuf} into a {@link String}.  Please
     * note that this decoder must be used with a proper {@link ByteToMessageDecoder}
@@ -40,7 +40,7 @@ namespace UniNetty.Codecs
         readonly Encoding encoding;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="UniNetty.Codecs.StringDecoder" /> class with the current system
+        ///     Initializes a new instance of the <see cref="StringDecoder" /> class with the current system
         ///     character set.
         /// </summary>
         public StringDecoder()
@@ -49,7 +49,7 @@ namespace UniNetty.Codecs
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="UniNetty.Codecs.StringDecoder" /> class with the specified character
+        ///     Initializes a new instance of the <see cref="StringDecoder" /> class with the specified character
         ///     set..
         /// </summary>
         /// <param name="encoding">Encoding.</param>

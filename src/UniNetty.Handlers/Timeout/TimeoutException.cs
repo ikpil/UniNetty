@@ -2,10 +2,10 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-namespace UniNetty.Handlers
-{
-    using System.IO;
+using System.IO;
 
+namespace UniNetty.Handlers.Timeout
+{
     public class TimeoutException : IOException
     {
         public TimeoutException(string message)

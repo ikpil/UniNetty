@@ -6,17 +6,23 @@ using System;
 using System.Runtime;
 using System.Runtime.InteropServices;
 using UniNetty.Common;
-using UniNetty.Examples.Common;
+using UniNetty.Examples.Discard.Client;
 using UniNetty.Examples.Discard.Server;
+using UniNetty.Examples.Echo.Client;
 using UniNetty.Examples.Echo.Server;
+using UniNetty.Examples.Factorial.Client;
 using UniNetty.Examples.Factorial.Server;
 using UniNetty.Examples.HttpServer;
+using UniNetty.Examples.QuoteOfTheMoment.Client;
 using UniNetty.Examples.QuoteOfTheMoment.Server;
+using UniNetty.Examples.SecureChat.Client;
 using UniNetty.Examples.SecureChat.Server;
+using UniNetty.Examples.Telnet.Client;
 using UniNetty.Examples.Telnet.Server;
+using UniNetty.Examples.WebSockets.Client;
 using UniNetty.Examples.WebSockets.Server;
 
-namespace UniNetty.Examples.Demo.Server;
+namespace UniNetty.Examples.Demo;
 
 public static class Program
 {
@@ -50,7 +56,57 @@ public static class Program
         RunFactorialServer();
         RunEchoServer();
         RunDiscardServer();
+
+        RunWebSocketClient();
+        RunTelentClient();
+        RunSecureChatClient();
+        RunQuoteOfTheMomentClient();
+        RunFactorialClient();
+        RunEchoClient();
     }
+
+    static void RunWebSocketClient()
+    {
+        var client = new WebSocketClient();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port, ExampleHelper.Configuration["path"]).Wait();
+    }
+
+    static void RunTelentClient()
+    {
+        var client = new TelnetClient();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port).Wait();
+    }
+
+    static void RunSecureChatClient()
+    {
+        var client = new SecureChatClient();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port).Wait();
+    }
+
+    static void RunQuoteOfTheMomentClient()
+    {
+        var client = new QuoteOfTheMomentClient();
+        client.RunClientAsync(ClientSettings.Port).Wait();
+    }
+
+    static void RunFactorialClient()
+    {
+        var client = new FactorialClient();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port, ClientSettings.Count).Wait();
+    }
+
+    static void RunEchoClient()
+    {
+        var client = new EchoClient();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port, ClientSettings.Size).Wait();
+    }
+
+    public static void RunDiscardClient()
+    {
+        var client = new DiscardClient();
+        client.RunClientAsync(ClientSettings.Cert, ClientSettings.Host, ClientSettings.Port, ClientSettings.Size).Wait();
+    }
+
 
     static void RunWebSocketServer()
     {

@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\shared\dotnetty.com.pfx" Link="dotnetty.com.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UniNetty.Examples.HttpServer\UniNetty.Examples.HttpServer.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.Discard.Server\UniNetty.Examples.Discard.Server.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.Discard.Client\UniNetty.Examples.Discard.Client.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.Factorial.Server\UniNetty.Examples.Factorial.Server.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.Factorial.Client\UniNetty.Examples.Factorial.Client.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.QuoteOfTheMoment.Server\UniNetty.Examples.QuoteOfTheMoment.Server.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.QuoteOfTheMoment.Client\UniNetty.Examples.QuoteOfTheMoment.Client.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.Telnet.Server\UniNetty.Examples.Telnet.Server.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Telnet.Client\UniNetty.Examples.Telnet.Client.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Echo.Server\UniNetty.Examples.Echo.Server.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.Echo.Client\UniNetty.Examples.Echo.Client.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.SecureChat.Server\UniNetty.Examples.SecureChat.Server.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.SecureChat.Client\UniNetty.Examples.SecureChat.Client.csproj" />
+    <ProjectReference Include="..\UniNetty.Examples.WebSockets.Client\UniNetty.Examples.WebSockets.Client.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.WebSockets.Server\UniNetty.Examples.WebSockets.Server.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
+    <PackageReference Include="Serilog" Version="4.0.1" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.2" />
+    <PackageReference Include="Serilog.Enrichers.Thread" Version="4.0.0" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="2.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
+    <PackageReference Include="K4os.Compression.LZ4" Version="1.3.8" />
+    <PackageReference Include="Silk.NET" Version="2.21.0" />
+    <PackageReference Include="Silk.NET.OpenGL.Extensions.ImGui" Version="2.21.0" />
+  </ItemGroup>
+
+
+</Project>

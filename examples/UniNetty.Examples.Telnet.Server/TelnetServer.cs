@@ -6,6 +6,7 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using UniNetty.Codecs;
+using UniNetty.Codecs.Strings;
 using UniNetty.Handlers.Logging;
 using UniNetty.Handlers.Tls;
 using UniNetty.Transport.Bootstrapping;

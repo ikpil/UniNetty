@@ -2,16 +2,15 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using UniNetty.Common.Internal.Logging;
 
-namespace UniNetty.Examples.Common
+namespace UniNetty.Examples.Demo
 {
-    using System;
-    using UniNetty.Common.Internal.Logging;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.Logging;
-
     public static class ExampleHelper
     {
         static ExampleHelper()

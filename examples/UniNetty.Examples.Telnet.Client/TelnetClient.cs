@@ -8,6 +8,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using UniNetty.Codecs;
+using UniNetty.Codecs.Strings;
 using UniNetty.Handlers.Tls;
 using UniNetty.Transport.Bootstrapping;
 using UniNetty.Transport.Channels;
