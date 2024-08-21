@@ -74,9 +74,9 @@ namespace UniNetty.Codecs.Http.WebSockets
             return res;
         }
 
-        protected internal override IWebSocketFrameDecoder NewWebsocketDecoder() =>  new WebSocket07FrameDecoder(
+        public override IWebSocketFrameDecoder NewWebsocketDecoder() =>  new WebSocket07FrameDecoder(
             true, this.allowExtensions, this.MaxFramePayloadLength, this.allowMaskMismatch);
 
-        protected internal override IWebSocketFrameEncoder NewWebSocketEncoder() => new WebSocket07FrameEncoder(false);
+        public override IWebSocketFrameEncoder NewWebSocketEncoder() => new WebSocket07FrameEncoder(false);
     }
 }

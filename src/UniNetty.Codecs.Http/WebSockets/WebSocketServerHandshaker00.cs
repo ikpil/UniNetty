@@ -108,8 +108,8 @@ namespace UniNetty.Codecs.Http.WebSockets
 
         public override Task CloseAsync(IChannel channel, CloseWebSocketFrame frame) => channel.WriteAndFlushAsync(frame);
 
-        protected internal override IWebSocketFrameDecoder NewWebsocketDecoder() => new WebSocket00FrameDecoder(this.MaxFramePayloadLength);
+        public override IWebSocketFrameDecoder NewWebsocketDecoder() => new WebSocket00FrameDecoder(this.MaxFramePayloadLength);
 
-        protected internal override IWebSocketFrameEncoder NewWebSocketEncoder() => new WebSocket00FrameEncoder();
+        public override IWebSocketFrameEncoder NewWebSocketEncoder() => new WebSocket00FrameEncoder();
     }
 }

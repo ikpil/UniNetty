@@ -22,7 +22,7 @@ namespace UniNetty.Codecs.Http.WebSockets
         {
         }
 
-        protected internal override IFullHttpRequest NewHandshakeRequest()
+        public override IFullHttpRequest NewHandshakeRequest()
         {
             // Make keys
             int spaces1 = WebSocketUtil.RandomNumber(1, 12);
@@ -156,8 +156,8 @@ namespace UniNetty.Codecs.Http.WebSockets
             return key;
         }
 
-        protected internal override IWebSocketFrameDecoder NewWebSocketDecoder() => new WebSocket00FrameDecoder(this.MaxFramePayloadLength);
+        public override IWebSocketFrameDecoder NewWebSocketDecoder() => new WebSocket00FrameDecoder(this.MaxFramePayloadLength);
 
-        protected internal override IWebSocketFrameEncoder NewWebSocketEncoder() => new WebSocket00FrameEncoder();
+        public override IWebSocketFrameEncoder NewWebSocketEncoder() => new WebSocket00FrameEncoder();
     }
 }

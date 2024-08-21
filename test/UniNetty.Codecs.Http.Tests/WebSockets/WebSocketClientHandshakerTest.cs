@@ -284,7 +284,7 @@ namespace UniNetty.Codecs.Http.Tests.WebSockets
                 this.shaker = shaker;
             }
 
-            protected internal override IFullHttpRequest NewHandshakeRequest() => this.shaker.NewHandshakeRequest();
+            public override IFullHttpRequest NewHandshakeRequest() => this.shaker.NewHandshakeRequest();
 
             protected override void Verify(IFullHttpResponse response)
             {
@@ -292,9 +292,9 @@ namespace UniNetty.Codecs.Http.Tests.WebSockets
                 // which would just make things more complicated.
             }
 
-            protected internal override IWebSocketFrameDecoder NewWebSocketDecoder() => this.shaker.NewWebSocketDecoder();
+            public override IWebSocketFrameDecoder NewWebSocketDecoder() => this.shaker.NewWebSocketDecoder();
 
-            protected internal override IWebSocketFrameEncoder NewWebSocketEncoder() => this.shaker.NewWebSocketEncoder();
+            public override IWebSocketFrameEncoder NewWebSocketEncoder() => this.shaker.NewWebSocketEncoder();
         }
 
         sealed class Handler : SimpleChannelInboundHandler<IFullHttpResponse>

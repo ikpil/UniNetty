@@ -37,7 +37,7 @@ namespace UniNetty.Codecs.Http.WebSockets
             this.allowMaskMismatch = allowMaskMismatch;
         }
 
-        protected internal override IFullHttpRequest NewHandshakeRequest()
+        public override IFullHttpRequest NewHandshakeRequest()
         {
             // Get path
             Uri wsUrl = this.Uri;
@@ -111,9 +111,9 @@ namespace UniNetty.Codecs.Http.WebSockets
             }
         }
 
-        protected internal override IWebSocketFrameDecoder NewWebSocketDecoder() => new WebSocket08FrameDecoder(
+        public override IWebSocketFrameDecoder NewWebSocketDecoder() => new WebSocket08FrameDecoder(
             false, this.allowExtensions, this.MaxFramePayloadLength, this.allowMaskMismatch);
 
-        protected internal override IWebSocketFrameEncoder NewWebSocketEncoder() => new WebSocket08FrameEncoder(this.performMasking);
+        public override IWebSocketFrameEncoder NewWebSocketEncoder() => new WebSocket08FrameEncoder(this.performMasking);
     }
 }

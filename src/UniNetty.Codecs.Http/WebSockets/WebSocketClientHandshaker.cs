@@ -111,7 +111,7 @@ namespace UniNetty.Codecs.Http.WebSockets
             return completion.Task;
         }
 
-        protected internal abstract IFullHttpRequest NewHandshakeRequest();
+        public abstract IFullHttpRequest NewHandshakeRequest();
 
         public void FinishHandshake(IChannel channel, IFullHttpResponse response)
         {
@@ -303,9 +303,9 @@ namespace UniNetty.Codecs.Http.WebSockets
 
         protected abstract void Verify(IFullHttpResponse response);
 
-        protected internal abstract IWebSocketFrameDecoder NewWebSocketDecoder();
+        public abstract IWebSocketFrameDecoder NewWebSocketDecoder();
 
-        protected internal abstract IWebSocketFrameEncoder NewWebSocketEncoder();
+        public abstract IWebSocketFrameEncoder NewWebSocketEncoder();
 
         public Task CloseAsync(IChannel channel, CloseWebSocketFrame frame)
         {

@@ -84,7 +84,7 @@ namespace UniNetty.Codecs.Compression
 
         internal IChecksum adler;
 
-        protected internal ZStream() : this(new Adler32())
+        protected ZStream() : this(new Adler32())
         {
         }
 

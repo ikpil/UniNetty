@@ -252,8 +252,8 @@ namespace UniNetty.Codecs.Http.WebSockets
 
         public string SelectedSubprotocol => this.selectedSubprotocol;
 
-        protected internal abstract IWebSocketFrameDecoder NewWebsocketDecoder();
+        public abstract IWebSocketFrameDecoder NewWebsocketDecoder();
 
-        protected internal abstract IWebSocketFrameEncoder NewWebSocketEncoder();
+        public abstract IWebSocketFrameEncoder NewWebSocketEncoder();
     }
 }
