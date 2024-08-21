@@ -811,13 +811,13 @@ namespace UniNetty.Buffers
             return this.components[cIndex].Offset;
         }
 
-        protected internal override byte _GetByte(int index)
+        internal override byte _GetByte(int index)
         {
             ComponentEntry c = this.FindComponent(index);
             return c.Buffer.GetByte(index - c.Offset);
         }
 
-        protected internal override short _GetShort(int index)
+        internal override short _GetShort(int index)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 2 <= c.EndOffset)
@@ -828,7 +828,7 @@ namespace UniNetty.Buffers
             return (short)(this._GetByte(index) << 8 | this._GetByte(index + 1));
         }
 
-        protected internal override short _GetShortLE(int index)
+        internal override short _GetShortLE(int index)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 2 <= c.EndOffset)
@@ -839,7 +839,7 @@ namespace UniNetty.Buffers
             return (short)(this._GetByte(index) << 8 | this._GetByte(index + 1));
         }
 
-        protected internal override int _GetUnsignedMedium(int index)
+        internal override int _GetUnsignedMedium(int index)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 3 <= c.EndOffset)
@@ -850,7 +850,7 @@ namespace UniNetty.Buffers
             return (this._GetShort(index) & 0xffff) << 8 | this._GetByte(index + 2);
         }
 
-        protected internal override int _GetUnsignedMediumLE(int index)
+        internal override int _GetUnsignedMediumLE(int index)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 3 <= c.EndOffset)
@@ -861,7 +861,7 @@ namespace UniNetty.Buffers
             return (this._GetShortLE(index) & 0xffff) << 8 | this._GetByte(index + 2);
         }
 
-        protected internal override int _GetInt(int index)
+        internal override int _GetInt(int index)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 4 <= c.EndOffset)
@@ -872,7 +872,7 @@ namespace UniNetty.Buffers
             return this._GetShort(index) << 16 | (ushort)this._GetShort(index + 2);
         }
 
-        protected internal override int _GetIntLE(int index)
+        internal override int _GetIntLE(int index)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 4 <= c.EndOffset)
@@ -883,7 +883,7 @@ namespace UniNetty.Buffers
             return (this._GetShortLE(index) << 16 | (ushort)this._GetShortLE(index + 2));
         }
 
-        protected internal override long _GetLong(int index)
+        internal override long _GetLong(int index)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 8 <= c.EndOffset)
@@ -894,7 +894,7 @@ namespace UniNetty.Buffers
             return (long)this._GetInt(index) << 32 | (uint)this._GetInt(index + 4);
         }
 
-        protected internal override long _GetLongLE(int index)
+        internal override long _GetLongLE(int index)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 8 <= c.EndOffset)
@@ -976,13 +976,13 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetByte(int index, int value)
+        internal override void _SetByte(int index, int value)
         {
             ComponentEntry c = this.FindComponent(index);
             c.Buffer.SetByte(index - c.Offset, value);
         }
 
-        protected internal override void _SetShort(int index, int value)
+        internal override void _SetShort(int index, int value)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 2 <= c.EndOffset)
@@ -996,7 +996,7 @@ namespace UniNetty.Buffers
             }
         }
 
-        protected internal override void _SetShortLE(int index, int value)
+        internal override void _SetShortLE(int index, int value)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 2 <= c.EndOffset)
@@ -1010,7 +1010,7 @@ namespace UniNetty.Buffers
             }
         }
 
-        protected internal override void _SetMedium(int index, int value)
+        internal override void _SetMedium(int index, int value)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 3 <= c.EndOffset)
@@ -1024,7 +1024,7 @@ namespace UniNetty.Buffers
             }
         }
 
-        protected internal override void _SetMediumLE(int index, int value)
+        internal override void _SetMediumLE(int index, int value)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 3 <= c.EndOffset)
@@ -1038,7 +1038,7 @@ namespace UniNetty.Buffers
             }
         }
 
-        protected internal override void _SetInt(int index, int value)
+        internal override void _SetInt(int index, int value)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 4 <= c.EndOffset)
@@ -1052,7 +1052,7 @@ namespace UniNetty.Buffers
             }
         }
 
-        protected internal override void _SetIntLE(int index, int value)
+        internal override void _SetIntLE(int index, int value)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 4 <= c.EndOffset)
@@ -1066,7 +1066,7 @@ namespace UniNetty.Buffers
             }
         }
 
-        protected internal override void _SetLong(int index, long value)
+        internal override void _SetLong(int index, long value)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 8 <= c.EndOffset)
@@ -1080,7 +1080,7 @@ namespace UniNetty.Buffers
             }
         }
 
-        protected internal override void _SetLongLE(int index, long value)
+        internal override void _SetLongLE(int index, long value)
         {
             ComponentEntry c = this.FindComponent(index);
             if (index + 8 <= c.EndOffset)

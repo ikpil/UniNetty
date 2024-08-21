@@ -77,7 +77,7 @@ namespace UniNetty.Buffers
             return this.Unwrap().GetByte(this.Idx(index));
         }
 
-        protected internal override byte _GetByte(int index) => this.Unwrap().GetByte(this.Idx(index));
+        internal override byte _GetByte(int index) => this.Unwrap().GetByte(this.Idx(index));
 
         public override short GetShort(int index)
         {
@@ -85,7 +85,7 @@ namespace UniNetty.Buffers
             return this.Unwrap().GetShort(this.Idx(index));
         }
 
-        protected internal override short _GetShort(int index) => this.Unwrap().GetShort(this.Idx(index));
+        internal override short _GetShort(int index) => this.Unwrap().GetShort(this.Idx(index));
 
         public override short GetShortLE(int index)
         {
@@ -93,7 +93,7 @@ namespace UniNetty.Buffers
             return this.Unwrap().GetShortLE(this.Idx(index));
         }
 
-        protected internal override short _GetShortLE(int index) => this.Unwrap().GetShortLE(this.Idx(index));
+        internal override short _GetShortLE(int index) => this.Unwrap().GetShortLE(this.Idx(index));
 
         public override int GetUnsignedMedium(int index)
         {
@@ -101,7 +101,7 @@ namespace UniNetty.Buffers
             return this.Unwrap().GetUnsignedMedium(this.Idx(index));
         }
 
-        protected internal override int _GetUnsignedMedium(int index) => this.Unwrap().GetUnsignedMedium(this.Idx(index));
+        internal override int _GetUnsignedMedium(int index) => this.Unwrap().GetUnsignedMedium(this.Idx(index));
 
         public override int GetUnsignedMediumLE(int index)
         {
@@ -109,7 +109,7 @@ namespace UniNetty.Buffers
             return this.Unwrap().GetUnsignedMediumLE(this.Idx(index));
         }
 
-        protected internal override int _GetUnsignedMediumLE(int index) => this.Unwrap().GetUnsignedMediumLE(this.Idx(index));
+        internal override int _GetUnsignedMediumLE(int index) => this.Unwrap().GetUnsignedMediumLE(this.Idx(index));
 
         public override int GetInt(int index)
         {
@@ -117,7 +117,7 @@ namespace UniNetty.Buffers
             return this.Unwrap().GetInt(this.Idx(index));
         }
 
-        protected internal override int _GetInt(int index) => this.Unwrap().GetInt(this.Idx(index));
+        internal override int _GetInt(int index) => this.Unwrap().GetInt(this.Idx(index));
 
         public override int GetIntLE(int index)
         {
@@ -125,7 +125,7 @@ namespace UniNetty.Buffers
             return this.Unwrap().GetIntLE(this.Idx(index));
         }
 
-        protected internal override int _GetIntLE(int index) => this.Unwrap().GetIntLE(this.Idx(index));
+        internal override int _GetIntLE(int index) => this.Unwrap().GetIntLE(this.Idx(index));
 
         public override long GetLong(int index)
         {
@@ -133,7 +133,7 @@ namespace UniNetty.Buffers
             return this.Unwrap().GetLong(this.Idx(index));
         }
 
-        protected internal override long _GetLong(int index) => this.Unwrap().GetLong(this.Idx(index));
+        internal override long _GetLong(int index) => this.Unwrap().GetLong(this.Idx(index));
 
         public override long GetLongLE(int index)
         {
@@ -141,7 +141,7 @@ namespace UniNetty.Buffers
             return this.Unwrap().GetLongLE(this.Idx(index));
         }
 
-        protected internal override long _GetLongLE(int index) => this.Unwrap().GetLongLE(this.Idx(index));
+        internal override long _GetLongLE(int index) => this.Unwrap().GetLongLE(this.Idx(index));
 
         public override IByteBuffer Duplicate() => this.Unwrap().Duplicate().SetIndex(this.Idx(this.ReaderIndex), this.Idx(this.WriterIndex));
 
@@ -185,7 +185,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetByte(int index, int value) => this.Unwrap().SetByte(this.Idx(index), value);
+        internal override void _SetByte(int index, int value) => this.Unwrap().SetByte(this.Idx(index), value);
 
         public override IByteBuffer SetShort(int index, int value)
         {
@@ -194,7 +194,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetShort(int index, int value) => this.Unwrap().SetShort(this.Idx(index), value);
+        internal override void _SetShort(int index, int value) => this.Unwrap().SetShort(this.Idx(index), value);
 
         public override IByteBuffer SetShortLE(int index, int value)
         {
@@ -203,7 +203,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetShortLE(int index, int value) => this.Unwrap().SetShortLE(this.Idx(index), value);
+        internal override void _SetShortLE(int index, int value) => this.Unwrap().SetShortLE(this.Idx(index), value);
 
         public override IByteBuffer SetMedium(int index, int value)
         {
@@ -212,7 +212,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetMedium(int index, int value) => this.Unwrap().SetMedium(this.Idx(index), value);
+        internal override void _SetMedium(int index, int value) => this.Unwrap().SetMedium(this.Idx(index), value);
 
         public override IByteBuffer SetMediumLE(int index, int value)
         {
@@ -221,7 +221,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetMediumLE(int index, int value) => this.Unwrap().SetMediumLE(this.Idx(index), value);
+        internal override void _SetMediumLE(int index, int value) => this.Unwrap().SetMediumLE(this.Idx(index), value);
 
         public override IByteBuffer SetInt(int index, int value)
         {
@@ -230,7 +230,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetInt(int index, int value) => this.Unwrap().SetInt(this.Idx(index), value);
+        internal override void _SetInt(int index, int value) => this.Unwrap().SetInt(this.Idx(index), value);
 
         public override IByteBuffer SetIntLE(int index, int value)
         {
@@ -239,7 +239,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetIntLE(int index, int value) => this.Unwrap().SetIntLE(this.Idx(index), value);
+        internal override void _SetIntLE(int index, int value) => this.Unwrap().SetIntLE(this.Idx(index), value);
 
         public override IByteBuffer SetLong(int index, long value)
         {
@@ -248,7 +248,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetLong(int index, long value) => this.Unwrap().SetLong(this.Idx(index), value);
+        internal override void _SetLong(int index, long value) => this.Unwrap().SetLong(this.Idx(index), value);
 
         public override IByteBuffer SetLongLE(int index, long value)
         {
@@ -257,7 +257,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetLongLE(int index, long value) => this.Unwrap().SetLongLE(this.Idx(index), value);
+        internal override void _SetLongLE(int index, long value) => this.Unwrap().SetLongLE(this.Idx(index), value);
 
         public override IByteBuffer SetBytes(int index, byte[] src, int srcIndex, int length)
         {

@@ -24,23 +24,23 @@ namespace UniNetty.Buffers
 
         public override bool IsDirect => false;
 
-        protected internal override byte _GetByte(int index) => HeapByteBufferUtil.GetByte(this.Memory, this.Idx(index));
+        internal override byte _GetByte(int index) => HeapByteBufferUtil.GetByte(this.Memory, this.Idx(index));
 
-        protected internal override short _GetShort(int index) => HeapByteBufferUtil.GetShort(this.Memory, this.Idx(index));
+        internal override short _GetShort(int index) => HeapByteBufferUtil.GetShort(this.Memory, this.Idx(index));
 
-        protected internal override short _GetShortLE(int index) => HeapByteBufferUtil.GetShortLE(this.Memory, this.Idx(index));
+        internal override short _GetShortLE(int index) => HeapByteBufferUtil.GetShortLE(this.Memory, this.Idx(index));
 
-        protected internal override int _GetUnsignedMedium(int index) => HeapByteBufferUtil.GetUnsignedMedium(this.Memory, this.Idx(index));
+        internal override int _GetUnsignedMedium(int index) => HeapByteBufferUtil.GetUnsignedMedium(this.Memory, this.Idx(index));
 
-        protected internal override int _GetUnsignedMediumLE(int index) => HeapByteBufferUtil.GetUnsignedMediumLE(this.Memory, this.Idx(index));
+        internal override int _GetUnsignedMediumLE(int index) => HeapByteBufferUtil.GetUnsignedMediumLE(this.Memory, this.Idx(index));
 
-        protected internal override int _GetInt(int index) => HeapByteBufferUtil.GetInt(this.Memory, this.Idx(index));
+        internal override int _GetInt(int index) => HeapByteBufferUtil.GetInt(this.Memory, this.Idx(index));
 
-        protected internal override int _GetIntLE(int index) => HeapByteBufferUtil.GetIntLE(this.Memory, this.Idx(index));
+        internal override int _GetIntLE(int index) => HeapByteBufferUtil.GetIntLE(this.Memory, this.Idx(index));
 
-        protected internal override long _GetLong(int index) => HeapByteBufferUtil.GetLong(this.Memory, this.Idx(index));
+        internal override long _GetLong(int index) => HeapByteBufferUtil.GetLong(this.Memory, this.Idx(index));
 
-        protected internal override long _GetLongLE(int index) => HeapByteBufferUtil.GetLongLE(this.Memory, this.Idx(index));
+        internal override long _GetLongLE(int index) => HeapByteBufferUtil.GetLongLE(this.Memory, this.Idx(index));
 
         public override IByteBuffer GetBytes(int index, IByteBuffer dst, int dstIndex, int length)
         {
@@ -70,23 +70,23 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetByte(int index, int value) => HeapByteBufferUtil.SetByte(this.Memory, this.Idx(index), value);
+        internal override void _SetByte(int index, int value) => HeapByteBufferUtil.SetByte(this.Memory, this.Idx(index), value);
 
-        protected internal override void _SetShort(int index, int value) => HeapByteBufferUtil.SetShort(this.Memory, this.Idx(index), value);
+        internal override void _SetShort(int index, int value) => HeapByteBufferUtil.SetShort(this.Memory, this.Idx(index), value);
 
-        protected internal override void _SetShortLE(int index, int value) => HeapByteBufferUtil.SetShortLE(this.Memory, this.Idx(index), value);
+        internal override void _SetShortLE(int index, int value) => HeapByteBufferUtil.SetShortLE(this.Memory, this.Idx(index), value);
 
-        protected internal override void _SetMedium(int index, int value) => HeapByteBufferUtil.SetMedium(this.Memory, this.Idx(index), value);
+        internal override void _SetMedium(int index, int value) => HeapByteBufferUtil.SetMedium(this.Memory, this.Idx(index), value);
 
-        protected internal override void _SetMediumLE(int index, int value) => HeapByteBufferUtil.SetMediumLE(this.Memory, this.Idx(index), value);
+        internal override void _SetMediumLE(int index, int value) => HeapByteBufferUtil.SetMediumLE(this.Memory, this.Idx(index), value);
 
-        protected internal override void _SetInt(int index, int value) => HeapByteBufferUtil.SetInt(this.Memory, this.Idx(index), value);
+        internal override void _SetInt(int index, int value) => HeapByteBufferUtil.SetInt(this.Memory, this.Idx(index), value);
 
-        protected internal override void _SetIntLE(int index, int value) => HeapByteBufferUtil.SetIntLE(this.Memory, this.Idx(index), value);
+        internal override void _SetIntLE(int index, int value) => HeapByteBufferUtil.SetIntLE(this.Memory, this.Idx(index), value);
 
-        protected internal override void _SetLong(int index, long value) => HeapByteBufferUtil.SetLong(this.Memory, this.Idx(index), value);
+        internal override void _SetLong(int index, long value) => HeapByteBufferUtil.SetLong(this.Memory, this.Idx(index), value);
 
-        protected internal override void _SetLongLE(int index, long value) => HeapByteBufferUtil.SetLongLE(this.Memory, this.Idx(index), value);
+        internal override void _SetLongLE(int index, long value) => HeapByteBufferUtil.SetLongLE(this.Memory, this.Idx(index), value);
 
         public override IByteBuffer SetBytes(int index, IByteBuffer src, int srcIndex, int length)
         {

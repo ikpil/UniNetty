@@ -212,7 +212,7 @@ namespace UniNetty.Buffers
             return this._GetByte(index);
         }
 
-        protected internal override byte _GetByte(int index) => HeapByteBufferUtil.GetByte(this.array, index);
+        internal override byte _GetByte(int index) => HeapByteBufferUtil.GetByte(this.array, index);
 
         public override IByteBuffer SetZero(int index, int length)
         {
@@ -227,7 +227,7 @@ namespace UniNetty.Buffers
             return this._GetShort(index);
         }
 
-        protected internal override short _GetShort(int index) => HeapByteBufferUtil.GetShort(this.array, index);
+        internal override short _GetShort(int index) => HeapByteBufferUtil.GetShort(this.array, index);
 
         public override short GetShortLE(int index)
         {
@@ -235,7 +235,7 @@ namespace UniNetty.Buffers
             return this._GetShortLE(index);
         }
 
-        protected internal override short _GetShortLE(int index) => HeapByteBufferUtil.GetShortLE(this.array, index);
+        internal override short _GetShortLE(int index) => HeapByteBufferUtil.GetShortLE(this.array, index);
 
         public override int GetUnsignedMedium(int index)
         {
@@ -243,7 +243,7 @@ namespace UniNetty.Buffers
             return this._GetUnsignedMedium(index);
         }
 
-        protected internal override int _GetUnsignedMedium(int index) => HeapByteBufferUtil.GetUnsignedMedium(this.array, index);
+        internal override int _GetUnsignedMedium(int index) => HeapByteBufferUtil.GetUnsignedMedium(this.array, index);
 
         public override int GetUnsignedMediumLE(int index)
         {
@@ -251,7 +251,7 @@ namespace UniNetty.Buffers
             return this._GetUnsignedMediumLE(index);
         }
 
-        protected internal override int _GetUnsignedMediumLE(int index) => HeapByteBufferUtil.GetUnsignedMediumLE(this.array, index);
+        internal override int _GetUnsignedMediumLE(int index) => HeapByteBufferUtil.GetUnsignedMediumLE(this.array, index);
 
         public override int GetInt(int index)
         {
@@ -259,7 +259,7 @@ namespace UniNetty.Buffers
             return this._GetInt(index);
         }
 
-        protected internal override int _GetInt(int index) => HeapByteBufferUtil.GetInt(this.array, index);
+        internal override int _GetInt(int index) => HeapByteBufferUtil.GetInt(this.array, index);
 
         public override int GetIntLE(int index)
         {
@@ -267,7 +267,7 @@ namespace UniNetty.Buffers
             return this._GetIntLE(index);
         }
 
-        protected internal override int _GetIntLE(int index) => HeapByteBufferUtil.GetIntLE(this.array, index);
+        internal override int _GetIntLE(int index) => HeapByteBufferUtil.GetIntLE(this.array, index);
 
         public override long GetLong(int index)
         {
@@ -275,7 +275,7 @@ namespace UniNetty.Buffers
             return this._GetLong(index);
         }
 
-        protected internal override long _GetLong(int index) => HeapByteBufferUtil.GetLong(this.array, index);
+        internal override long _GetLong(int index) => HeapByteBufferUtil.GetLong(this.array, index);
 
         public override long GetLongLE(int index)
         {
@@ -283,7 +283,7 @@ namespace UniNetty.Buffers
             return this._GetLongLE(index);
         }
 
-        protected internal override long _GetLongLE(int index) => HeapByteBufferUtil.GetLongLE(this.array, index);
+        internal override long _GetLongLE(int index) => HeapByteBufferUtil.GetLongLE(this.array, index);
 
         public override IByteBuffer SetByte(int index, int value)
         {
@@ -292,7 +292,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetByte(int index, int value) => HeapByteBufferUtil.SetByte(this.array, index, value);
+        internal override void _SetByte(int index, int value) => HeapByteBufferUtil.SetByte(this.array, index, value);
 
         public override IByteBuffer SetShort(int index, int value)
         {
@@ -301,7 +301,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetShort(int index, int value) => HeapByteBufferUtil.SetShort(this.array, index, value);
+        internal override void _SetShort(int index, int value) => HeapByteBufferUtil.SetShort(this.array, index, value);
 
         public override IByteBuffer SetShortLE(int index, int value)
         {
@@ -310,7 +310,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetShortLE(int index, int value) => HeapByteBufferUtil.SetShortLE(this.array, index, value);
+        internal override void _SetShortLE(int index, int value) => HeapByteBufferUtil.SetShortLE(this.array, index, value);
 
         public override IByteBuffer SetMedium(int index, int value)
         {
@@ -319,7 +319,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetMedium(int index, int value) => HeapByteBufferUtil.SetMedium(this.array, index, value);
+        internal override void _SetMedium(int index, int value) => HeapByteBufferUtil.SetMedium(this.array, index, value);
 
         public override IByteBuffer SetMediumLE(int index, int value)
         {
@@ -328,7 +328,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetMediumLE(int index, int value) => HeapByteBufferUtil.SetMediumLE(this.array, index, value);
+        internal override void _SetMediumLE(int index, int value) => HeapByteBufferUtil.SetMediumLE(this.array, index, value);
 
         public override IByteBuffer SetInt(int index, int value)
         {
@@ -337,7 +337,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetInt(int index, int value) => HeapByteBufferUtil.SetInt(this.array, index, value);
+        internal override void _SetInt(int index, int value) => HeapByteBufferUtil.SetInt(this.array, index, value);
 
         public override IByteBuffer SetIntLE(int index, int value)
         {
@@ -346,7 +346,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetIntLE(int index, int value) => HeapByteBufferUtil.SetIntLE(this.array, index, value);
+        internal override void _SetIntLE(int index, int value) => HeapByteBufferUtil.SetIntLE(this.array, index, value);
 
         public override IByteBuffer SetLong(int index, long value)
         {
@@ -355,7 +355,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetLong(int index, long value) => HeapByteBufferUtil.SetLong(this.array, index, value);
+        internal override void _SetLong(int index, long value) => HeapByteBufferUtil.SetLong(this.array, index, value);
 
         public override IByteBuffer SetLongLE(int index, long value)
         {
@@ -364,7 +364,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetLongLE(int index, long value) => HeapByteBufferUtil.SetLongLE(this.array, index, value);
+        internal override void _SetLongLE(int index, long value) => HeapByteBufferUtil.SetLongLE(this.array, index, value);
 
         public override IByteBuffer Copy(int index, int length)
         {

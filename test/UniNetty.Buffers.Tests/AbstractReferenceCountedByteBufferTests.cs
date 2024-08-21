@@ -72,45 +72,45 @@ namespace UniNetty.Buffers.Tests
 
             public override IByteBufferAllocator Allocator => throw new NotSupportedException();
 
-            protected internal override byte _GetByte(int index) => throw new NotSupportedException();
+            internal override byte _GetByte(int index) => throw new NotSupportedException();
 
-            protected internal override short _GetShort(int index) => throw new NotSupportedException();
+            internal override short _GetShort(int index) => throw new NotSupportedException();
 
-            protected internal override short _GetShortLE(int index) => throw new NotSupportedException();
+            internal override short _GetShortLE(int index) => throw new NotSupportedException();
 
-            protected internal override int _GetUnsignedMedium(int index) => throw new NotSupportedException();
+            internal override int _GetUnsignedMedium(int index) => throw new NotSupportedException();
 
-            protected internal override int _GetUnsignedMediumLE(int index) => throw new NotSupportedException();
+            internal override int _GetUnsignedMediumLE(int index) => throw new NotSupportedException();
 
-            protected internal override int _GetInt(int index) => throw new NotSupportedException();
+            internal override int _GetInt(int index) => throw new NotSupportedException();
 
-            protected internal override int _GetIntLE(int index) => throw new NotSupportedException();
+            internal override int _GetIntLE(int index) => throw new NotSupportedException();
 
-            protected internal override long _GetLong(int index) => throw new NotSupportedException();
+            internal override long _GetLong(int index) => throw new NotSupportedException();
 
-            protected internal override long _GetLongLE(int index) => throw new NotSupportedException();
+            internal override long _GetLongLE(int index) => throw new NotSupportedException();
 
             public override IByteBuffer GetBytes(int index, IByteBuffer destination, int dstIndex, int length) => throw new NotSupportedException();
 
             public override IByteBuffer GetBytes(int index, Stream destination, int length) => throw new NotSupportedException();
 
-            protected internal override void _SetByte(int index, int value) => throw new NotSupportedException();
+            internal override void _SetByte(int index, int value) => throw new NotSupportedException();
 
-            protected internal override void _SetShort(int index, int value) => throw new NotSupportedException();
+            internal override void _SetShort(int index, int value) => throw new NotSupportedException();
 
-            protected internal override void _SetShortLE(int index, int value) => throw new NotSupportedException();
+            internal override void _SetShortLE(int index, int value) => throw new NotSupportedException();
 
-            protected internal override void _SetMedium(int index, int value) => throw new NotSupportedException();
+            internal override void _SetMedium(int index, int value) => throw new NotSupportedException();
 
-            protected internal override void _SetMediumLE(int index, int value) => throw new NotSupportedException();
+            internal override void _SetMediumLE(int index, int value) => throw new NotSupportedException();
 
-            protected internal override void _SetInt(int index, int value) => throw new NotSupportedException();
+            internal override void _SetInt(int index, int value) => throw new NotSupportedException();
 
-            protected internal override void _SetIntLE(int index, int value) => throw new NotSupportedException();
+            internal override void _SetIntLE(int index, int value) => throw new NotSupportedException();
 
-            protected internal override void _SetLong(int index, long value) => throw new NotSupportedException();
+            internal override void _SetLong(int index, long value) => throw new NotSupportedException();
 
-            protected internal override void _SetLongLE(int index, long value) => throw new NotSupportedException();
+            internal override void _SetLongLE(int index, long value) => throw new NotSupportedException();
 
             public override IByteBuffer SetBytes(int index, IByteBuffer src, int srcIndex, int length) => throw new NotSupportedException();
 

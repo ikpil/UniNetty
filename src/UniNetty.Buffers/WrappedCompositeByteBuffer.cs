@@ -235,23 +235,23 @@ namespace UniNetty.Buffers
 
         public override byte GetByte(int index) => this.wrapped.GetByte(index);
 
-        protected internal sealed override byte _GetByte(int index) => this.wrapped._GetByte(index);
+        internal sealed override byte _GetByte(int index) => this.wrapped._GetByte(index);
 
-        protected internal sealed override short _GetShort(int index) => this.wrapped._GetShort(index);
+        internal sealed override short _GetShort(int index) => this.wrapped._GetShort(index);
 
-        protected internal sealed override short _GetShortLE(int index) => this.wrapped._GetShortLE(index);
+        internal sealed override short _GetShortLE(int index) => this.wrapped._GetShortLE(index);
 
-        protected internal sealed override int _GetUnsignedMedium(int index) => this.wrapped._GetUnsignedMedium(index);
+        internal sealed override int _GetUnsignedMedium(int index) => this.wrapped._GetUnsignedMedium(index);
 
-        protected internal sealed override int _GetUnsignedMediumLE(int index) => this.wrapped._GetUnsignedMediumLE(index);
+        internal sealed override int _GetUnsignedMediumLE(int index) => this.wrapped._GetUnsignedMediumLE(index);
 
-        protected internal sealed override int _GetInt(int index) => this.wrapped._GetInt(index);
+        internal sealed override int _GetInt(int index) => this.wrapped._GetInt(index);
 
-        protected internal sealed override int _GetIntLE(int index) => this.wrapped._GetIntLE(index);
+        internal sealed override int _GetIntLE(int index) => this.wrapped._GetIntLE(index);
 
-        protected internal sealed override long _GetLong(int index) => this.wrapped._GetLong(index);
+        internal sealed override long _GetLong(int index) => this.wrapped._GetLong(index);
 
-        protected internal sealed override long _GetLongLE(int index) => this.wrapped._GetLongLE(index);
+        internal sealed override long _GetLongLE(int index) => this.wrapped._GetLongLE(index);
 
         public override IByteBuffer GetBytes(int index, byte[] dst, int dstIndex, int length)
         {
@@ -273,7 +273,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal sealed override void _SetByte(int index, int value) => this.wrapped._SetByte(index, value);
+        internal sealed override void _SetByte(int index, int value) => this.wrapped._SetByte(index, value);
 
         public override IByteBuffer SetShort(int index, int value)
         {
@@ -281,9 +281,9 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal sealed override void _SetShort(int index, int value) => this.wrapped._SetShort(index, value);
+        internal sealed override void _SetShort(int index, int value) => this.wrapped._SetShort(index, value);
 
-        protected internal sealed override void _SetShortLE(int index, int value) => this.wrapped._SetShortLE(index, value);
+        internal sealed override void _SetShortLE(int index, int value) => this.wrapped._SetShortLE(index, value);
 
         public override IByteBuffer SetMedium(int index, int value)
         {
@@ -291,9 +291,9 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal sealed override void _SetMedium(int index, int value) => this.wrapped._SetMedium(index, value);
+        internal sealed override void _SetMedium(int index, int value) => this.wrapped._SetMedium(index, value);
 
-        protected internal sealed override void _SetMediumLE(int index, int value) => this.wrapped._SetMediumLE(index, value);
+        internal sealed override void _SetMediumLE(int index, int value) => this.wrapped._SetMediumLE(index, value);
 
         public override IByteBuffer SetInt(int index, int value)
         {
@@ -301,9 +301,9 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal sealed override void _SetInt(int index, int value) => this.wrapped._SetInt(index, value);
+        internal sealed override void _SetInt(int index, int value) => this.wrapped._SetInt(index, value);
 
-        protected internal sealed override void _SetIntLE(int index, int value) => this.wrapped._SetIntLE(index, value);
+        internal sealed override void _SetIntLE(int index, int value) => this.wrapped._SetIntLE(index, value);
 
         public override IByteBuffer SetLong(int index, long value)
         {
@@ -311,9 +311,9 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal sealed override void _SetLong(int index, long value) => this.wrapped._SetLong(index, value);
+        internal sealed override void _SetLong(int index, long value) => this.wrapped._SetLong(index, value);
 
-        protected internal sealed override void _SetLongLE(int index, long value) => this.wrapped._SetLongLE(index, value);
+        internal sealed override void _SetLongLE(int index, long value) => this.wrapped._SetLongLE(index, value);
 
         public override IByteBuffer SetBytes(int index, byte[] src, int srcIndex, int length)
         {

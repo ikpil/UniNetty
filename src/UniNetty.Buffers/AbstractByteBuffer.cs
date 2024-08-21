@@ -299,7 +299,7 @@ namespace UniNetty.Buffers
             return this._GetByte(index);
         }
 
-        protected internal abstract byte _GetByte(int index);
+        internal abstract byte _GetByte(int index);
 
         public bool GetBoolean(int index) => this.GetByte(index) != 0;
 
@@ -309,7 +309,7 @@ namespace UniNetty.Buffers
             return this._GetShort(index);
         }
 
-        protected internal abstract short _GetShort(int index);
+        internal abstract short _GetShort(int index);
 
         public virtual short GetShortLE(int index)
         {
@@ -317,7 +317,7 @@ namespace UniNetty.Buffers
             return this._GetShortLE(index);
         }
 
-        protected internal abstract short _GetShortLE(int index);
+        internal abstract short _GetShortLE(int index);
 
         public ushort GetUnsignedShort(int index)
         {
@@ -341,7 +341,7 @@ namespace UniNetty.Buffers
             return this._GetUnsignedMedium(index);
         }
 
-        protected internal abstract int _GetUnsignedMedium(int index);
+        internal abstract int _GetUnsignedMedium(int index);
 
         public virtual int GetUnsignedMediumLE(int index)
         {
@@ -349,7 +349,7 @@ namespace UniNetty.Buffers
             return this._GetUnsignedMediumLE(index);
         }
 
-        protected internal abstract int _GetUnsignedMediumLE(int index);
+        internal abstract int _GetUnsignedMediumLE(int index);
 
         public int GetMedium(int index)
         {
@@ -379,7 +379,7 @@ namespace UniNetty.Buffers
             return this._GetInt(index);
         }
 
-        protected internal abstract int _GetInt(int index);
+        internal abstract int _GetInt(int index);
 
         public virtual int GetIntLE(int index)
         {
@@ -387,7 +387,7 @@ namespace UniNetty.Buffers
             return this._GetIntLE(index);
         }
 
-        protected internal abstract int _GetIntLE(int index);
+        internal abstract int _GetIntLE(int index);
 
         public uint GetUnsignedInt(int index)
         {
@@ -411,7 +411,7 @@ namespace UniNetty.Buffers
             return this._GetLong(index);
         }
 
-        protected internal abstract long _GetLong(int index);
+        internal abstract long _GetLong(int index);
 
         public virtual long GetLongLE(int index)
         {
@@ -419,7 +419,7 @@ namespace UniNetty.Buffers
             return this._GetLongLE(index);
         }
 
-        protected internal abstract long _GetLongLE(int index);
+        internal abstract long _GetLongLE(int index);
 
         public virtual char GetChar(int index) => Convert.ToChar(this.GetShort(index));
 
@@ -535,7 +535,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal abstract void _SetByte(int index, int value);
+        internal abstract void _SetByte(int index, int value);
 
         public virtual IByteBuffer SetBoolean(int index, bool value)
         {
@@ -550,7 +550,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal abstract void _SetShort(int index, int value);
+        internal abstract void _SetShort(int index, int value);
 
         public virtual IByteBuffer SetShortLE(int index, int value)
         {
@@ -559,7 +559,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal abstract void _SetShortLE(int index, int value);
+        internal abstract void _SetShortLE(int index, int value);
 
         public IByteBuffer SetUnsignedShort(int index, ushort value)
         {
@@ -590,7 +590,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal abstract void _SetMedium(int index, int value);
+        internal abstract void _SetMedium(int index, int value);
 
         public virtual IByteBuffer SetMediumLE(int index, int value)
         {
@@ -599,7 +599,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal abstract void _SetMediumLE(int index, int value);
+        internal abstract void _SetMediumLE(int index, int value);
 
         public virtual IByteBuffer SetInt(int index, int value)
         {
@@ -624,7 +624,7 @@ namespace UniNetty.Buffers
             }
         }
 
-        protected internal abstract void _SetInt(int index, int value);
+        internal abstract void _SetInt(int index, int value);
 
         public virtual IByteBuffer SetIntLE(int index, int value)
         {
@@ -633,7 +633,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal abstract void _SetIntLE(int index, int value);
+        internal abstract void _SetIntLE(int index, int value);
 
         public virtual IByteBuffer SetFloat(int index, float value)
         {
@@ -650,7 +650,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal abstract void _SetLong(int index, long value);
+        internal abstract void _SetLong(int index, long value);
 
         public virtual IByteBuffer SetLongLE(int index, long value)
         {
@@ -659,7 +659,7 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal abstract void _SetLongLE(int index, long value);
+        internal abstract void _SetLongLE(int index, long value);
 
         public virtual IByteBuffer SetDouble(int index, double value)
         {

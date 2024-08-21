@@ -151,51 +151,51 @@ namespace UniNetty.Buffers
 
         public override Span<byte> AddressOfPinnedMemory() => null;
 
-        protected internal override byte _GetByte(int index) => this.buffer[index];
+        internal override byte _GetByte(int index) => this.buffer[index];
 
-        protected internal override short _GetShort(int index)
+        internal override short _GetShort(int index)
         {
             var addr = this.Addr(index);
             return UnsafeByteBufferUtil.GetShort(addr);
         }
 
-        protected internal override short _GetShortLE(int index)
+        internal override short _GetShortLE(int index)
         {
             var addr = this.Addr(index);
             return UnsafeByteBufferUtil.GetShortLE(addr);
         }
 
-        protected internal override int _GetUnsignedMedium(int index)
+        internal override int _GetUnsignedMedium(int index)
         {
             var addr = this.Addr(index);
             return UnsafeByteBufferUtil.GetUnsignedMedium(addr);
         }
 
-        protected internal override int _GetUnsignedMediumLE(int index)
+        internal override int _GetUnsignedMediumLE(int index)
         {
             var addr = this.Addr(index);
             return UnsafeByteBufferUtil.GetUnsignedMediumLE(addr);
         }
 
-        protected internal override int _GetInt(int index)
+        internal override int _GetInt(int index)
         {
             var addr = this.Addr(index);
             return UnsafeByteBufferUtil.GetInt(addr);
         }
 
-        protected internal override int _GetIntLE(int index)
+        internal override int _GetIntLE(int index)
         {
             var addr = this.Addr(index);
             return UnsafeByteBufferUtil.GetIntLE(addr);
         }
 
-        protected internal override long _GetLong(int index)
+        internal override long _GetLong(int index)
         {
             var addr = this.Addr(index);
             return UnsafeByteBufferUtil.GetLong(addr);
         }
 
-        protected internal override long _GetLongLE(int index)
+        internal override long _GetLongLE(int index)
         {
             var addr = this.Addr(index);
             return UnsafeByteBufferUtil.GetLongLE(addr);
@@ -215,51 +215,51 @@ namespace UniNetty.Buffers
             return this;
         }
 
-        protected internal override void _SetByte(int index, int value) => this.buffer[index] = unchecked((byte)value);
+        internal override void _SetByte(int index, int value) => this.buffer[index] = unchecked((byte)value);
 
-        protected internal override void _SetShort(int index, int value)
+        internal override void _SetShort(int index, int value)
         {
             var addr = this.Addr(index);
             UnsafeByteBufferUtil.SetShort(addr, value);
         }
 
-        protected internal override void _SetShortLE(int index, int value)
+        internal override void _SetShortLE(int index, int value)
         {
             var addr = this.Addr(index);
             UnsafeByteBufferUtil.SetShortLE(addr, value);
         }
 
-        protected internal override void _SetMedium(int index, int value)
+        internal override void _SetMedium(int index, int value)
         {
             var addr = this.Addr(index);
             UnsafeByteBufferUtil.SetMedium(addr, value);
         }
 
-        protected internal override void _SetMediumLE(int index, int value)
+        internal override void _SetMediumLE(int index, int value)
         {
             var addr = this.Addr(index);
             UnsafeByteBufferUtil.SetMediumLE(addr, value);
         }
 
-        protected internal override void _SetInt(int index, int value)
+        internal override void _SetInt(int index, int value)
         {
             var addr = this.Addr(index);
             UnsafeByteBufferUtil.SetInt(addr, value);
         }
 
-        protected internal override void _SetIntLE(int index, int value)
+        internal override void _SetIntLE(int index, int value)
         {
             var addr = this.Addr(index);
             UnsafeByteBufferUtil.SetIntLE(addr, value);
         }
 
-        protected internal override void _SetLong(int index, long value)
+        internal override void _SetLong(int index, long value)
         {
             var addr = this.Addr(index);
             UnsafeByteBufferUtil.SetLong(addr, value);
         }
 
-        protected internal override void _SetLongLE(int index, long value)
+        internal override void _SetLongLE(int index, long value)
         {
             var addr = this.Addr(index);
             UnsafeByteBufferUtil.SetLongLE(addr, value);
