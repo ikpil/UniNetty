@@ -403,7 +403,7 @@ namespace UniNetty.Handlers.Tests.Flow
          */
         class OneByteToThreeStringsDecoder : ByteToMessageDecoder
         {
-            protected override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
+            public override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
             {
                 for (int i = 0; i < input.ReadableBytes; i++)
                 {

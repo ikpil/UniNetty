@@ -23,7 +23,7 @@ namespace UniNetty.Codecs.Http.Tests
 
         sealed class EmbeddedMessageEncoder : MessageToByteEncoder<IByteBuffer>
         {
-            protected override void Encode(IChannelHandlerContext context, IByteBuffer message, IByteBuffer output)
+            public override void Encode(IChannelHandlerContext context, IByteBuffer message, IByteBuffer output)
             {
                 output.WriteBytes(Encoding.ASCII.GetBytes(Convert.ToString(message.ReadableBytes)));
                 message.SkipBytes(message.ReadableBytes);

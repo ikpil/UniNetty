@@ -13,7 +13,7 @@ namespace UniNetty.Examples.Factorial
 
     public class NumberEncoder : MessageToMessageEncoder<BigInteger>
     {
-        protected override void Encode(IChannelHandlerContext context, BigInteger message, List<object> output)
+        public override void Encode(IChannelHandlerContext context, BigInteger message, List<object> output)
         {
             IByteBuffer buffer = context.Allocator.Buffer();
 

@@ -25,7 +25,7 @@ namespace UniNetty.Codecs.Base64
             this.dialect = dialect;
         }
 
-        protected internal override void Decode(IChannelHandlerContext context, IByteBuffer message, List<object> output) => output.Add(Base64.Encode(message, this.breakLines, this.dialect));
+        public override void Decode(IChannelHandlerContext context, IByteBuffer message, List<object> output) => output.Add(Base64.Encode(message, this.breakLines, this.dialect));
 
         public override bool IsSharable => true;
     }

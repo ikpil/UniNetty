@@ -28,7 +28,7 @@ namespace UniNetty.Codecs.Http.WebSockets.Extensions.Compression
 
         protected override bool RemoveFrameTail(WebSocketFrame msg) => msg.IsFinalFragment;
 
-        protected override void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
+        public override void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
         {
             base.Encode(ctx, msg, output);
 

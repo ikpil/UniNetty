@@ -41,7 +41,7 @@ namespace UniNetty.Handlers.Tls
             this.serverTlsSniSettings = settings;
         }
 
-        protected override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             if (!this.suppressRead && !this.handshakeFailed)
             {

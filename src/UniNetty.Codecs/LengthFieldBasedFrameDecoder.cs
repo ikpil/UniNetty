@@ -288,7 +288,7 @@ namespace UniNetty.Codecs
             this.failFast = failFast;
         }
 
-        protected internal override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             object decoded = this.Decode(context, input);
             if (decoded != null)

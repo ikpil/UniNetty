@@ -40,7 +40,7 @@ namespace UniNetty.Codecs.Http.WebSockets
             this.random = new Random();
         }
 
-        protected override void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
+        public override void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
         {
             IByteBuffer data = msg.Content;
             Span<byte> mask = stackalloc byte[4];

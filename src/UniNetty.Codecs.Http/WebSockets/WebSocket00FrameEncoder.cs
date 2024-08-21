@@ -23,7 +23,7 @@ namespace UniNetty.Codecs.Http.WebSockets
 
         public override bool IsSharable => true;
 
-        protected override void Encode(IChannelHandlerContext context, WebSocketFrame message, List<object> output)
+        public override void Encode(IChannelHandlerContext context, WebSocketFrame message, List<object> output)
         {
             if (message is TextWebSocketFrame)
             {

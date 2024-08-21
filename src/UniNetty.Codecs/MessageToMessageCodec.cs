@@ -24,7 +24,7 @@ namespace UniNetty.Codecs
 
             public override bool AcceptOutboundMessage(object msg) => this.codec.AcceptOutboundMessage(msg);
 
-            protected internal override void Encode(IChannelHandlerContext context, object message, List<object> output) => this.codec.Encode(context, (TOutbound)message, output);
+            public override void Encode(IChannelHandlerContext context, object message, List<object> output) => this.codec.Encode(context, (TOutbound)message, output);
         }
 
         sealed class Decoder : MessageToMessageDecoder<object>
@@ -38,7 +38,7 @@ namespace UniNetty.Codecs
 
             public override bool AcceptInboundMessage(object msg) => this.codec.AcceptInboundMessage(msg);
 
-            protected internal override void Decode(IChannelHandlerContext context, object message, List<object> output) => 
+            public override void Decode(IChannelHandlerContext context, object message, List<object> output) => 
                 this.codec.Decode(context, (TInbound)message, output);
         }
 
@@ -58,8 +58,8 @@ namespace UniNetty.Codecs
 
         public virtual bool AcceptOutboundMessage(object msg) => msg is TOutbound;
 
-        protected abstract void Encode(IChannelHandlerContext ctx, TOutbound msg, List<object> output);
+        public abstract void Encode(IChannelHandlerContext ctx, TOutbound msg, List<object> output);
 
-        protected abstract void Decode(IChannelHandlerContext ctx, TInbound msg, List<object> output);
+        public abstract void Decode(IChannelHandlerContext ctx, TInbound msg, List<object> output);
     }
 }

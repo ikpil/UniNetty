@@ -106,7 +106,7 @@ namespace UniNetty.Codecs
             return this.handlerContext;
         }
 
-        protected internal override void Decode(IChannelHandlerContext context, TMessage message, List<object> output)
+        public override void Decode(IChannelHandlerContext context, TMessage message, List<object> output)
         {
             if (this.IsStartMessage(message))
             {

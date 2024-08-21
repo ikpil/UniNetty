@@ -70,7 +70,7 @@ namespace UniNetty.Codecs.Http.WebSockets
         {
         }
 
-        protected override void Decode(IChannelHandlerContext ctx, WebSocketFrame frame, List<object> output)
+        public override void Decode(IChannelHandlerContext ctx, WebSocketFrame frame, List<object> output)
         {
             if (this.handleCloseFrames && frame is CloseWebSocketFrame)
             {

@@ -21,7 +21,7 @@ namespace UniNetty.Codecs.Protobuf
     ///  +---------------+               +--------+---------------+
     public class ProtobufVarint32LengthFieldPrepender : MessageToByteEncoder<IByteBuffer>
     {
-        protected override void Encode(IChannelHandlerContext context, IByteBuffer message, IByteBuffer output)
+        public override void Encode(IChannelHandlerContext context, IByteBuffer message, IByteBuffer output)
         {
             Contract.Requires(context != null);
             Contract.Requires(message != null);

@@ -61,7 +61,7 @@ namespace UniNetty.Codecs.Http
                 this.serverCodec = serverCodec;
             }
 
-            protected override void Decode(IChannelHandlerContext context, IByteBuffer buffer, List<object> output)
+            public override void Decode(IChannelHandlerContext context, IByteBuffer buffer, List<object> output)
             {
                 int oldSize = output.Count;
                 base.Decode(context, buffer, output);

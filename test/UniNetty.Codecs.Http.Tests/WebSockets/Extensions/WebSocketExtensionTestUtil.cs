@@ -50,7 +50,7 @@ namespace UniNetty.Codecs.Http.Tests.WebSockets.Extensions
 
         internal class DummyEncoder : WebSocketExtensionEncoder
         {
-            protected override void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> ouput)
+            public override void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> ouput)
             {
                 // unused
             }
@@ -58,7 +58,7 @@ namespace UniNetty.Codecs.Http.Tests.WebSockets.Extensions
 
         internal class DummyDecoder : WebSocketExtensionDecoder
         {
-            protected override void Decode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
+            public override void Decode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
             {
                 // unused
             }
@@ -66,7 +66,7 @@ namespace UniNetty.Codecs.Http.Tests.WebSockets.Extensions
 
         internal class Dummy2Encoder : WebSocketExtensionEncoder
         {
-            protected override void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> ouput)
+            public override void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> ouput)
             {
                 // unused
             }
@@ -74,7 +74,7 @@ namespace UniNetty.Codecs.Http.Tests.WebSockets.Extensions
 
         internal class Dummy2Decoder : WebSocketExtensionDecoder
         {
-            protected override void Decode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
+            public override void Decode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
             {
                 // unused
             }

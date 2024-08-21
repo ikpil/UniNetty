@@ -26,7 +26,7 @@ namespace UniNetty.Codecs.Protobuf
     {
         // todo: maxFrameLength + safe skip + fail-fast option (just like LengthFieldBasedFrameDecoder)
 
-        protected internal override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             input.MarkReaderIndex();
 

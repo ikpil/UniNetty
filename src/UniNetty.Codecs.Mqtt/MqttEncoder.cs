@@ -20,7 +20,7 @@ namespace UniNetty.Codecs.Mqtt
         const int StringSizeLength = 2;
         const int MaxVariableLength = 4;
 
-        protected override void Encode(IChannelHandlerContext context, Packet message, List<object> output) => DoEncode(context.Allocator, message, output);
+        public override void Encode(IChannelHandlerContext context, Packet message, List<object> output) => DoEncode(context.Allocator, message, output);
 
         public override bool IsSharable => true;
 

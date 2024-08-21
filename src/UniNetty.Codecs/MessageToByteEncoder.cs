@@ -76,6 +76,6 @@ namespace UniNetty.Codecs
             return context.Allocator.Buffer();
         }
 
-        protected abstract void Encode(IChannelHandlerContext context, T message, IByteBuffer output);
+        public abstract void Encode(IChannelHandlerContext context, T message, IByteBuffer output);
     }
 }

@@ -15,7 +15,7 @@ namespace UniNetty.Codecs.Protobuf
     {
         public override bool IsSharable => true;
 
-        protected override void Encode(IChannelHandlerContext context, IMessage message, List<object> output)
+        public override void Encode(IChannelHandlerContext context, IMessage message, List<object> output)
         {
             Contract.Requires(context != null);
             Contract.Requires(message != null);

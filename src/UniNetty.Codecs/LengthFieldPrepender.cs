@@ -129,7 +129,7 @@ namespace UniNetty.Codecs
             this.lengthAdjustment = lengthAdjustment;
         }
 
-        protected internal override void Encode(IChannelHandlerContext context, IByteBuffer message, List<object> output)
+        public override void Encode(IChannelHandlerContext context, IByteBuffer message, List<object> output)
         {
             int length = message.ReadableBytes + this.lengthAdjustment;
             if (this.lengthFieldIncludesLengthFieldLength)

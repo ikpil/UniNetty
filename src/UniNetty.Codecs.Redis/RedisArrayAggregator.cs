@@ -13,7 +13,7 @@ namespace UniNetty.Codecs.Redis
     {
         readonly Stack<AggregateState> depths = new Stack<AggregateState>(4);
 
-        protected override void Decode(IChannelHandlerContext context, IRedisMessage message, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IRedisMessage message, List<object> output)
         {
             if (message is ArrayHeaderRedisMessage)
             {

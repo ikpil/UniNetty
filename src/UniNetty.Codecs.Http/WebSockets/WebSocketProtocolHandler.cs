@@ -21,7 +21,7 @@ namespace UniNetty.Codecs.Http.WebSockets
             this.dropPongFrames = dropPongFrames;
         }
 
-        protected override void Decode(IChannelHandlerContext ctx, WebSocketFrame frame, List<object> output)
+        public override void Decode(IChannelHandlerContext ctx, WebSocketFrame frame, List<object> output)
         {
             if (frame is PingWebSocketFrame)
             {

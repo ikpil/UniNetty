@@ -27,7 +27,7 @@ namespace UniNetty.Codecs.Http.WebSockets.Extensions.Compression
 
         protected abstract int NewRsv(WebSocketFrame msg);
 
-        protected override void Decode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
+        public override void Decode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
         {
             if (this.decoder == null)
             {

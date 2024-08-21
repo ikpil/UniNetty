@@ -125,7 +125,7 @@ namespace UniNetty.Codecs.Compression
 
         public override bool IsClosed => this.finished;
 
-        protected override void Encode(IChannelHandlerContext context, IByteBuffer message, IByteBuffer output)
+        public override void Encode(IChannelHandlerContext context, IByteBuffer message, IByteBuffer output)
         {
             if (this.finished)
             {

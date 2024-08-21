@@ -33,7 +33,7 @@ namespace UniNetty.Codecs.Http
         // a guess for future buffer allocations.
         float trailersEncodedSizeAccumulator = 256;
 
-        protected override void Encode(IChannelHandlerContext context, object message, List<object> output)
+        public override void Encode(IChannelHandlerContext context, object message, List<object> output)
         {
             IByteBuffer buf = null;
             if (message is IHttpMessage)

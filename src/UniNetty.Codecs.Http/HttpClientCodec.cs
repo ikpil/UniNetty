@@ -94,7 +94,7 @@ namespace UniNetty.Codecs.Http
                 this.clientCodec = clientCodec;
             }
 
-            protected override void Encode(IChannelHandlerContext context, object message, List<object> output)
+            public override void Encode(IChannelHandlerContext context, object message, List<object> output)
             {
                 if (this.Upgraded)
                 {
@@ -137,7 +137,7 @@ namespace UniNetty.Codecs.Http
                 this.clientCodec = clientCodec;
             }
 
-            protected override void Decode(IChannelHandlerContext context, IByteBuffer buffer, List<object> output)
+            public override void Decode(IChannelHandlerContext context, IByteBuffer buffer, List<object> output)
             {
                 if (this.clientCodec.done)
                 {

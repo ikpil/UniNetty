@@ -140,7 +140,7 @@ namespace UniNetty.Codecs.Http
             this.upgradeCodecFactory = upgradeCodecFactory;
         }
 
-        protected override void Decode(IChannelHandlerContext context, IHttpObject message, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IHttpObject message, List<object> output)
         {
             // Determine if we're already handling an upgrade request or just starting a new one.
             this.handlingUpgrade |= IsUpgradeRequest(message);

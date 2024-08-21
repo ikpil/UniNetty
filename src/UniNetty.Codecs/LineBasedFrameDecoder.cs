@@ -67,7 +67,7 @@ namespace UniNetty.Codecs
             this.stripDelimiter = stripDelimiter;
         }
 
-        protected internal override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             object decode = this.Decode(context, input);
             if (decode != null)

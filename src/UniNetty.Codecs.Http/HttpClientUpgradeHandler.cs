@@ -97,7 +97,7 @@ namespace UniNetty.Codecs.Http
             return task;
         }
 
-        protected override void Decode(IChannelHandlerContext context, IHttpObject message, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IHttpObject message, List<object> output)
         {
             IFullHttpResponse response = null;
             try

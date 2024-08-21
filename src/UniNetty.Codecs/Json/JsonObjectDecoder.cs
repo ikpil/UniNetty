@@ -58,7 +58,7 @@ namespace UniNetty.Codecs.Json
             this.streamArrayElements = streamArrayElements;
         }
 
-        protected internal override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             if (this.state == StCorrupted)
             {

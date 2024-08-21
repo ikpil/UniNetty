@@ -56,7 +56,7 @@ namespace UniNetty.Codecs.Redis
             this.decodeInlineCommands = decodeInlineCommands;
         }
 
-        protected override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             try
             {

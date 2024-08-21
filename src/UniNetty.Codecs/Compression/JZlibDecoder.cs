@@ -43,7 +43,7 @@ namespace UniNetty.Codecs.Compression
 
         public override bool IsClosed => this.finished;
 
-        protected internal override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             if (this.finished)
             {

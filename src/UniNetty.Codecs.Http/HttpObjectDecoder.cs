@@ -83,7 +83,7 @@ namespace UniNetty.Codecs.Http
             this.ValidateHeaders = validateHeaders;
         }
 
-        protected override void Decode(IChannelHandlerContext context, IByteBuffer buffer, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IByteBuffer buffer, List<object> output)
         {
             if (this.resetRequested)
             {

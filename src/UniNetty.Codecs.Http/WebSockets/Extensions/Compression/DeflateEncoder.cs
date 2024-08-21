@@ -31,7 +31,7 @@ namespace UniNetty.Codecs.Http.WebSockets.Extensions.Compression
 
         protected abstract bool RemoveFrameTail(WebSocketFrame msg);
 
-        protected override void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
+        public override void Encode(IChannelHandlerContext ctx, WebSocketFrame msg, List<object> output)
         {
             if (this.encoder == null)
             {

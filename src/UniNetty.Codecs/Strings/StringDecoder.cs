@@ -65,7 +65,7 @@ namespace UniNetty.Codecs.Strings
 
         public override bool IsSharable => true;
 
-        protected internal override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             string decoded = this.Decode(context, input);
             output.Add(decoded);

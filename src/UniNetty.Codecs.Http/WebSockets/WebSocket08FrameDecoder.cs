@@ -65,7 +65,7 @@ namespace UniNetty.Codecs.Http.WebSockets
             this.maxFramePayloadLength = maxFramePayloadLength;
         }
 
-        protected override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             // Discard all data received if closing handshake was received before.
             if (this.receivedClosingHandshake)

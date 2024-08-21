@@ -26,7 +26,7 @@ namespace UniNetty.Codecs.Redis
             this.messagePool = messagePool;
         }
 
-        protected override void Encode(IChannelHandlerContext context, IRedisMessage message, List<object> output)
+        public override void Encode(IChannelHandlerContext context, IRedisMessage message, List<object> output)
         {
             try
             {

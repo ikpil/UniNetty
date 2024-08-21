@@ -102,6 +102,6 @@ namespace UniNetty.Codecs
         ///     needs to do some kind of aggragation
         ///     @throws Exception    is thrown if an error accour
         /// </summary>
-        protected internal abstract void Encode(IChannelHandlerContext context, T message, List<object> output);
+        public abstract void Encode(IChannelHandlerContext context, T message, List<object> output);
     }
 }

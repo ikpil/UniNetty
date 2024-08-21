@@ -19,7 +19,7 @@ namespace UniNetty.Codecs.Http
         EmbeddedChannel decoder;
         bool continueResponse;
 
-        protected override void Decode(IChannelHandlerContext context, IHttpObject message, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IHttpObject message, List<object> output)
         {
             if (message is IHttpResponse response && response.Status.Code == 100)
             {

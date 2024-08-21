@@ -32,7 +32,7 @@ namespace UniNetty.Codecs
                 && (envelope.Sender != null || envelope.Recipient != null);
         }
 
-        protected internal override void Encode(IChannelHandlerContext context, IAddressedEnvelope<T> message, List<object> output)
+        public override void Encode(IChannelHandlerContext context, IAddressedEnvelope<T> message, List<object> output)
         {
             this.encoder.Encode(context, message.Content, output);
             if (output.Count != 1) {

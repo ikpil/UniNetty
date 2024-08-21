@@ -32,7 +32,7 @@ namespace UniNetty.Codecs.Http
 
         public override bool AcceptOutboundMessage(object msg) => msg is IHttpContent || msg is IHttpResponse;
 
-        protected override void Decode(IChannelHandlerContext ctx, IHttpRequest msg, List<object> output)
+        public override void Decode(IChannelHandlerContext ctx, IHttpRequest msg, List<object> output)
         {
             ICharSequence acceptedEncoding = msg.Headers.Get(HttpHeaderNames.AcceptEncoding, HttpContentDecoder.Identity);
 
@@ -50,7 +50,7 @@ namespace UniNetty.Codecs.Http
             output.Add(ReferenceCountUtil.Retain(msg));
         }
 
-        protected override void Encode(IChannelHandlerContext ctx, IHttpObject msg, List<object> output)
+        public override void Encode(IChannelHandlerContext ctx, IHttpObject msg, List<object> output)
         {
             bool isFull = msg is IHttpResponse && msg is ILastHttpContent;
             switch (this.state)

@@ -62,7 +62,7 @@ namespace UniNetty.Codecs.Strings
 
         public override bool IsSharable => true;
 
-        protected internal override void Encode(IChannelHandlerContext context, string message, List<object> output)
+        public override void Encode(IChannelHandlerContext context, string message, List<object> output)
         {
             if (message.Length == 0)
             {

@@ -212,7 +212,7 @@ namespace UniNetty.Handlers.Tls
             }
         }
 
-        protected override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
+        public override void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output)
         {
             int startOffset = input.ReaderIndex;
             int endOffset = input.WriterIndex;

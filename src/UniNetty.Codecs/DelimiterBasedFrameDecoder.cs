@@ -134,7 +134,7 @@ namespace UniNetty.Codecs
         /// <summary>ReturnsReturn true if the current instance is a subclass of DelimiterBasedFrameDecoder</summary>
         bool IsSubclass() => this.GetType() != typeof(DelimiterBasedFrameDecoder);
 
-        protected internal override void Decode(IChannelHandlerContext ctx, IByteBuffer input, List<object> output)
+        public override void Decode(IChannelHandlerContext ctx, IByteBuffer input, List<object> output)
         {
             object decoded = this.Decode(ctx, input);
             if (decoded != null)

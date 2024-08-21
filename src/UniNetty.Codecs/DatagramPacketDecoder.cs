@@ -29,7 +29,7 @@ namespace UniNetty.Codecs
                 && this.decoder.AcceptInboundMessage(envelope.Content);
         }
 
-        protected internal override void Decode(IChannelHandlerContext context, DatagramPacket message, List<object> output) => 
+        public override void Decode(IChannelHandlerContext context, DatagramPacket message, List<object> output) => 
             this.decoder.Decode(context, message.Content, output);
 
         public override void ChannelRegistered(IChannelHandlerContext context) => 

@@ -138,7 +138,7 @@ namespace UniNetty.Codecs
             }
         }
 
-        protected internal abstract void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output);
+        public abstract void Decode(IChannelHandlerContext context, IByteBuffer input, List<object> output);
 
         static IByteBuffer ExpandCumulation(IByteBufferAllocator allocator, IByteBuffer cumulation, int readable)
         {
