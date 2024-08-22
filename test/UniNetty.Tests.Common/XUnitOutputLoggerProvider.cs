@@ -4,7 +4,7 @@
 
 namespace UniNetty.Tests.Common
 {
-    using Microsoft.Extensions.Logging;
+    using UniNetty.Logging;
     using Xunit.Abstractions;
 
     sealed class XUnitOutputLoggerProvider : ILoggerProvider

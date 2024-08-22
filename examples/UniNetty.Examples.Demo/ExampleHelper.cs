@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using UniNetty.Logging;
 using UniNetty.Common.Internal.Logging;
 
 namespace UniNetty.Examples.Demo
@@ -27,15 +27,15 @@ namespace UniNetty.Examples.Demo
 
         public static void SetConsoleLogger()
         {
-            InternalLoggerFactory.DefaultFactory = LoggerFactory.Create(builder =>
-            {
-                builder.AddConsole();
-                var logConf = Configuration.GetSection("Logging");
-                if (logConf.Exists())
-                {
-                    builder.AddConfiguration(logConf);
-                }
-            });
+            // InternalLoggerFactory.DefaultFactory = LoggerFactory.Create(builder =>
+            // {
+            //     builder.AddConsole();
+            //     var logConf = Configuration.GetSection("Logging");
+            //     if (logConf.Exists())
+            //     {
+            //         builder.AddConfiguration(logConf);
+            //     }
+            // });
         }
 
         public static X509Certificate2 LoadCertificate2()

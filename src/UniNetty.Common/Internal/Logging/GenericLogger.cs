@@ -5,7 +5,7 @@
 namespace UniNetty.Common.Internal.Logging
 {
     using System;
-    using Microsoft.Extensions.Logging;
+    using UniNetty.Logging;
 
     sealed class GenericLogger : AbstractInternalLogger
     {

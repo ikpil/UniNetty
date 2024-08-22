@@ -7,7 +7,7 @@ namespace UniNetty.Common.Internal.Logging
     using System;
     using System.Diagnostics.Contracts;
     using System.Threading;
-    using Microsoft.Extensions.Logging;
+    using UniNetty.Logging;
 
     /// <summary>
     ///     Creates an <see cref="IInternalLogger" /> or changes the default factory
@@ -37,6 +37,8 @@ namespace UniNetty.Common.Internal.Logging
         //        // Should not fail, but it does not harm to fail.
         //    }
         //}
+
+
 
         static ILoggerFactory NewDefaultFactory(string name)
         {

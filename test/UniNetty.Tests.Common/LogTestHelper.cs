@@ -6,7 +6,7 @@ namespace UniNetty.Tests.Common
 {
     using System;
     using UniNetty.Common.Internal.Logging;
-    using Microsoft.Extensions.Logging;
+    using UniNetty.Logging;
 
     public static class LogTestHelper
     {

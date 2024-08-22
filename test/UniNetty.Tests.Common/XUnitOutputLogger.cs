@@ -5,7 +5,7 @@
 namespace UniNetty.Tests.Common
 {
     using System;
-    using Microsoft.Extensions.Logging;
+    using UniNetty.Logging;
     using Xunit.Abstractions;
 
     public class XUnitOutputLogger : ILogger

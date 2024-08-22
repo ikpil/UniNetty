@@ -4,7 +4,7 @@
 
 namespace UniNetty.Common.Internal.Logging
 {
-    using Microsoft.Extensions.Logging;
+    using UniNetty.Logging;
 
     public sealed class EventSourceLoggerProvider : ILoggerProvider
     {

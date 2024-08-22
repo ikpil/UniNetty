@@ -7,7 +7,7 @@ namespace UniNetty.Common.Tests.Internal.Logging
     using System;
     using UniNetty.Common.Internal.Logging;
     using UniNetty.Tests.Common;
-    using Microsoft.Extensions.Logging;
+    using UniNetty.Logging;
     using Moq;
     using Xunit;
 
