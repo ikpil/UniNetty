@@ -225,10 +225,7 @@ namespace UniNetty.Common.Internal
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void CopyMemory(byte[] src, int srcIndex, byte[] dst, int dstIndex, int length)
         {
-            if (length > 0)
-            {
-                Unsafe.CopyBlockUnaligned(ref dst[dstIndex], ref src[srcIndex], unchecked((uint)length));
-            }
+            Buffer.BlockCopy(src, srcIndex, dst, dstIndex, length);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
