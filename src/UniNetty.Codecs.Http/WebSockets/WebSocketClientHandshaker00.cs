@@ -49,8 +49,10 @@ namespace UniNetty.Codecs.Http.WebSockets
             byte[] key3 = WebSocketUtil.RandomBytes(8);
             byte[] challenge = new byte[16];
             {
-                Unsafe.WriteUnaligned(ref challenge[0], number1);
-                Unsafe.WriteUnaligned(ref challenge[4], number2);
+                UnsafeByteBufferUtil.SetInt(challenge, number1);
+                UnsafeByteBufferUtil.SetInt(challenge.Slice(4), number2);
+                // Unsafe.WriteUnaligned(ref challenge[0], number1);
+                // Unsafe.WriteUnaligned(ref challenge[4], number2);
                 PlatformDependent.CopyMemory(key3, 0, challenge, 8, 8);
             }
 

@@ -5,7 +5,5 @@
   <ItemGroup>
     <ProjectReference Include="..\UniNetty.Logging\UniNetty.Logging.csproj"/>
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.3" />
-  </ItemGroup>  
+
 </Project>

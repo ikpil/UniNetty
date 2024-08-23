@@ -16,46 +16,46 @@ namespace UniNetty.Buffers
     using UniNetty.Common.Internal;
     using UniNetty.Common.Utilities;
 
-    static class UnsafeByteBufferUtil
+    public static class UnsafeByteBufferUtil
     {
         const byte Zero = 0;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static short GetShort(Span<byte> bytes) =>
+        public static short GetShort(Span<byte> bytes) =>
             unchecked((short)(((bytes[0]) << 8) | bytes[1]));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static short GetShortLE(Span<byte> bytes) =>
+        public static short GetShortLE(Span<byte> bytes) =>
             unchecked((short)((bytes[0]) | (bytes[1] << 8)));
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int GetUnsignedMedium(Span<byte> bytes) =>
+        public static int GetUnsignedMedium(Span<byte> bytes) =>
             bytes[0] << 16 |
             bytes[1] << 8 |
             bytes[2];
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int GetUnsignedMediumLE(Span<byte> bytes) =>
+        public static int GetUnsignedMediumLE(Span<byte> bytes) =>
             bytes[0] |
             bytes[1] << 8 |
             bytes[2] << 16;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int GetInt(Span<byte> bytes) =>
+        public static int GetInt(Span<byte> bytes) =>
             (bytes[0] << 24) |
             (bytes[1] << 16) |
             (bytes[2] << 8) |
             (bytes[3]);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int GetIntLE(Span<byte> bytes) =>
+        public static int GetIntLE(Span<byte> bytes) =>
             (bytes[0]) |
             (bytes[1] << 8) |
             (bytes[2] << 16) |
             (bytes[3] << 24);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static long GetLong(Span<byte> bytes)
+        public static long GetLong(Span<byte> bytes)
         {
             unchecked
             {
@@ -66,7 +66,7 @@ namespace UniNetty.Buffers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static long GetLongLE(Span<byte> bytes)
+        public static long GetLongLE(Span<byte> bytes)
         {
             unchecked
             {
@@ -77,7 +77,7 @@ namespace UniNetty.Buffers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void SetShort(Span<byte> bytes, int value)
+        public static void SetShort(Span<byte> bytes, int value)
         {
             unchecked
             {
@@ -87,7 +87,7 @@ namespace UniNetty.Buffers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void SetShortLE(Span<byte> bytes, int value)
+        public static void SetShortLE(Span<byte> bytes, int value)
         {
             unchecked
             {
@@ -97,7 +97,7 @@ namespace UniNetty.Buffers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void SetMedium(Span<byte> bytes, int value)
+        public static void SetMedium(Span<byte> bytes, int value)
         {
             unchecked
             {
@@ -109,7 +109,7 @@ namespace UniNetty.Buffers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void SetMediumLE(Span<byte> bytes, int value)
+        public static void SetMediumLE(Span<byte> bytes, int value)
         {
             unchecked
             {
@@ -121,7 +121,7 @@ namespace UniNetty.Buffers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void SetInt(Span<byte> bytes, int value)
+        public static void SetInt(Span<byte> bytes, int value)
         {
             unchecked
             {
@@ -134,7 +134,7 @@ namespace UniNetty.Buffers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void SetIntLE(Span<byte> bytes, int value)
+        public static void SetIntLE(Span<byte> bytes, int value)
         {
             unchecked
             {
@@ -147,7 +147,7 @@ namespace UniNetty.Buffers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void SetLong(Span<byte> bytes, long value)
+        public static void SetLong(Span<byte> bytes, long value)
         {
             unchecked
             {
@@ -164,7 +164,7 @@ namespace UniNetty.Buffers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void SetLongLE(Span<byte> bytes, long value)
+        public static void SetLongLE(Span<byte> bytes, long value)
         {
             unchecked
             {
@@ -180,7 +180,7 @@ namespace UniNetty.Buffers
             }
         }
 
-                internal static void SetZero(byte[] array, int index, int length)
+        public static void SetZero(byte[] array, int index, int length)
         {
             if (length == 0)
             {
@@ -200,13 +200,13 @@ namespace UniNetty.Buffers
                     Span<byte> ptr = copy.AddressOfPinnedMemory();
                     if (ptr != null)
                     {
-                        PlatformDependent.CopyMemory(addr.Slice(index), ptr, length);
+                        PlatformDependent.CopyMemory(addr, index, ptr, 0, length);
                     }
                     else
                     {
                         var dst = copy.GetPinnableMemoryAddress();
                         {
-                            PlatformDependent.CopyMemory(addr.Slice(index), dst.Span, length);
+                            PlatformDependent.CopyMemory(addr, index, dst.Span, 0, length);
                         }
                     }
 
@@ -236,7 +236,7 @@ namespace UniNetty.Buffers
                 int readBytes = input.Read(tmp, offset, length);
                 if (readBytes > 0)
                 {
-                    PlatformDependent.CopyMemory(tmp, offset, addr.Slice(index), readBytes);
+                    PlatformDependent.CopyMemory(tmp, offset, addr, index, readBytes);
                 }
 
                 return readBytes;
@@ -263,7 +263,7 @@ namespace UniNetty.Buffers
                         var read = t.Result;
                         if (read > 0)
                         {
-                            PlatformDependent.CopyMemory(tmpBuf.Array, tmpBuf.ArrayOffset, addr.Span.Slice(index), read);
+                            PlatformDependent.CopyMemory(tmpBuf.Array, tmpBuf.ArrayOffset, addr.Span, index, read);
                         }
 
                         return read;
@@ -289,18 +289,17 @@ namespace UniNetty.Buffers
                 Span<byte> ptr = dst.AddressOfPinnedMemory();
                 if (ptr != null)
                 {
-                    PlatformDependent.CopyMemory(addr.Slice(index), ptr.Slice(dstIndex), length);
+                    PlatformDependent.CopyMemory(addr, index, ptr, dstIndex, length);
                 }
                 else
                 {
                     var destination = dst.GetPinnableMemoryAddress();
-                    PlatformDependent.CopyMemory(addr.Slice(index), destination.Span.Slice(dstIndex), length);
-                    
+                    PlatformDependent.CopyMemory(addr, index, destination.Span, dstIndex, length);
                 }
             }
             else if (dst.HasArray)
             {
-                PlatformDependent.CopyMemory(addr.Slice(index), dst.Array, dst.ArrayOffset + dstIndex, length);
+                PlatformDependent.CopyMemory(addr, index, dst.Array, dst.ArrayOffset + dstIndex, length);
             }
             else
             {
@@ -319,7 +318,7 @@ namespace UniNetty.Buffers
 
             if (length != 0)
             {
-                PlatformDependent.CopyMemory(addr.Slice(index), dst, dstIndex, length);
+                PlatformDependent.CopyMemory(addr, index, dst, dstIndex, length);
             }
         }
 
@@ -339,18 +338,17 @@ namespace UniNetty.Buffers
                     Span<byte> ptr = src.AddressOfPinnedMemory();
                     if (ptr != null)
                     {
-                        PlatformDependent.CopyMemory(ptr.Slice(srcIndex), addr.Slice(index), length);
+                        PlatformDependent.CopyMemory(ptr, srcIndex, addr, index, length);
                     }
                     else
                     {
                         var source = src.GetPinnableMemoryAddress();
-                        PlatformDependent.CopyMemory(source.Span.Slice(srcIndex), addr.Slice(index), length);
-                        
+                        PlatformDependent.CopyMemory(source.Span, srcIndex, addr, index, length);
                     }
                 }
                 else if (src.HasArray)
                 {
-                    PlatformDependent.CopyMemory(src.Array, src.ArrayOffset + srcIndex, addr.Slice(index), length);
+                    PlatformDependent.CopyMemory(src.Array, src.ArrayOffset + srcIndex, addr, index, length);
                 }
                 else
                 {
@@ -361,7 +359,7 @@ namespace UniNetty.Buffers
 
         // No need to check length zero, the calling method already done it
         internal static void SetBytes(AbstractByteBuffer buf, Span<byte> addr, int index, byte[] src, int srcIndex, int length) =>
-            PlatformDependent.CopyMemory(src, srcIndex, addr.Slice(index), length);
+            PlatformDependent.CopyMemory(src, srcIndex, addr, index, length);
 
         internal static void GetBytes(AbstractByteBuffer buf, Span<byte> addr, int index, Stream output, int length)
         {
@@ -372,7 +370,7 @@ namespace UniNetty.Buffers
                 {
                     byte[] tmp = tmpBuf.Array;
                     int offset = tmpBuf.ArrayOffset;
-                    PlatformDependent.CopyMemory(addr.Slice(index), tmp, offset, length);
+                    PlatformDependent.CopyMemory(addr, index, tmp, offset, length);
                     output.Write(tmp, offset, length);
                 }
                 finally
@@ -389,7 +387,7 @@ namespace UniNetty.Buffers
                 return;
             }
 
-            PlatformDependent.SetMemory(addr, length, Zero);
+            PlatformDependent.SetMemory(addr, 0, length, Zero);
         }
 
         internal static string GetString(ReadOnlySpan<byte> src, int length, Encoding encoding)

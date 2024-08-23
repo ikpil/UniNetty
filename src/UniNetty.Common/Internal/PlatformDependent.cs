@@ -223,63 +223,21 @@ namespace UniNetty.Common.Internal
         static int HashCodeAsciiSanitizsByte(char value) => value & 0x1f;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void CopyMemory(byte[] src, int srcIndex, byte[] dst, int dstIndex, int length)
+        public static void CopyMemory(Span<byte> src, int srcIndex, Span<byte> dst, int dstIndex, int length)
         {
-            Buffer.BlockCopy(src, srcIndex, dst, dstIndex, length);
+            src.Slice(srcIndex, length).CopyTo(dst.Slice(dstIndex));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void CopyMemory(Span<byte> src, Span<byte> dst, int length)
+        public static void Clear(Span<byte> src, int srcIndex, int length)
         {
-            if (length > 0)
-            {
-                Unsafe.CopyBlockUnaligned(ref dst[0], ref src[0], unchecked((uint)length));
-            }
+            src.Slice(srcIndex, length).Clear();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void CopyMemory(Span<byte> src, byte[] dst, int dstIndex, int length)
+        public static void SetMemory(Span<byte> src, int srcIndex, int length, byte value)
         {
-            if (length > 0)
-            {
-                Unsafe.CopyBlockUnaligned(ref dst[dstIndex], ref src[0], unchecked((uint)length));
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void CopyMemory(Span<byte> src, int srcIndex, Span<byte> dst, int length)
-        {
-            if (length > 0)
-            {
-                Unsafe.CopyBlockUnaligned(ref dst[0], ref src[srcIndex], unchecked((uint)length));
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void Clear(byte[] src, int srcIndex, int length)
-        {
-            if (length > 0)
-            {
-                Unsafe.InitBlockUnaligned(ref src[srcIndex], default(byte), unchecked((uint)length));
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SetMemory(Span<byte> src, int length, byte value)
-        {
-            if (length > 0)
-            {
-                Unsafe.InitBlockUnaligned(ref src[0], value, unchecked((uint)length));
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SetMemory(byte[] src, int srcIndex, int length, byte value)
-        {
-            if (length > 0)
-            {
-                Unsafe.InitBlockUnaligned(ref src[srcIndex], value, unchecked((uint)length));
-            }
+            src.Slice(srcIndex, length).Fill(value);
         }
     }
 }
