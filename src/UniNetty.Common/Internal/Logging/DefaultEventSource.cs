@@ -8,7 +8,7 @@ namespace UniNetty.Common.Internal.Logging
     using System.Diagnostics.Tracing;
 
     [EventSource(
-        Name = "DotNetty-Default",
+        Name = "UniNetty-Default",
         Guid = "d079e771-0495-4124-bd2f-ab63c2b50525")]
     public sealed class DefaultEventSource : EventSource
     {

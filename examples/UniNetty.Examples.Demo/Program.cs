@@ -3,9 +3,14 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
+using System.IO;
 using System.Runtime;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading;
+using Serilog;
 using UniNetty.Common;
+using UniNetty.Examples.DemoSupports;
 using UniNetty.Examples.Discard.Client;
 using UniNetty.Examples.Discard.Server;
 using UniNetty.Examples.Echo.Client;
@@ -26,133 +31,38 @@ namespace UniNetty.Examples.Demo;
 
 public static class Program
 {
-    static void Main()
+    private static void InitializeLogger()
     {
-        ExampleHelper.SetConsoleLogger();
-
-        ResourceLeakDetector.Level = ResourceLeakDetector.DetectionLevel.Disabled;
-
-        Console.WriteLine(
-            $"\n{RuntimeInformation.OSArchitecture} {RuntimeInformation.OSDescription}"
-            + $"\n{RuntimeInformation.ProcessArchitecture} {RuntimeInformation.FrameworkDescription}"
-            + $"\nProcessor Count : {Environment.ProcessorCount}\n");
-
-        Console.WriteLine("Transport type : Socket");
-
-        if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-        {
-            GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
-        }
-
-        Console.WriteLine($"Server garbage collection : {(GCSettings.IsServerGC ? "Enabled" : "Disabled")}");
-        Console.WriteLine($"Current latency mode for garbage collection: {GCSettings.LatencyMode}");
-        Console.WriteLine("\n");
-
-        RunWebSocketServer();
-        RunTelnetServer();
-        RunSecureChatServer();
-        QuoteOfTheMomentServer();
-        RunHelloHttpServer();
-        RunFactorialServer();
-        RunEchoServer();
-        RunDiscardServer();
-
-        RunWebSocketClient();
-        RunTelentClient();
-        RunSecureChatClient();
-        RunQuoteOfTheMomentClient();
-        RunFactorialClient();
-        RunEchoClient();
+        var format = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} [{Level:u3}] {Message:lj} [{ThreadName}:{ThreadId}]{NewLine}{Exception}";
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .Enrich.WithThreadId()
+            .Enrich.WithThreadName()
+            //.WriteTo.Async(c => c.LogMessageBroker(outputTemplate: format))
+            .WriteTo.Async(c => c.Console(outputTemplate: format))
+            .WriteTo.Async(c => c.File(
+                "logs/log.log",
+                rollingInterval: RollingInterval.Hour,
+                rollOnFileSizeLimit: true,
+                retainedFileCountLimit: null,
+                outputTemplate: format)
+            )
+            .CreateLogger();
     }
 
-    static void RunWebSocketClient()
+    public static void Main(string[] args)
     {
-        var client = new WebSocketClient();
-        client.RunClientAsync(Settings.Cert, Settings.Host, Settings.Port, ExampleHelper.Configuration["path"]).Wait();
-    }
+        Thread.CurrentThread.Name ??= "main";
+        InitializeLogger();
 
-    static void RunTelentClient()
-    {
-        var client = new TelnetClient();
-        client.RunClientAsync(Settings.Cert, Settings.Host, Settings.Port).Wait();
-    }
+        // load pfx
+        var pfx = Path.Combine(AppContext.BaseDirectory, "dotnetty.com.pfx");
+        var cert = new X509Certificate2(pfx, "password");
 
-    static void RunSecureChatClient()
-    {
-        var client = new SecureChatClient();
-        client.RunClientAsync(Settings.Cert, Settings.Host, Settings.Port).Wait();
-    }
+        var context = new DemoContext();
+        context.SetCertificate(cert);
 
-    static void RunQuoteOfTheMomentClient()
-    {
-        var client = new QuoteOfTheMomentClient();
-        client.RunClientAsync(Settings.Port).Wait();
-    }
-
-    static void RunFactorialClient()
-    {
-        var client = new FactorialClient();
-        client.RunClientAsync(Settings.Cert, Settings.Host, Settings.Port, Settings.Count).Wait();
-    }
-
-    static void RunEchoClient()
-    {
-        var client = new EchoClient();
-        client.RunClientAsync(Settings.Cert, Settings.Host, Settings.Port, Settings.Size).Wait();
-    }
-
-    public static void RunDiscardClient()
-    {
-        var client = new DiscardClient();
-        client.RunClientAsync(Settings.Cert, Settings.Host, Settings.Port, Settings.Size).Wait();
-    }
-
-
-    static void RunWebSocketServer()
-    {
-        var server = new WebSocketServer();
-        server.RunServerAsync(Settings.Cert, Settings.Port).Wait();
-    }
-
-    static void RunTelnetServer()
-    {
-        var server = new TelnetServer();
-        server.RunServerAsync(Settings.Cert, Settings.Port).Wait();
-    }
-
-    static void RunSecureChatServer()
-    {
-        var server = new SecureChatServer();
-        server.RunServerAsync(Settings.Cert, Settings.Port).Wait();
-    }
-
-    static void QuoteOfTheMomentServer()
-    {
-        var server = new QuoteOfTheMomentServer();
-        server.RunServerAsync(Settings.Port).Wait();
-    }
-
-    static void RunHelloHttpServer()
-    {
-        var server = new HelloHttpServer();
-        server.RunServerAsync(Settings.Cert, Settings.Port).Wait();
-    }
-
-    static void RunFactorialServer()
-    {
-        var server = new FactorialServer();
-        server.RunServerAsync(Settings.Cert, Settings.Port).Wait();
-    }
-
-    static void RunEchoServer()
-    {
-        var server = new EchoServer();
-        server.RunServerAsync(Settings.Cert, Settings.Port).Wait();
-    }
-
-    static void RunDiscardServer()
-    {
-        var server = new DiscardServer();
-        server.RunServerAsync(Settings.Cert, Settings.Port).Wait();
+        var demo = new UniNettyDemo();
+        demo.Start(context);
     }
 }

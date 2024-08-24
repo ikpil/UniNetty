@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;net6.0;net8.0</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UniNetty.Examples.HttpServer\UniNetty.Examples.HttpServer.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Discard.Server\UniNetty.Examples.Discard.Server.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Discard.Client\UniNetty.Examples.Discard.Client.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Factorial.Server\UniNetty.Examples.Factorial.Server.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Factorial.Client\UniNetty.Examples.Factorial.Client.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.QuoteOfTheMoment.Server\UniNetty.Examples.QuoteOfTheMoment.Server.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.QuoteOfTheMoment.Client\UniNetty.Examples.QuoteOfTheMoment.Client.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Telnet.Server\UniNetty.Examples.Telnet.Server.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Telnet.Client\UniNetty.Examples.Telnet.Client.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Echo.Server\UniNetty.Examples.Echo.Server.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.Echo.Client\UniNetty.Examples.Echo.Client.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.SecureChat.Server\UniNetty.Examples.SecureChat.Server.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.SecureChat.Client\UniNetty.Examples.SecureChat.Client.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.WebSockets.Client\UniNetty.Examples.WebSockets.Client.csproj"/>
+    <ProjectReference Include="..\UniNetty.Examples.WebSockets.Server\UniNetty.Examples.WebSockets.Server.csproj"/>
+  </ItemGroup>
+
+</Project>
