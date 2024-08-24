@@ -14,6 +14,7 @@ using Silk.NET.OpenGL;
 using Silk.NET.OpenGL.Extensions.ImGui;
 using Silk.NET.Windowing;
 using UniNetty.Common;
+using UniNetty.Examples.Demo.UI;
 using UniNetty.Examples.DemoSupports;
 
 namespace UniNetty.Examples.Demo;
@@ -31,6 +32,8 @@ public class UniNettyDemo
     private Vector2D<int> _resolution;
     private int _width = 1000;
     private int _height = 900;
+
+    private Canvas _canvas;
 
     public void Start(DemoContext context)
     {
@@ -106,14 +109,19 @@ public class UniNettyDemo
         _gl = _window.CreateOpenGL();
 
         var scale = (float)_resolution.X / 1920;
-        int fontSize = Math.Max(10, (int)(16 * scale));
+        int fontSize = Math.Max(24, (int)(24 * scale));
+        var fontPath = Path.Combine(AppContext.BaseDirectory, "resources", "Roboto-Regular.ttf");
 
         // for windows : Microsoft Visual C++ Redistributable Package
         // link - https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist
-        _imgui = new ImGuiController(_gl, _window, _input);
+        var imGuiFontConfig = new ImGuiFontConfig(fontPath, fontSize, null);
+        _imgui = new ImGuiController(_gl, _window, _input, imGuiFontConfig);
 
         ImGui.GetStyle().ScaleAllSizes(scale);
         //ImGui.GetIO().FontGlobalScale = 2.0f;
+
+        _canvas = new Canvas();
+        _canvas.AddView(new MenuView());
 
         var vendor = _gl.GetStringS(GLEnum.Vendor);
         var version = _gl.GetStringS(GLEnum.Version);
@@ -156,6 +164,7 @@ public class UniNettyDemo
 
     private void OnWindowRender(double dt)
     {
+        _canvas.Draw(dt);
         _imgui.Render();
         _window.SwapBuffers();
     }
