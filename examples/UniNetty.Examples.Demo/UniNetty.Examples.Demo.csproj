@@ -9,7 +9,7 @@
   <ItemGroup>
     <None Include="..\..\shared\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Link>resource\%(Filename)%(Extension)</Link>
+      <Link>resources\%(Filename)%(Extension)</Link>
     </None>
   </ItemGroup>
   <ItemGroup>
