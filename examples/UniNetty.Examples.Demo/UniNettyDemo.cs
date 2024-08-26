@@ -117,7 +117,12 @@ public class UniNettyDemo
         var imGuiFontConfig = new ImGuiFontConfig(fontPath, fontSize, null);
         _imgui = new ImGuiController(_gl, _window, _input, imGuiFontConfig);
 
-        ImGui.GetStyle().ScaleAllSizes(scale);
+        var style = ImGui.GetStyle();
+        style.ScaleAllSizes(scale);
+        style.FramePadding = new Vector2(4, 4);
+        style.ItemSpacing = new Vector2(4, 4);
+        // style.CellPadding = new Vector2(10, 10);
+        style.WindowPadding = new Vector2(10, 10);
         //ImGui.GetIO().FontGlobalScale = 2.0f;
 
         _canvas = new Canvas();
@@ -164,6 +169,14 @@ public class UniNettyDemo
 
     private void OnWindowRender(double dt)
     {
+        _gl.ClearColor(0.3f, 0.3f, 0.32f, 1.0f);
+        _gl.Clear((uint)GLEnum.ColorBufferBit | (uint)GLEnum.DepthBufferBit);
+        _gl.Enable(GLEnum.Blend);
+        _gl.BlendFunc(GLEnum.SrcAlpha, GLEnum.OneMinusSrcAlpha);
+        _gl.Disable(GLEnum.Texture2D);
+        _gl.Enable(GLEnum.DepthTest);
+        _gl.Enable(GLEnum.CullFace);
+
         _canvas.Draw(dt);
         _imgui.Render();
         _window.SwapBuffers();
