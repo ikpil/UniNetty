@@ -7,11 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\shared\dotnetty.com.pfx" Link="resources\dotnetty.com.pfx">
+    <None Include="..\..\shared\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\shared\Roboto-Regular.ttf" Link="resources\Roboto-Regular.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>resource\%(Filename)%(Extension)</Link>
     </None>
   </ItemGroup>
   <ItemGroup>
