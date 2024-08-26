@@ -101,6 +101,7 @@ public class UniNettyDemo
     {
         _gl.Viewport(size);
         _viewport = new int[] { 0, 0, _width, _height };
+        _canvas.ResetSize(new Vector2(_width, _height));
     }
 
     private void OnWindowOnLoad()
@@ -126,7 +127,10 @@ public class UniNettyDemo
         //ImGui.GetIO().FontGlobalScale = 2.0f;
 
         _canvas = new Canvas();
-        _canvas.AddView(new MenuView());
+        _canvas.ResetSize(new Vector2(_width, _height));
+        _canvas.AddView(new MenuView(_canvas));
+        _canvas.AddView(new ExamplesView(_canvas));
+        _canvas.AddView(new LogView(_canvas));
 
         var vendor = _gl.GetStringS(GLEnum.Vendor);
         var version = _gl.GetStringS(GLEnum.Version);

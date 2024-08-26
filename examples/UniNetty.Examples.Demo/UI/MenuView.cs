@@ -1,18 +1,20 @@
 ﻿using ImGuiNET;
+using Serilog;
 using UniNetty.Examples.DemoSupports;
 
 namespace UniNetty.Examples.Demo.UI;
 
 public class MenuView : IView
 {
-    public void Bind(Canvas canvas)
+    private static readonly ILogger Logger = Log.ForContext<UniNettyDemo>();
+    
+    private readonly Canvas _canvas;
+    
+    public MenuView(Canvas canvas)
     {
+        _canvas = canvas;
     }
-
-    public void Update(double dt)
-    {
-    }
-
+    
     public void Draw(double dt)
     {
         if (ImGui.BeginMainMenuBar())

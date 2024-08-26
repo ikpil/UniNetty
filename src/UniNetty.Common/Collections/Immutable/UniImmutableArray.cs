@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace UniNetty.Common.Collections.Immutable
 {
-    public class UniImmutableArray<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable
+    public readonly struct UniImmutableArray<T> : IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable
     {
         public static readonly UniImmutableArray<T> Empty = new UniImmutableArray<T>(Array.Empty<T>());
 
