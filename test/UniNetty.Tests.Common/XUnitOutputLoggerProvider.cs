@@ -19,7 +19,7 @@ namespace UniNetty.Tests.Common
         public void Dispose()
         {
         }
-
+        
         public ILogger CreateLogger(string categoryName) => new XUnitOutputLogger(categoryName, this.output);
     }
 }
