@@ -12,10 +12,12 @@ public class ExamplesView : IView
     private static readonly ILogger Logger = Log.ForContext<UniNettyDemo>();
 
     private readonly Canvas _canvas;
+    private readonly ExamplesViewModel _vm;
 
     public ExamplesView(Canvas canvas)
     {
         _canvas = canvas;
+        _vm = new ExamplesViewModel();
     }
 
     public void Draw(double dt)
@@ -32,10 +34,9 @@ public class ExamplesView : IView
             ImGui.SetWindowSize(new Vector2(width, _canvas.Size.Y - 60));
         }
 
-        foreach (var example in DemoType.Values)
+        foreach (var example in _vm.Examples)
         {
-            int port = example.Port;
-            ImGui.Text(example.Name);
+            ImGui.Text(example.Example.Name);
             ImGui.Separator();
             if (ImGui.Button($"Run Server"))
             {
@@ -46,10 +47,11 @@ public class ExamplesView : IView
             {
             }
 
-            ImGui.SameLine();
             // var width = ImGui.GetContentRegionAvail().X;
             // ImGui.SetNextItemWidth(width); // 입력 상자 너비 설정
-            ImGui.InputInt("", ref port, 0, 0, ImGuiInputTextFlags.CallbackCharFilter);
+            if (ImGui.InputInt(example.Example.Name + " Port", ref example.Port));
+            {
+            }
 
             ImGui.NewLine();
         }
