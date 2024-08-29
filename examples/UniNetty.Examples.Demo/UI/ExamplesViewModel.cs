@@ -11,7 +11,37 @@ public class ExamplesViewModel
     {
         Examples = new ExampleSetting[ExampleType.Values.Count];
 
-        Examples[ExampleType.Discard.Index] = new ExampleSetting(ExampleType.Discard);
-        Examples[ExampleType.Discard.Index].Set(context.RunDiscardServer, context.RunDiscardClient);
+        Examples[ExampleType.None.Index] = null;
+
+        // discard
+        var discard = new ExampleSetting(ExampleType.Discard);
+        discard.Set(context.RunDiscardServer, context.RunDiscardClient);
+        discard.SetPort(8000);
+        discard.SetSize(256);
+
+        // echo
+        var echo = new ExampleSetting(ExampleType.Echo);
+        echo.Set(context.RunEchoServer, context.RunEchoClient);
+        echo.SetPort(8010);
+        echo.SetSize(256);
+
+        // factorial
+        var factorial = new ExampleSetting(ExampleType.Echo);
+        factorial.Set(context.RunFactorialServer, context.RunFactorialClient);
+        factorial.SetPort(8020);
+        factorial.SetSize(256);
+        factorial.SetCount(100);
+
+        // http
+        var http = new ExampleSetting(ExampleType.HttpServer);
+        http.Set(context.RunHelloHttpServer, context.RunHelloHttpClient);
+        http.SetPort(8080);
+
+
+        //
+        Examples[ExampleType.Discard.Index] = discard;
+        Examples[ExampleType.Echo.Index] = echo;
+        Examples[ExampleType.Factorial.Index] = factorial;
+        Examples[ExampleType.HttpServer.Index] = http;
     }
 }

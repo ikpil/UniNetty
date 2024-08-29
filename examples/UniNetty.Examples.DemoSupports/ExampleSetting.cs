@@ -5,7 +5,11 @@ namespace UniNetty.Examples.DemoSupports
     public class ExampleSetting
     {
         public readonly ExampleType Example;
-        public int Port;
+
+        public string Ip { get; private set; }
+        public int Port { get; private set; }
+        public int Size { get; private set; }
+        public int Count { get; private set; }
 
         private Action<ExampleSetting> _runServer;
         private Action<ExampleSetting> _runClient;
@@ -13,13 +17,27 @@ namespace UniNetty.Examples.DemoSupports
         public ExampleSetting(ExampleType example)
         {
             Example = example;
-            Port = example.Port;
         }
 
         public void Set(Action<ExampleSetting> runServer, Action<ExampleSetting> runClient)
         {
             _runServer = runServer;
             _runClient = runClient;
+        }
+
+        public void SetPort(int port)
+        {
+            Port = port;
+        }
+
+        public void SetSize(int size)
+        {
+            Size = size;
+        }
+
+        public void SetCount(int count)
+        {
+            Count = count;
         }
 
         public void RunServer()

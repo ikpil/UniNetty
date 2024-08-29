@@ -25,8 +25,8 @@ public class ExamplesView : IView
         ImGui.Begin("Examples");
 
         // size reset
-        var size = ImGui.GetItemRectSize();
-        if (32 >= size.X && 32 >= size.Y)
+        var rectSize = ImGui.GetItemRectSize();
+        if (32 >= rectSize.X && 32 >= rectSize.Y)
         {
             int width = 310;
             var posX = _canvas.Size.X - width;
@@ -36,15 +36,18 @@ public class ExamplesView : IView
 
         foreach (var example in _vm.Examples)
         {
+            if (null == example)
+                continue;
+            
             ImGui.Text(example.Example.Name);
             ImGui.Separator();
-            if (ImGui.Button($"Run Server"))
+            if (ImGui.Button(example.Example.Name + " Run Server"))
             {
                 example.RunServer();
             }
 
             ImGui.SameLine();
-            if (ImGui.Button($"Run Client"))
+            if (ImGui.Button(example.Example.Name + " Run Client"))
             {
                 example.RunClient();
             }
@@ -54,7 +57,17 @@ public class ExamplesView : IView
             int port = example.Port;
             if (ImGui.InputInt(example.Example.Name + " Port", ref port)) ;
             {
-                example.Port = port;
+                example.SetPort(port);
+            }
+
+            // use size
+            if (0 != example.Size)
+            {
+                int size = example.Size;
+                if (ImGui.InputInt(example.Example.Name + "Size", ref size))
+                {
+                    example.SetSize(size);
+                }
             }
 
             ImGui.NewLine();

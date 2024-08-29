@@ -51,18 +51,8 @@ namespace UniNetty.Examples.DemoSupports
             client.RunClientAsync(port).Wait();
         }
 
-        public void RunFactorialClient(string host, int port, int count)
-        {
-            var client = new FactorialClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(host), port, count).Wait();
-        }
 
-        public void RunEchoClient(string host, int port, int size)
-        {
-            var client = new EchoClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(host), port, size).Wait();
-        }
-
+        // discard
         public void RunDiscardServer(ExampleSetting setting)
         {
             var server = new DiscardServer();
@@ -72,9 +62,48 @@ namespace UniNetty.Examples.DemoSupports
         public void RunDiscardClient(ExampleSetting setting)
         {
             var client = new DiscardClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(host), setting.Port, size).Wait();
+            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Size).Wait();
         }
 
+
+        // echo
+        public void RunEchoServer(ExampleSetting setting)
+        {
+            var server = new EchoServer();
+            server.RunServerAsync(Cert, setting.Port).Wait();
+        }
+
+        public void RunEchoClient(ExampleSetting setting)
+        {
+            var client = new EchoClient();
+            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Size).Wait();
+        }
+
+
+        // factorial
+        public void RunFactorialServer(ExampleSetting setting)
+        {
+            var server = new FactorialServer();
+            server.RunServerAsync(Cert, setting.Port).Wait();
+        }
+
+        public void RunFactorialClient(ExampleSetting setting)
+        {
+            var client = new FactorialClient();
+            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Count).Wait();
+        }
+        
+        // http
+        public void RunHelloHttpServer(ExampleSetting setting)
+        {
+            var server = new HelloHttpServer();
+            server.RunServerAsync(Cert, setting.Port).Wait();
+        }
+
+        public void RunHelloHttpClient(ExampleSetting setting)
+        {
+            ExampleSupport.Shared.OpenUrl($"https://{setting.Ip}:{setting.Port}/json");
+        }
 
         public void RunWebSocketServer(ExampleSetting setting)
         {
@@ -100,22 +129,5 @@ namespace UniNetty.Examples.DemoSupports
             server.RunServerAsync(port).Wait();
         }
 
-        public void RunHelloHttpServer(int port)
-        {
-            var server = new HelloHttpServer();
-            server.RunServerAsync(Cert, port).Wait();
-        }
-
-        public void RunFactorialServer(int port)
-        {
-            var server = new FactorialServer();
-            server.RunServerAsync(Cert, port).Wait();
-        }
-
-        public void RunEchoServer(int port)
-        {
-            var server = new EchoServer();
-            server.RunServerAsync(Cert, port).Wait();
-        }
     }
 }
