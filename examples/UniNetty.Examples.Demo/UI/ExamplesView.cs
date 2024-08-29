@@ -38,7 +38,7 @@ public class ExamplesView : IView
         {
             if (null == example)
                 continue;
-            
+
             ImGui.Text(example.Example.Name);
             ImGui.Separator();
             if (ImGui.Button(example.Example.Name + " Run Server"))

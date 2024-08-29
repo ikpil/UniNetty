@@ -25,6 +25,11 @@ namespace UniNetty.Examples.DemoSupports
             _runClient = runClient;
         }
 
+        public void SetIp(string ip)
+        {
+            Ip = ip;
+        }
+
         public void SetPort(int port)
         {
             Port = port;

@@ -13,21 +13,25 @@ public class ExamplesViewModel
 
         Examples[ExampleType.None.Index] = null;
 
+        var ip = ExampleSupport.Shared.GetPrivateIp();
         // discard
         var discard = new ExampleSetting(ExampleType.Discard);
         discard.Set(context.RunDiscardServer, context.RunDiscardClient);
+        discard.SetIp(ip);
         discard.SetPort(8000);
         discard.SetSize(256);
 
         // echo
         var echo = new ExampleSetting(ExampleType.Echo);
         echo.Set(context.RunEchoServer, context.RunEchoClient);
+        echo.SetIp(ip);
         echo.SetPort(8010);
         echo.SetSize(256);
 
         // factorial
         var factorial = new ExampleSetting(ExampleType.Echo);
         factorial.Set(context.RunFactorialServer, context.RunFactorialClient);
+        factorial.SetIp(ip);
         factorial.SetPort(8020);
         factorial.SetSize(256);
         factorial.SetCount(100);
@@ -35,6 +39,7 @@ public class ExamplesViewModel
         // http
         var http = new ExampleSetting(ExampleType.HttpServer);
         http.Set(context.RunHelloHttpServer, context.RunHelloHttpClient);
+        http.SetIp(ip);
         http.SetPort(8080);
 
 

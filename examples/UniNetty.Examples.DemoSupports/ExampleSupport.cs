@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Runtime.InteropServices;
 
 namespace UniNetty.Examples.DemoSupports
@@ -7,7 +8,7 @@ namespace UniNetty.Examples.DemoSupports
     public class ExampleSupport
     {
         public static readonly ExampleSupport Shared = new ExampleSupport();
-        
+
         public void OpenUrl(string url)
         {
             try
@@ -31,6 +32,20 @@ namespace UniNetty.Examples.DemoSupports
             {
                 Console.WriteLine($"Error opening web browser: {ex.Message}");
             }
+        }
+
+        public string GetPrivateIp()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+
+            return string.Empty;
         }
     }
 }
