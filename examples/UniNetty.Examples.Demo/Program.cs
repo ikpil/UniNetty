@@ -42,7 +42,7 @@ public static class Program
         var pfx = Path.Combine(AppContext.BaseDirectory, "resources", "dotnetty.com.pfx");
         var cert = new X509Certificate2(pfx, "password");
 
-        var context = new DemoContext();
+        var context = new ExampleContext();
         context.SetCertificate(cert);
 
         var demo = new UniNettyDemo();

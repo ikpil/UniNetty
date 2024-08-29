@@ -17,7 +17,7 @@ public class ExamplesView : IView
     public ExamplesView(Canvas canvas)
     {
         _canvas = canvas;
-        _vm = new ExamplesViewModel();
+        _vm = new ExamplesViewModel(canvas.Context);
     }
 
     public void Draw(double dt)
@@ -40,17 +40,21 @@ public class ExamplesView : IView
             ImGui.Separator();
             if (ImGui.Button($"Run Server"))
             {
+                example.RunServer();
             }
 
             ImGui.SameLine();
             if (ImGui.Button($"Run Client"))
             {
+                example.RunClient();
             }
 
             // var width = ImGui.GetContentRegionAvail().X;
             // ImGui.SetNextItemWidth(width); // 입력 상자 너비 설정
-            if (ImGui.InputInt(example.Example.Name + " Port", ref example.Port));
+            int port = example.Port;
+            if (ImGui.InputInt(example.Example.Name + " Port", ref port)) ;
             {
+                example.Port = port;
             }
 
             ImGui.NewLine();

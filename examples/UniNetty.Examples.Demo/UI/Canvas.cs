@@ -1,5 +1,6 @@
 ﻿using System.Collections.Immutable;
 using System.Numerics;
+using UniNetty.Examples.DemoSupports;
 
 namespace UniNetty.Examples.Demo.UI;
 
@@ -8,8 +9,11 @@ public class Canvas
     public Vector2 Size;
     private ImmutableArray<IView> _view;
 
-    public Canvas()
+    public readonly ExampleContext Context;
+
+    public Canvas(ExampleContext context)
     {
+        Context = context;
         _view = ImmutableArray<IView>.Empty;
     }
 

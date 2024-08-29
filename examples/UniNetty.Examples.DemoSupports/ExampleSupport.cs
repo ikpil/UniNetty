@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 
 namespace UniNetty.Examples.DemoSupports
 {
-    public class DemoSupport
+    public class ExampleSupport
     {
-        public static readonly DemoSupport Shared = new DemoSupport();
+        public static readonly ExampleSupport Shared = new ExampleSupport();
         
         public void OpenUrl(string url)
         {

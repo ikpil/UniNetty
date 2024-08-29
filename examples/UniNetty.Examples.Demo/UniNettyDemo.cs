@@ -23,6 +23,7 @@ public class UniNettyDemo
 {
     private static readonly ILogger Logger = Log.ForContext<UniNettyDemo>();
 
+    private ExampleContext _context;
     private IWindow _window;
     private GL _gl;
     private IInputContext _input;
@@ -35,8 +36,9 @@ public class UniNettyDemo
 
     private Canvas _canvas;
 
-    public void Start(DemoContext context)
+    public void Start(ExampleContext context)
     {
+        _context = context;
         var monitor = Window.Platforms.First().GetMainMonitor();
         var resolution = monitor.VideoMode.Resolution.Value;
 
@@ -126,7 +128,7 @@ public class UniNettyDemo
         style.WindowPadding = new Vector2(10, 10);
         //ImGui.GetIO().FontGlobalScale = 2.0f;
 
-        _canvas = new Canvas();
+        _canvas = new Canvas(_context);
         _canvas.ResetSize(new Vector2(_width, _height));
         _canvas.AddView(new MenuView(_canvas));
         _canvas.AddView(new ExamplesView(_canvas));

@@ -23,23 +23,23 @@ public class MenuView : IView
             {
                 if (ImGui.MenuItem("Repository"))
                 {
-                    DemoSupport.Shared.OpenUrl("https://github.com/ikpil/UniNetty");
+                    ExampleSupport.Shared.OpenUrl("https://github.com/ikpil/UniNetty");
                 }
 
                 if (ImGui.MenuItem("Nuget"))
                 {
-                    DemoSupport.Shared.OpenUrl("https://www.nuget.org/packages/UniNetty.Common/");
+                    ExampleSupport.Shared.OpenUrl("https://www.nuget.org/packages/UniNetty.Common/");
                 }
 
                 ImGui.Separator();
                 if (ImGui.MenuItem("Issue Tracker"))
                 {
-                    DemoSupport.Shared.OpenUrl("https://github.com/ikpil/UniNetty/issues");
+                    ExampleSupport.Shared.OpenUrl("https://github.com/ikpil/UniNetty/issues");
                 }
 
                 if (ImGui.MenuItem("Release Notes"))
                 {
-                    DemoSupport.Shared.OpenUrl("https://github.com/ikpil/UniNetty/blob/main/CHANGELOG.md");
+                    ExampleSupport.Shared.OpenUrl("https://github.com/ikpil/UniNetty/blob/main/CHANGELOG.md");
                 }
 
                 ImGui.EndMenu();

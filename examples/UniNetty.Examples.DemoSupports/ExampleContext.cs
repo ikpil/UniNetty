@@ -18,7 +18,7 @@ using UniNetty.Examples.WebSockets.Server;
 
 namespace UniNetty.Examples.DemoSupports
 {
-    public class DemoContext
+    public class ExampleContext
     {
         public X509Certificate2 Cert { get; private set; }
 
