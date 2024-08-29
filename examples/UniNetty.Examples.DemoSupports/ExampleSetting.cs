@@ -1,24 +1,35 @@
-﻿namespace UniNetty.Examples.DemoSupports
+﻿using System;
+
+namespace UniNetty.Examples.DemoSupports
 {
     public class ExampleSetting
     {
-        public readonly ExampleContext _context;
         public readonly ExampleType Example;
         public int Port;
 
-        public ExampleSetting(ExampleContext context, ExampleType example)
+        private Action<ExampleSetting> _runServer;
+        private Action<ExampleSetting> _runClient;
+
+        public ExampleSetting(ExampleType example)
         {
-            _context = context;
             Example = example;
             Port = example.Port;
         }
 
+        public void Set(Action<ExampleSetting> runServer, Action<ExampleSetting> runClient)
+        {
+            _runServer = runServer;
+            _runClient = runClient;
+        }
+
         public void RunServer()
         {
+            _runServer?.Invoke(this);
         }
 
         public void RunClient()
         {
+            _runClient?.Invoke(this);
         }
     }
 }

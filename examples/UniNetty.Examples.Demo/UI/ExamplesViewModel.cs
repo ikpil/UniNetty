@@ -5,12 +5,13 @@ namespace UniNetty.Examples.Demo.UI;
 
 public class ExamplesViewModel
 {
-    public ExampleSetting[] Examples;
+    public readonly ExampleSetting[] Examples;
 
     public ExamplesViewModel(ExampleContext context)
     {
-        Examples = ExampleType.Values
-            .Select(x => new ExampleSetting(context, x))
-            .ToArray();
+        Examples = new ExampleSetting[ExampleType.Values.Count];
+
+        Examples[ExampleType.Discard.Index] = new ExampleSetting(ExampleType.Discard);
+        Examples[ExampleType.Discard.Index].Set(context.RunDiscardServer, context.RunDiscardClient);
     }
 }

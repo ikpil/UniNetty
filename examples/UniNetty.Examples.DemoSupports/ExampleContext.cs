@@ -63,17 +63,23 @@ namespace UniNetty.Examples.DemoSupports
             client.RunClientAsync(Cert, IPAddress.Parse(host), port, size).Wait();
         }
 
-        public void RunDiscardClient(string host, int port, int size)
+        public void RunDiscardServer(ExampleSetting setting)
+        {
+            var server = new DiscardServer();
+            server.RunServerAsync(Cert, setting.Port).Wait();
+        }
+
+        public void RunDiscardClient(ExampleSetting setting)
         {
             var client = new DiscardClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(host), port, size).Wait();
+            client.RunClientAsync(Cert, IPAddress.Parse(host), setting.Port, size).Wait();
         }
 
 
-        public void RunWebSocketServer(int port)
+        public void RunWebSocketServer(ExampleSetting setting)
         {
-            var server = new WebSocketServer();
-            server.RunServerAsync(Cert, port).Wait();
+            // var server = new WebSocketServer();
+            // server.RunServerAsync(Cert, port).Wait();
         }
 
         public void RunTelnetServer(int port)
@@ -109,12 +115,6 @@ namespace UniNetty.Examples.DemoSupports
         public void RunEchoServer(int port)
         {
             var server = new EchoServer();
-            server.RunServerAsync(Cert, port).Wait();
-        }
-
-        public void RunDiscardServer(int port)
-        {
-            var server = new DiscardServer();
             server.RunServerAsync(Cert, port).Wait();
         }
     }
