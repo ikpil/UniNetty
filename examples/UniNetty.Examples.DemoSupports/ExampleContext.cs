@@ -27,31 +27,6 @@ namespace UniNetty.Examples.DemoSupports
             Cert = cert;
         }
 
-        public void RunWebSocketClient(string host, int port, string path)
-        {
-            var client = new WebSocketClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(host), port, path).Wait();
-        }
-
-        public void RunTelentClient(string host, int port)
-        {
-            var client = new TelnetClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(host), port).Wait();
-        }
-
-        public void RunSecureChatClient(string host, int port)
-        {
-            var client = new SecureChatClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(host), port).Wait();
-        }
-
-        public void RunQuoteOfTheMomentClient(int port)
-        {
-            var client = new QuoteOfTheMomentClient();
-            client.RunClientAsync(port).Wait();
-        }
-
-
         // discard
         public void RunDiscardServer(ExampleSetting setting)
         {
@@ -79,7 +54,6 @@ namespace UniNetty.Examples.DemoSupports
             client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Size).Wait();
         }
 
-
         // factorial
         public void RunFactorialServer(ExampleSetting setting)
         {
@@ -92,7 +66,62 @@ namespace UniNetty.Examples.DemoSupports
             var client = new FactorialClient();
             client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Count).Wait();
         }
-        
+
+        // QuoteOfTheMoment
+        public void QuoteOfTheMomentServer(ExampleSetting setting)
+        {
+            var server = new QuoteOfTheMomentServer();
+            server.RunServerAsync(setting.Port).Wait();
+        }
+
+        public void RunQuoteOfTheMomentClient(ExampleSetting setting)
+        {
+            var client = new QuoteOfTheMomentClient();
+            client.RunClientAsync(setting.Port).Wait();
+        }
+
+        // secure
+        public void RunSecureChatServer(ExampleSetting setting)
+        {
+            var server = new SecureChatServer();
+            server.RunServerAsync(Cert, setting.Port).Wait();
+        }
+
+        public void RunSecureChatClient(ExampleSetting setting)
+        {
+            var client = new SecureChatClient();
+            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port).Wait();
+        }
+
+        // 
+        public void RunTelnetServer(ExampleSetting setting)
+        {
+            var server = new TelnetServer();
+            server.RunServerAsync(Cert, setting.Port).Wait();
+        }
+
+
+        public void RunTelnetClient(ExampleSetting setting)
+        {
+            var client = new TelnetClient();
+            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port).Wait();
+        }
+
+
+        // websocket
+        public void RunWebSocketServer(ExampleSetting setting)
+        {
+            var server = new WebSocketServer();
+            server.RunServerAsync(Cert, setting.Port).Wait();
+        }
+
+        public void RunWebSocketClient(ExampleSetting setting)
+        {
+            var client = new WebSocketClient();
+            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Path).Wait();
+        }
+
+
         // http
         public void RunHelloHttpServer(ExampleSetting setting)
         {
@@ -104,30 +133,5 @@ namespace UniNetty.Examples.DemoSupports
         {
             ExampleSupport.Shared.OpenUrl($"https://{setting.Ip}:{setting.Port}/json");
         }
-
-        public void RunWebSocketServer(ExampleSetting setting)
-        {
-            // var server = new WebSocketServer();
-            // server.RunServerAsync(Cert, port).Wait();
-        }
-
-        public void RunTelnetServer(int port)
-        {
-            var server = new TelnetServer();
-            server.RunServerAsync(Cert, port).Wait();
-        }
-
-        public void RunSecureChatServer(int port)
-        {
-            var server = new SecureChatServer();
-            server.RunServerAsync(Cert, port).Wait();
-        }
-
-        public void QuoteOfTheMomentServer(int port)
-        {
-            var server = new QuoteOfTheMomentServer();
-            server.RunServerAsync(port).Wait();
-        }
-
     }
 }

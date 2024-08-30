@@ -20,9 +20,13 @@ namespace UniNetty.Examples.DemoSupports
             Example = example;
         }
 
-        public void Set(Action<ExampleSetting> runServer, Action<ExampleSetting> runClient)
+        public void SetServer(Action<ExampleSetting> runServer) 
         {
             _runServer = runServer;
+        }
+
+        public void SetClient(Action<ExampleSetting> runClient)
+        {
             _runClient = runClient;
         }
 
