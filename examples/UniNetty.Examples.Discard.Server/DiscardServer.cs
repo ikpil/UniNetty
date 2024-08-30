@@ -16,16 +16,19 @@ namespace UniNetty.Examples.Discard.Server
 {
     public class DiscardServer
     {
-        public async Task RunServerAsync(X509Certificate2 cert, int port)
+        private MultithreadEventLoopGroup _bossGroup;
+        private MultithreadEventLoopGroup _workerGroup;
+        private IChannel _listen;
+
+        public async Task StartAsync(X509Certificate2 cert, int port)
         {
-            var bossGroup = new MultithreadEventLoopGroup(1);
-            var workerGroup = new MultithreadEventLoopGroup();
+            _bossGroup = new MultithreadEventLoopGroup(1);
+            _workerGroup = new MultithreadEventLoopGroup();
 
             try
             {
-                var bootstrap = new ServerBootstrap();
-                bootstrap
-                    .Group(bossGroup, workerGroup)
+                var bootstrap = new ServerBootstrap()
+                    .Group(_bossGroup, _workerGroup)
                     .Channel<TcpServerSocketChannel>()
                     .Option(ChannelOption.SoBacklog, 100)
                     .Handler(new LoggingHandler("LSTN"))
@@ -41,15 +44,33 @@ namespace UniNetty.Examples.Discard.Server
                         pipeline.AddLast(new DiscardServerHandler());
                     }));
 
-                IChannel bootstrapChannel = await bootstrap.BindAsync(port);
+                _listen = await bootstrap.BindAsync(port);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
 
-                Console.ReadLine();
+        public async Task StopAsync()
+        {
+            if (null == _listen)
+                return;
 
-                await bootstrapChannel.CloseAsync();
+            try
+            {
+                await _listen.CloseAsync();
+                _listen = null;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
             finally
             {
-                Task.WaitAll(bossGroup.ShutdownGracefullyAsync(), workerGroup.ShutdownGracefullyAsync());
+                Task.WaitAll(_bossGroup.ShutdownGracefullyAsync(), _workerGroup.ShutdownGracefullyAsync());
+                _bossGroup = null;
+                _workerGroup = null;
             }
         }
     }

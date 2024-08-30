@@ -12,20 +12,20 @@ namespace UniNetty.Examples.DemoSupports
         public int Count { get; private set; }
         public string Path { get; private set; }
 
-        private Action<ExampleSetting> _runServer;
-        private Action<ExampleSetting> _runClient;
+        private Func<ExampleSetting, IDisposable> _runServer;
+        private Func<ExampleSetting, IDisposable> _runClient;
 
         public ExampleSetting(ExampleType example)
         {
             Example = example;
         }
 
-        public void SetServer(Action<ExampleSetting> runServer) 
+        public void SetServer(Func<ExampleSetting, IDisposable> runServer)
         {
             _runServer = runServer;
         }
 
-        public void SetClient(Action<ExampleSetting> runClient)
+        public void SetClient(Func<ExampleSetting, IDisposable> runClient)
         {
             _runClient = runClient;
         }

@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using UniNetty.Examples.Discard.Client;
 using UniNetty.Examples.Discard.Server;
@@ -28,110 +29,131 @@ namespace UniNetty.Examples.DemoSupports
         }
 
         // discard
-        public void RunDiscardServer(ExampleSetting setting)
+        public IDisposable RunDiscardServer(ExampleSetting setting)
         {
             var server = new DiscardServer();
-            server.RunServerAsync(Cert, setting.Port).Wait();
+            _ = server.StartAsync(Cert, setting.Port);
+
+            return ExampleSupport.Shared.CreateDisposer(() =>
+            {
+                _ = server.StopAsync();
+            });
         }
 
-        public void RunDiscardClient(ExampleSetting setting)
+        public IDisposable RunDiscardClient(ExampleSetting setting)
         {
             var client = new DiscardClient();
             client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Size).Wait();
+
+            return null;
         }
 
 
         // echo
-        public void RunEchoServer(ExampleSetting setting)
+        public IDisposable RunEchoServer(ExampleSetting setting)
         {
             var server = new EchoServer();
             server.RunServerAsync(Cert, setting.Port).Wait();
+            return null;
         }
 
-        public void RunEchoClient(ExampleSetting setting)
+        public IDisposable RunEchoClient(ExampleSetting setting)
         {
             var client = new EchoClient();
             client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Size).Wait();
+            return null;
         }
 
         // factorial
-        public void RunFactorialServer(ExampleSetting setting)
+        public IDisposable RunFactorialServer(ExampleSetting setting)
         {
             var server = new FactorialServer();
             server.RunServerAsync(Cert, setting.Port).Wait();
+            return null;
         }
 
-        public void RunFactorialClient(ExampleSetting setting)
+        public IDisposable RunFactorialClient(ExampleSetting setting)
         {
             var client = new FactorialClient();
             client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Count).Wait();
+            return null;
         }
 
         // QuoteOfTheMoment
-        public void QuoteOfTheMomentServer(ExampleSetting setting)
+        public IDisposable QuoteOfTheMomentServer(ExampleSetting setting)
         {
             var server = new QuoteOfTheMomentServer();
             server.RunServerAsync(setting.Port).Wait();
+            return null;
         }
 
-        public void RunQuoteOfTheMomentClient(ExampleSetting setting)
+        public IDisposable RunQuoteOfTheMomentClient(ExampleSetting setting)
         {
             var client = new QuoteOfTheMomentClient();
             client.RunClientAsync(setting.Port).Wait();
+            return null;
         }
 
         // secure
-        public void RunSecureChatServer(ExampleSetting setting)
+        public IDisposable RunSecureChatServer(ExampleSetting setting)
         {
             var server = new SecureChatServer();
             server.RunServerAsync(Cert, setting.Port).Wait();
+            return null;
         }
 
-        public void RunSecureChatClient(ExampleSetting setting)
+        public IDisposable RunSecureChatClient(ExampleSetting setting)
         {
             var client = new SecureChatClient();
             client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port).Wait();
+            return null;
         }
 
         // 
-        public void RunTelnetServer(ExampleSetting setting)
+        public IDisposable RunTelnetServer(ExampleSetting setting)
         {
             var server = new TelnetServer();
             server.RunServerAsync(Cert, setting.Port).Wait();
+            return null;
         }
 
 
-        public void RunTelnetClient(ExampleSetting setting)
+        public IDisposable RunTelnetClient(ExampleSetting setting)
         {
             var client = new TelnetClient();
             client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port).Wait();
+            return null;
         }
 
 
         // websocket
-        public void RunWebSocketServer(ExampleSetting setting)
+        public IDisposable RunWebSocketServer(ExampleSetting setting)
         {
             var server = new WebSocketServer();
             server.RunServerAsync(Cert, setting.Port).Wait();
+            return null;
         }
 
-        public void RunWebSocketClient(ExampleSetting setting)
+        public IDisposable RunWebSocketClient(ExampleSetting setting)
         {
             var client = new WebSocketClient();
             client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Path).Wait();
+            return null;
         }
 
 
         // http
-        public void RunHelloHttpServer(ExampleSetting setting)
+        public IDisposable RunHelloHttpServer(ExampleSetting setting)
         {
             var server = new HelloHttpServer();
             server.RunServerAsync(Cert, setting.Port).Wait();
+            return null;
         }
 
-        public void RunHelloHttpClient(ExampleSetting setting)
+        public IDisposable RunHelloHttpClient(ExampleSetting setting)
         {
             ExampleSupport.Shared.OpenUrl($"https://{setting.Ip}:{setting.Port}/json");
+            return null;
         }
     }
 }

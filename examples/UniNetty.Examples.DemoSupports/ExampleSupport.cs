@@ -48,5 +48,10 @@ namespace UniNetty.Examples.DemoSupports
 
             return string.Empty;
         }
+
+        public AnonymousDisposer CreateDisposer(Action action)
+        {
+            return new AnonymousDisposer(action);
+        }
     }
 }
