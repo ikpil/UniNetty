@@ -10,6 +10,7 @@ namespace UniNetty.Examples.DemoSupports
         public int Port { get; private set; }
         public int Size { get; private set; }
         public int Count { get; private set; }
+        public string Path { get; private set; }
 
         private Action<ExampleSetting> _runServer;
         private Action<ExampleSetting> _runClient;
@@ -43,6 +44,11 @@ namespace UniNetty.Examples.DemoSupports
         public void SetCount(int count)
         {
             Count = count;
+        }
+
+        public void SetPath(string path)
+        {
+            Path = path;
         }
 
         public void RunServer()
