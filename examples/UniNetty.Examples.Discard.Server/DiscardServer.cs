@@ -3,9 +3,9 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
-using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using UniNetty.Common.Internal.Logging;
 using UniNetty.Handlers.Logging;
 using UniNetty.Handlers.Tls;
 using UniNetty.Transport.Bootstrapping;
@@ -16,12 +16,16 @@ namespace UniNetty.Examples.Discard.Server
 {
     public class DiscardServer
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<DiscardServer>();
+
         private MultithreadEventLoopGroup _bossGroup;
         private MultithreadEventLoopGroup _workerGroup;
         private IChannel _listen;
 
         public async Task StartAsync(X509Certificate2 cert, int port)
         {
+            Logger.Info($"Starting discard server at port {port}");
+            
             _bossGroup = new MultithreadEventLoopGroup(1);
             _workerGroup = new MultithreadEventLoopGroup();
 
@@ -45,10 +49,11 @@ namespace UniNetty.Examples.Discard.Server
                     }));
 
                 _listen = await bootstrap.BindAsync(port);
+                Logger.Info($"Listening on port {port}");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logger.Error(e);
             }
         }
 
@@ -57,6 +62,7 @@ namespace UniNetty.Examples.Discard.Server
             if (null == _listen)
                 return;
 
+            Logger.Info("Stopping discard server");
             try
             {
                 await _listen.CloseAsync();
@@ -64,13 +70,15 @@ namespace UniNetty.Examples.Discard.Server
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logger.Error(e);
             }
             finally
             {
                 Task.WaitAll(_bossGroup.ShutdownGracefullyAsync(), _workerGroup.ShutdownGracefullyAsync());
                 _bossGroup = null;
                 _workerGroup = null;
+                
+                Logger.Info("Stopped discard server");
             }
         }
     }

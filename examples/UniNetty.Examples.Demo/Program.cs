@@ -7,7 +7,11 @@ using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using Serilog;
+using UniNetty.Common.Internal.Logging;
+using UniNetty.Examples.Demo.Logging;
 using UniNetty.Examples.DemoSupports;
+using UniNetty.Logging;
+using ILogger = UniNetty.Logging.ILogger;
 
 
 namespace UniNetty.Examples.Demo;
@@ -31,6 +35,8 @@ public static class Program
                 outputTemplate: format)
             )
             .CreateLogger();
+
+        InternalLoggerFactory.DefaultFactory = new LoggerFactory();
     }
 
     public static void Main(string[] args)
