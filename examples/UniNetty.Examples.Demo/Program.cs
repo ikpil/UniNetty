@@ -36,7 +36,7 @@ public static class Program
             )
             .CreateLogger();
 
-        InternalLoggerFactory.DefaultFactory = new LoggerFactory();
+        InternalLoggerFactory.DefaultFactory = new DemoLoggerFactory();
     }
 
     public static void Main(string[] args)

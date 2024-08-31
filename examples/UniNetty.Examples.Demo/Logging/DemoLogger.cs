@@ -4,11 +4,11 @@ using UniNetty.Logging;
 
 namespace UniNetty.Examples.Demo.Logging;
 
-public class Logger : ILogger
+public class DemoLogger : ILogger
 {
     private readonly Serilog.ILogger _logger;
 
-    public Logger(Serilog.ILogger logger)
+    public DemoLogger(Serilog.ILogger logger)
     {
         _logger = logger;
     }
