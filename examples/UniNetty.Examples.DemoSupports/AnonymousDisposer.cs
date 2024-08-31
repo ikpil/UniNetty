@@ -2,13 +2,18 @@
 
 namespace UniNetty.Examples.DemoSupports
 {
-    public class AnonymousDisposer : IDisposable
+    internal class AnonymousDisposer : IDisposable
     {
         private Action _action;
         private bool _disposed;
         private readonly object _lock = new object();
 
-        public AnonymousDisposer(Action action)
+        public static IDisposable Create(Action action)
+        {
+            return new AnonymousDisposer(action);
+        }
+
+        private AnonymousDisposer(Action action)
         {
             _action = action ?? throw new ArgumentNullException(nameof(action));
         }

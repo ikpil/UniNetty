@@ -12,8 +12,13 @@ namespace UniNetty.Examples.DemoSupports
         public int Count { get; private set; }
         public string Path { get; private set; }
 
+        public bool IsRunningServer => null != _stopServer;
         private Func<ExampleSetting, IDisposable> _runServer;
+        private IDisposable _stopServer;
+
+        public bool IsRunningClient => null != _stopClient;
         private Func<ExampleSetting, IDisposable> _runClient;
+        private IDisposable _stopClient;
 
         public ExampleSetting(ExampleType example)
         {
@@ -55,14 +60,30 @@ namespace UniNetty.Examples.DemoSupports
             Path = path;
         }
 
-        public void RunServer()
+        public void ToggleServer()
         {
-            _runServer?.Invoke(this);
+            if (null == _stopServer)
+            {
+                _stopServer = _runServer?.Invoke(this);
+            }
+            else
+            {
+                _stopServer.Dispose();
+                _stopServer = null;
+            }
         }
 
-        public void RunClient()
+        public void ToggleClient()
         {
-            _runClient?.Invoke(this);
+            if (null == _stopClient)
+            {
+                _stopClient = _runClient?.Invoke(this);
+            }
+            else
+            {
+                _stopClient.Dispose();
+                _stopClient = null;
+            }
         }
     }
 }

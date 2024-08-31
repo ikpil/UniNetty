@@ -41,15 +41,19 @@ public class ExamplesView : IView
 
             ImGui.Text(example.Example.Name);
             ImGui.Separator();
-            if (ImGui.Button(example.Example.Name + " Run Server"))
+
+            var btnServer = example.IsRunningServer ? "Stop Server" : "Run Server";
+            if (ImGui.Button(example.Example.Name + " " + btnServer))
             {
-                example.RunServer();
+                example.ToggleServer();
             }
 
             ImGui.SameLine();
-            if (ImGui.Button(example.Example.Name + " Run Client"))
+
+            var btnClient = example.IsRunningClient ? "Stop Client" : "Run Client";
+            if (ImGui.Button(example.Example.Name + " " + btnClient))
             {
-                example.RunClient();
+                example.ToggleClient();
             }
 
             // var width = ImGui.GetContentRegionAvail().X;

@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Net.Security;
+using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using UniNetty.Handlers.Logging;
@@ -18,9 +19,12 @@ namespace UniNetty.Examples.Discard.Client
 {
     public class DiscardClient
     {
-        public async Task RunClientAsync(X509Certificate2 cert, IPAddress host, int port, int size)
+        private MultithreadEventLoopGroup _group;
+        private IChannel _channel;
+
+        public async Task StartAsync(X509Certificate2 cert, IPAddress host, int port, int size)
         {
-            var group = new MultithreadEventLoopGroup();
+            _group = new MultithreadEventLoopGroup();
 
             string targetHost = null;
             if (null != cert)
@@ -28,36 +32,31 @@ namespace UniNetty.Examples.Discard.Client
                 targetHost = cert.GetNameInfo(X509NameType.DnsName, false);
             }
 
-            try
-            {
-                var bootstrap = new Bootstrap();
-                bootstrap
-                    .Group(group)
-                    .Channel<TcpSocketChannel>()
-                    .Option(ChannelOption.TcpNodelay, true)
-                    .Handler(new ActionChannelInitializer<ISocketChannel>(channel =>
+            var bootstrap = new Bootstrap();
+            bootstrap
+                .Group(_group)
+                .Channel<TcpSocketChannel>()
+                .Option(ChannelOption.TcpNodelay, true)
+                .Handler(new ActionChannelInitializer<ISocketChannel>(channel =>
+                {
+                    IChannelPipeline pipeline = channel.Pipeline;
+
+                    if (cert != null)
                     {
-                        IChannelPipeline pipeline = channel.Pipeline;
+                        pipeline.AddLast(new TlsHandler(stream => new SslStream(stream, true, (sender, certificate, chain, errors) => true), new ClientTlsSettings(targetHost)));
+                    }
 
-                        if (cert != null)
-                        {
-                            pipeline.AddLast(new TlsHandler(stream => new SslStream(stream, true, (sender, certificate, chain, errors) => true), new ClientTlsSettings(targetHost)));
-                        }
+                    pipeline.AddLast(new LoggingHandler());
+                    pipeline.AddLast(new DiscardClientHandler(size));
+                }));
 
-                        pipeline.AddLast(new LoggingHandler());
-                        pipeline.AddLast(new DiscardClientHandler(size));
-                    }));
+            _channel = await bootstrap.ConnectAsync(new IPEndPoint(host, port));
+        }
 
-                IChannel bootstrapChannel = await bootstrap.ConnectAsync(new IPEndPoint(host, port));
-
-                Console.ReadLine();
-
-                await bootstrapChannel.CloseAsync();
-            }
-            finally
-            {
-                group.ShutdownGracefullyAsync().Wait(1000);
-            }
+        public async Task StopAsync()
+        {
+            await _channel.CloseAsync();
+            await _group.ShutdownGracefullyAsync();
         }
     }
 }

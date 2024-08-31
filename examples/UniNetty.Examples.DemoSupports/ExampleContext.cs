@@ -34,7 +34,7 @@ namespace UniNetty.Examples.DemoSupports
             var server = new DiscardServer();
             _ = server.StartAsync(Cert, setting.Port);
 
-            return ExampleSupport.Shared.CreateDisposer(() =>
+            return AnonymousDisposer.Create(() =>
             {
                 _ = server.StopAsync();
             });
@@ -43,9 +43,12 @@ namespace UniNetty.Examples.DemoSupports
         public IDisposable RunDiscardClient(ExampleSetting setting)
         {
             var client = new DiscardClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Size).Wait();
+            _ = client.StartAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Size);
 
-            return null;
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = client.StopAsync();
+            });
         }
 
 
