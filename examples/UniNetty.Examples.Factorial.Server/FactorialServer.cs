@@ -15,40 +15,39 @@ namespace UniNetty.Examples.Factorial.Server
 {
     public class FactorialServer
     {
-        public async Task RunServerAsync(X509Certificate2 cert, int port)
+        private MultithreadEventLoopGroup _bossGroup;
+        private MultithreadEventLoopGroup _workerGroup;
+        private IChannel _channel;
+
+        public async Task StartAsync(X509Certificate2 cert, int port)
         {
-            var bossGroup = new MultithreadEventLoopGroup(1);
-            var workerGroup = new MultithreadEventLoopGroup();
-            try
-            {
-                var bootstrap = new ServerBootstrap();
-                bootstrap
-                    .Group(bossGroup, workerGroup)
-                    .Channel<TcpServerSocketChannel>()
-                    .Option(ChannelOption.SoBacklog, 100)
-                    .Handler(new LoggingHandler("LSTN"))
-                    .ChildHandler(new ActionChannelInitializer<ISocketChannel>(channel =>
+            _bossGroup = new MultithreadEventLoopGroup(1);
+            _workerGroup = new MultithreadEventLoopGroup();
+            var bootstrap = new ServerBootstrap();
+            bootstrap
+                .Group(_bossGroup, _workerGroup)
+                .Channel<TcpServerSocketChannel>()
+                .Option(ChannelOption.SoBacklog, 100)
+                .Handler(new LoggingHandler("LSTN"))
+                .ChildHandler(new ActionChannelInitializer<ISocketChannel>(channel =>
+                {
+                    IChannelPipeline pipeline = channel.Pipeline;
+                    if (cert != null)
                     {
-                        IChannelPipeline pipeline = channel.Pipeline;
-                        if (cert != null)
-                        {
-                            pipeline.AddLast(TlsHandler.Server(cert));
-                        }
+                        pipeline.AddLast(TlsHandler.Server(cert));
+                    }
 
-                        pipeline.AddLast(new LoggingHandler("CONN"));
-                        pipeline.AddLast(new NumberEncoder(), new BigIntegerDecoder(), new FactorialServerHandler());
-                    }));
+                    pipeline.AddLast(new LoggingHandler("CONN"));
+                    pipeline.AddLast(new NumberEncoder(), new BigIntegerDecoder(), new FactorialServerHandler());
+                }));
 
-                IChannel bootstrapChannel = await bootstrap.BindAsync(port);
+            _channel = await bootstrap.BindAsync(port);
+        }
 
-                Console.ReadLine();
-
-                await bootstrapChannel.CloseAsync();
-            }
-            finally
-            {
-                Task.WaitAll(bossGroup.ShutdownGracefullyAsync(), workerGroup.ShutdownGracefullyAsync());
-            }
+        public async Task StopAsync()
+        {
+            await _channel.CloseAsync();
+            Task.WaitAll(_bossGroup.ShutdownGracefullyAsync(), _workerGroup.ShutdownGracefullyAsync());
         }
     }
 }

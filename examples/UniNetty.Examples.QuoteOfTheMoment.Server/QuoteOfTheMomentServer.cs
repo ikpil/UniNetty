@@ -16,32 +16,31 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Server
     {
         private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<QuoteOfTheMomentServer>();
 
-        public async Task RunServerAsync(int port)
+        private MultithreadEventLoopGroup _group;
+        private IChannel _channel;
+
+        public async Task StartAsync(int port)
         {
-            var group = new MultithreadEventLoopGroup();
-            try
-            {
-                var bootstrap = new Bootstrap();
-                bootstrap
-                    .Group(group)
-                    .Channel<SocketDatagramChannel>()
-                    .Option(ChannelOption.SoBroadcast, true)
-                    .Handler(new LoggingHandler("SRV-LSTN"))
-                    .Handler(new ActionChannelInitializer<IChannel>(channel =>
-                    {
-                        channel.Pipeline.AddLast("Quote", new QuoteOfTheMomentServerHandler());
-                    }));
+            _group = new MultithreadEventLoopGroup();
+            var bootstrap = new Bootstrap();
+            bootstrap
+                .Group(_group)
+                .Channel<SocketDatagramChannel>()
+                .Option(ChannelOption.SoBroadcast, true)
+                .Handler(new LoggingHandler("SRV-LSTN"))
+                .Handler(new ActionChannelInitializer<IChannel>(channel =>
+                {
+                    channel.Pipeline.AddLast("Quote", new QuoteOfTheMomentServerHandler());
+                }));
 
-                IChannel boundChannel = await bootstrap.BindAsync();
-                Logger.Info("Press any key to terminate the server.");
-                Console.ReadLine();
+            _channel = await bootstrap.BindAsync(port);
+            //Logger.Info("Press any key to terminate the server.");
+        }
 
-                await boundChannel.CloseAsync();
-            }
-            finally
-            {
-                await group.ShutdownGracefullyAsync(TimeSpan.FromMilliseconds(100), TimeSpan.FromSeconds(1));
-            }
+        public async Task StopAsync()
+        {
+            await _channel.CloseAsync();
+            await _group.ShutdownGracefullyAsync(TimeSpan.FromMilliseconds(100), TimeSpan.FromSeconds(1));
         }
     }
 }

@@ -56,45 +56,68 @@ namespace UniNetty.Examples.DemoSupports
         public IDisposable RunEchoServer(ExampleSetting setting)
         {
             var server = new EchoServer();
-            server.RunServerAsync(Cert, setting.Port).Wait();
-            return null;
+            _ = server.StartAsync(Cert, setting.Port);
+
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = server.StopAsync();
+            });
         }
 
         public IDisposable RunEchoClient(ExampleSetting setting)
         {
             var client = new EchoClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Size).Wait();
-            return null;
+            _ = client.StartAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Size);
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = client.StopAsync();
+            });
         }
 
         // factorial
         public IDisposable RunFactorialServer(ExampleSetting setting)
         {
             var server = new FactorialServer();
-            server.RunServerAsync(Cert, setting.Port).Wait();
-            return null;
+            _ = server.StartAsync(Cert, setting.Port);
+
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = server.StopAsync();
+            });
         }
 
         public IDisposable RunFactorialClient(ExampleSetting setting)
         {
             var client = new FactorialClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Count).Wait();
-            return null;
+            _ = client.StartAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Count);
+
+
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = client.StopAsync();
+            });
         }
 
         // QuoteOfTheMoment
         public IDisposable QuoteOfTheMomentServer(ExampleSetting setting)
         {
             var server = new QuoteOfTheMomentServer();
-            server.RunServerAsync(setting.Port).Wait();
-            return null;
+            _ = server.StartAsync(setting.Port);
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = server.StopAsync();
+            });
         }
 
         public IDisposable RunQuoteOfTheMomentClient(ExampleSetting setting)
         {
             var client = new QuoteOfTheMomentClient();
-            client.RunClientAsync(setting.Port).Wait();
-            return null;
+            _ = client.StartAsync(setting.Port);
+            
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = client.StopAsync();
+            });
         }
 
         // secure

@@ -16,47 +16,46 @@ namespace UniNetty.Examples.Echo.Server
 {
     public class EchoServer
     {
-        public async Task RunServerAsync(X509Certificate2 cert, int port)
+        private MultithreadEventLoopGroup _bossGroup;
+        private MultithreadEventLoopGroup _workerGroup;
+        private IChannel _channel;
+
+        public async Task StartAsync(X509Certificate2 cert, int port)
         {
-            var bossGroup = new MultithreadEventLoopGroup(1);
-            var workerGroup = new MultithreadEventLoopGroup();
+            _bossGroup = new MultithreadEventLoopGroup(1);
+            _workerGroup = new MultithreadEventLoopGroup();
 
-            try
-            {
-                var bootstrap = new ServerBootstrap();
-                bootstrap.Group(bossGroup, workerGroup);
-                bootstrap.Channel<TcpServerSocketChannel>();
+            var bootstrap = new ServerBootstrap();
+            bootstrap.Group(_bossGroup, _workerGroup);
+            bootstrap.Channel<TcpServerSocketChannel>();
 
-                bootstrap
-                    .Option(ChannelOption.SoBacklog, 100)
-                    .Handler(new LoggingHandler("SRV-LSTN"))
-                    .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
+            bootstrap
+                .Option(ChannelOption.SoBacklog, 100)
+                .Handler(new LoggingHandler("SRV-LSTN"))
+                .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
+                {
+                    IChannelPipeline pipeline = channel.Pipeline;
+                    if (cert != null)
                     {
-                        IChannelPipeline pipeline = channel.Pipeline;
-                        if (cert != null)
-                        {
-                            pipeline.AddLast("tls", TlsHandler.Server(cert));
-                        }
+                        pipeline.AddLast("tls", TlsHandler.Server(cert));
+                    }
 
-                        pipeline.AddLast(new LoggingHandler("SRV-CONN"));
-                        pipeline.AddLast("framing-enc", new LengthFieldPrepender(2));
-                        pipeline.AddLast("framing-dec", new LengthFieldBasedFrameDecoder(ushort.MaxValue, 0, 2, 0, 2));
+                    pipeline.AddLast(new LoggingHandler("SRV-CONN"));
+                    pipeline.AddLast("framing-enc", new LengthFieldPrepender(2));
+                    pipeline.AddLast("framing-dec", new LengthFieldBasedFrameDecoder(ushort.MaxValue, 0, 2, 0, 2));
 
-                        pipeline.AddLast("echo", new EchoServerHandler());
-                    }));
+                    pipeline.AddLast("echo", new EchoServerHandler());
+                }));
 
-                IChannel boundChannel = await bootstrap.BindAsync(port);
+            _channel = await bootstrap.BindAsync(port);
+        }
 
-                Console.ReadLine();
-
-                await boundChannel.CloseAsync();
-            }
-            finally
-            {
-                await Task.WhenAll(
-                    bossGroup.ShutdownGracefullyAsync(TimeSpan.FromMilliseconds(100), TimeSpan.FromSeconds(1)),
-                    workerGroup.ShutdownGracefullyAsync(TimeSpan.FromMilliseconds(100), TimeSpan.FromSeconds(1)));
-            }
+        public async Task StopAsync()
+        {
+            await _channel.CloseAsync();
+            await Task.WhenAll(
+                _bossGroup.ShutdownGracefullyAsync(TimeSpan.FromMilliseconds(100), TimeSpan.FromSeconds(1)),
+                _workerGroup.ShutdownGracefullyAsync(TimeSpan.FromMilliseconds(100), TimeSpan.FromSeconds(1)));
         }
     }
 }

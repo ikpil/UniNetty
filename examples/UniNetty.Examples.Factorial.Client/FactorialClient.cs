@@ -20,49 +20,47 @@ namespace UniNetty.Examples.Factorial.Client
     {
         private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<FactorialClient>();
 
-        public async Task RunClientAsync(X509Certificate2 cert, IPAddress host, int port, int count)
+        private MultithreadEventLoopGroup _group;
+        private IChannel _channel;
+
+        public async Task StartAsync(X509Certificate2 cert, IPAddress host, int port, int count)
         {
-            var group = new MultithreadEventLoopGroup();
+            _group = new MultithreadEventLoopGroup();
 
-            try
-            {
-                var bootstrap = new Bootstrap();
-                bootstrap
-                    .Group(group)
-                    .Channel<TcpSocketChannel>()
-                    .Option(ChannelOption.TcpNodelay, true)
-                    .Handler(new ActionChannelInitializer<ISocketChannel>(channel =>
+            var bootstrap = new Bootstrap();
+            bootstrap
+                .Group(_group)
+                .Channel<TcpSocketChannel>()
+                .Option(ChannelOption.TcpNodelay, true)
+                .Handler(new ActionChannelInitializer<ISocketChannel>(channel =>
+                {
+                    IChannelPipeline pipeline = channel.Pipeline;
+
+                    if (cert != null)
                     {
-                        IChannelPipeline pipeline = channel.Pipeline;
+                        var targetHost = cert.GetNameInfo(X509NameType.DnsName, false);
+                        pipeline.AddLast(new TlsHandler(stream => new SslStream(stream, true, (sender, certificate, chain, errors) => true), new ClientTlsSettings(targetHost)));
+                    }
 
-                        if (cert != null)
-                        {
-                            var targetHost = cert.GetNameInfo(X509NameType.DnsName, false);
-                            pipeline.AddLast(new TlsHandler(stream => new SslStream(stream, true, (sender, certificate, chain, errors) => true), new ClientTlsSettings(targetHost)));
-                        }
+                    pipeline.AddLast(new LoggingHandler("CONN"));
+                    pipeline.AddLast(new BigIntegerDecoder());
+                    pipeline.AddLast(new NumberEncoder());
+                    pipeline.AddLast(new FactorialClientHandler(count));
+                }));
 
-                        pipeline.AddLast(new LoggingHandler("CONN"));
-                        pipeline.AddLast(new BigIntegerDecoder());
-                        pipeline.AddLast(new NumberEncoder());
-                        pipeline.AddLast(new FactorialClientHandler(count));
-                    }));
+            _channel = await bootstrap.ConnectAsync(new IPEndPoint(host, port));
 
-                IChannel bootstrapChannel = await bootstrap.ConnectAsync(new IPEndPoint(host, port));
+            // Get the handler instance to retrieve the answer.
+            var handler = (FactorialClientHandler)_channel.Pipeline.Last();
 
-                // Get the handler instance to retrieve the answer.
-                var handler = (FactorialClientHandler)bootstrapChannel.Pipeline.Last();
+            // Print out the answer.
+            Logger.Info("Factorial of {0} is: {1}", count.ToString(), handler.GetFactorial().ToString());
+        }
 
-                // Print out the answer.
-                Logger.Info("Factorial of {0} is: {1}", count.ToString(), handler.GetFactorial().ToString());
-
-                Console.ReadLine();
-
-                await bootstrapChannel.CloseAsync();
-            }
-            finally
-            {
-                group.ShutdownGracefullyAsync().Wait(1000);
-            }
+        public async Task StopAsync()
+        {
+            await _channel.CloseAsync();
+            await _group.ShutdownGracefullyAsync();
         }
     }
 }
