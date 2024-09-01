@@ -4,6 +4,7 @@
 
 using System;
 using System.Threading.Tasks;
+using UniNetty.Common.Internal.Logging;
 using UniNetty.Handlers.Logging;
 using UniNetty.Transport.Bootstrapping;
 using UniNetty.Transport.Channels;
@@ -13,6 +14,8 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Server
 {
     public class QuoteOfTheMomentServer
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<QuoteOfTheMomentServer>();
+
         public async Task RunServerAsync(int port)
         {
             var group = new MultithreadEventLoopGroup();
@@ -30,7 +33,7 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Server
                     }));
 
                 IChannel boundChannel = await bootstrap.BindAsync();
-                Console.WriteLine("Press any key to terminate the server.");
+                Logger.Info("Press any key to terminate the server.");
                 Console.ReadLine();
 
                 await boundChannel.CloseAsync();

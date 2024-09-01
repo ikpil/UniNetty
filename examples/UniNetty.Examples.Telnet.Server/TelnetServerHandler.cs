@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using UniNetty.Common.Internal.Logging;
+
 namespace UniNetty.Examples.Telnet.Server
 {
     using System;
@@ -11,10 +13,12 @@ namespace UniNetty.Examples.Telnet.Server
 
     public class TelnetServerHandler : SimpleChannelInboundHandler<string>
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<TelnetServerHandler>();
+
         public override void ChannelActive(IChannelHandlerContext contex)
         {
-            contex.WriteAsync(string.Format("Welcome to {0} !\r\n", Dns.GetHostName()));
-            contex.WriteAndFlushAsync(string.Format("It is {0} now !\r\n", DateTime.Now));
+            contex.WriteAsync($"Welcome to {Dns.GetHostName()} !\r\n");
+            contex.WriteAndFlushAsync($"It is {DateTime.Now} now !\r\n");
         }
 
         protected override void ChannelRead0(IChannelHandlerContext contex, string msg)
@@ -51,7 +55,7 @@ namespace UniNetty.Examples.Telnet.Server
 
         public override void ExceptionCaught(IChannelHandlerContext contex, Exception e)
         {
-            Console.WriteLine("{0}", e.StackTrace);
+            Logger.Info("{0}", e.StackTrace);
             contex.CloseAsync();
         }
 

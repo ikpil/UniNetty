@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using UniNetty.Common.Internal.Logging;
+
 namespace UniNetty.Examples.Discard.Server
 {
 
@@ -10,13 +12,15 @@ namespace UniNetty.Examples.Discard.Server
 
     public class DiscardServerHandler : SimpleChannelInboundHandler<object>
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<DiscardServerHandler>();
+
         protected override void ChannelRead0(IChannelHandlerContext context, object message)
         {
         }
 
         public override void ExceptionCaught(IChannelHandlerContext ctx, Exception e)
         {
-            Console.WriteLine("{0}", e.ToString());
+            Logger.Info("{0}", e.ToString());
             ctx.CloseAsync();
         }
     }

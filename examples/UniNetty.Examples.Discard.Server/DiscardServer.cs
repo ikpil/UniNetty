@@ -25,7 +25,7 @@ namespace UniNetty.Examples.Discard.Server
         public async Task StartAsync(X509Certificate2 cert, int port)
         {
             Logger.Info($"Starting discard server at port {port}");
-            
+
             _bossGroup = new MultithreadEventLoopGroup(1);
             _workerGroup = new MultithreadEventLoopGroup();
 
@@ -77,7 +77,7 @@ namespace UniNetty.Examples.Discard.Server
                 Task.WaitAll(_bossGroup.ShutdownGracefullyAsync(), _workerGroup.ShutdownGracefullyAsync());
                 _bossGroup = null;
                 _workerGroup = null;
-                
+
                 Logger.Info("Stopped discard server");
             }
         }

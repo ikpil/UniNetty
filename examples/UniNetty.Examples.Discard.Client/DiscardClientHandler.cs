@@ -3,6 +3,7 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System.Threading.Tasks;
+using UniNetty.Common.Internal.Logging;
 
 namespace UniNetty.Examples.Discard.Client
 {
@@ -12,6 +13,8 @@ namespace UniNetty.Examples.Discard.Client
 
     public class DiscardClientHandler : SimpleChannelInboundHandler<object>
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<DiscardClientHandler>();
+
         private Random _random;
         private IChannelHandlerContext ctx;
         private byte[] array;
@@ -39,7 +42,7 @@ namespace UniNetty.Examples.Discard.Client
 
         public override void ExceptionCaught(IChannelHandlerContext ctx, Exception e)
         {
-            Console.WriteLine("{0}", e.ToString());
+            Logger.Info("{0}", e.ToString());
             this.ctx.CloseAsync();
         }
         

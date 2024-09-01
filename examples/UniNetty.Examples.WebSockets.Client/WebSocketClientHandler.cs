@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using UniNetty.Common.Internal.Logging;
+
 namespace UniNetty.Examples.WebSockets.Client
 {
     using System;
@@ -16,6 +18,8 @@ namespace UniNetty.Examples.WebSockets.Client
 
     public class WebSocketClientHandler : SimpleChannelInboundHandler<object>
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<WebSocketClientHandler>();
+
         readonly WebSocketClientHandshaker handshaker;
         readonly TaskCompletionSource completionSource;
 
@@ -32,7 +36,7 @@ namespace UniNetty.Examples.WebSockets.Client
 
         public override void ChannelInactive(IChannelHandlerContext context)
         {
-            Console.WriteLine("WebSocket Client disconnected!");
+            Logger.Info("WebSocket Client disconnected!");
         }
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, object msg)
@@ -43,12 +47,12 @@ namespace UniNetty.Examples.WebSockets.Client
                 try
                 {
                     this.handshaker.FinishHandshake(ch, (IFullHttpResponse)msg);
-                    Console.WriteLine("WebSocket Client connected!");
+                    Logger.Info("WebSocket Client connected!");
                     this.completionSource.TryComplete();
                 }
                 catch (WebSocketHandshakeException e)
                 {
-                    Console.WriteLine("WebSocket Client failed to connect");
+                    Logger.Info("WebSocket Client failed to connect");
                     this.completionSource.TrySetException(e);
                 }
 
@@ -64,22 +68,22 @@ namespace UniNetty.Examples.WebSockets.Client
 
             if (msg is TextWebSocketFrame textFrame)
             {
-                Console.WriteLine($"WebSocket Client received message: {textFrame.Text()}");
+                Logger.Info($"WebSocket Client received message: {textFrame.Text()}");
             }
             else if (msg is PongWebSocketFrame)
             {
-                Console.WriteLine("WebSocket Client received pong");
+                Logger.Info("WebSocket Client received pong");
             }
             else if (msg is CloseWebSocketFrame)
             {
-                Console.WriteLine("WebSocket Client received closing");
+                Logger.Info("WebSocket Client received closing");
                 ch.CloseAsync();
             }
         }
 
         public override void ExceptionCaught(IChannelHandlerContext ctx, Exception exception)
         {
-            Console.WriteLine("Exception: " + exception);
+            Logger.Info("Exception: " + exception);
             this.completionSource.TrySetException(exception);
             ctx.CloseAsync();
         }

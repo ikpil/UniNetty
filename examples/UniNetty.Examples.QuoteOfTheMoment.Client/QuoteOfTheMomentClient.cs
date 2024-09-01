@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using UniNetty.Buffers;
+using UniNetty.Common.Internal.Logging;
 using UniNetty.Transport.Bootstrapping;
 using UniNetty.Transport.Channels;
 using UniNetty.Transport.Channels.Sockets;
@@ -15,6 +16,8 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Client
 {
     public class QuoteOfTheMomentClient
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<QuoteOfTheMomentClient>();
+
         public async Task RunClientAsync(int port)
         {
             var group = new MultithreadEventLoopGroup();
@@ -33,7 +36,7 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Client
 
                 IChannel clientChannel = await bootstrap.BindAsync(IPEndPoint.MinPort);
 
-                Console.WriteLine("Sending broadcast QOTM");
+                Logger.Info("Sending broadcast QOTM");
 
                 // Broadcast the QOTM request to port.
                 byte[] bytes = Encoding.UTF8.GetBytes("QOTM?");
@@ -43,10 +46,10 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Client
                         buffer,
                         new IPEndPoint(IPAddress.Broadcast, port)));
 
-                Console.WriteLine("Waiting for response.");
+                Logger.Info("Waiting for response.");
 
                 await Task.Delay(5000);
-                Console.WriteLine("Waiting for response time 5000 completed. Closing client channel.");
+                Logger.Info("Waiting for response time 5000 completed. Closing client channel.");
 
                 await clientChannel.CloseAsync();
             }

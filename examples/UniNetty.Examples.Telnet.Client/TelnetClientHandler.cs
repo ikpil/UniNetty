@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using UniNetty.Common.Internal.Logging;
+
 namespace UniNetty.Examples.Telnet.Client
 {
     using System;
@@ -9,15 +11,17 @@ namespace UniNetty.Examples.Telnet.Client
 
     public class TelnetClientHandler : SimpleChannelInboundHandler<string>
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<TelnetClientHandler>();
+
         protected override void ChannelRead0(IChannelHandlerContext contex, string msg)
         {
-            Console.WriteLine(msg);
+            Logger.Info(msg);
         }
 
         public override void ExceptionCaught(IChannelHandlerContext contex, Exception e)
         {
-            Console.WriteLine(DateTime.Now.Millisecond);
-            Console.WriteLine("{0}", e.StackTrace);
+            Logger.Info($"{DateTime.Now.Millisecond}");
+            Logger.Info("{0}", e.StackTrace);
             contex.CloseAsync();
         }
     }

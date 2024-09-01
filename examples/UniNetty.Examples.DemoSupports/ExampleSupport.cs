@@ -3,11 +3,14 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
+using UniNetty.Common.Internal.Logging;
 
 namespace UniNetty.Examples.DemoSupports
 {
     public class ExampleSupport
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<ExampleSupport>();
+
         public static readonly ExampleSupport Shared = new ExampleSupport();
 
         public void OpenUrl(string url)
@@ -31,7 +34,7 @@ namespace UniNetty.Examples.DemoSupports
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error opening web browser: {ex.Message}");
+                Logger.Info($"Error opening web browser: {ex.Message}");
             }
         }
 
@@ -48,7 +51,5 @@ namespace UniNetty.Examples.DemoSupports
 
             return string.Empty;
         }
-
-
     }
 }

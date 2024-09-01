@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using UniNetty.Common.Internal.Logging;
+
 namespace UniNetty.Examples.WebSockets.Server
 {
     using System;
@@ -19,6 +21,8 @@ namespace UniNetty.Examples.WebSockets.Server
 
     public sealed class WebSocketServerHandler : SimpleChannelInboundHandler<object>
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<WebSocketServerHandler>();
+    
         const string WebsocketPath = "/websocket";
 
         private bool _ssl;
@@ -143,7 +147,7 @@ namespace UniNetty.Examples.WebSockets.Server
 
         public override void ExceptionCaught(IChannelHandlerContext ctx, Exception e)
         {
-            Console.WriteLine($"{nameof(WebSocketServerHandler)} {0}", e);
+            Logger.Info($"{nameof(WebSocketServerHandler)} {0}", e);
             ctx.CloseAsync();
         }
 

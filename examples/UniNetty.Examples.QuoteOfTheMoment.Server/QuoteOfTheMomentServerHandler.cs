@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using UniNetty.Common.Internal.Logging;
+
 namespace UniNetty.Examples.QuoteOfTheMoment.Server
 {
     using System;
@@ -12,6 +14,8 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Server
 
     public class QuoteOfTheMomentServerHandler : SimpleChannelInboundHandler<DatagramPacket>
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<QuoteOfTheMomentServerHandler>();
+
         static readonly Random Random = new Random();
 
         // Quotes from Mohandas K. Gandhi:
@@ -31,7 +35,7 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Server
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, DatagramPacket packet)
         {
-            Console.WriteLine($"Server Received => {packet}");
+            Logger.Info($"Server Received => {packet}");
 
             if (!packet.Content.IsReadable())
             {
@@ -53,7 +57,7 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Server
 
         public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
         {
-            Console.WriteLine("Exception: " + exception);
+            Logger.Info("Exception: " + exception);
             context.CloseAsync();
         }
     }

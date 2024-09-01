@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using UniNetty.Common.Internal.Logging;
+
 namespace UniNetty.Examples.QuoteOfTheMoment.Client
 {
     using System;
@@ -11,9 +13,11 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Client
 
     public class QuoteOfTheMomentClientHandler : SimpleChannelInboundHandler<DatagramPacket>
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<QuoteOfTheMomentClientHandler>();
+
         protected override void ChannelRead0(IChannelHandlerContext ctx, DatagramPacket packet)
         {
-            Console.WriteLine($"Client Received => {packet}");
+            Logger.Info($"Client Received => {packet}");
 
             if (!packet.Content.IsReadable())
             {
@@ -26,13 +30,13 @@ namespace UniNetty.Examples.QuoteOfTheMoment.Client
                 return;
             }
 
-            Console.WriteLine($"Quote of the Moment: {message.Substring(6)}");
+            Logger.Info($"Quote of the Moment: {message.Substring(6)}");
             ctx.CloseAsync();
         }
 
         public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
         {
-            Console.WriteLine("Exception: " + exception);
+            Logger.Info("Exception: " + exception);
             context.CloseAsync();
         }
     }

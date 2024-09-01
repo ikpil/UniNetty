@@ -11,6 +11,7 @@ using UniNetty.Buffers;
 using UniNetty.Codecs.Http;
 using UniNetty.Codecs.Http.WebSockets;
 using UniNetty.Codecs.Http.WebSockets.Extensions.Compression;
+using UniNetty.Common.Internal.Logging;
 using UniNetty.Handlers.Tls;
 using UniNetty.Transport.Bootstrapping;
 using UniNetty.Transport.Channels;
@@ -20,6 +21,8 @@ namespace UniNetty.Examples.WebSockets.Client
 {
     public class WebSocketClient
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<WebSocketClient>();
+
         public async Task RunClientAsync(X509Certificate2 cert, IPAddress host, int port, string path)
         {
             var builder = new UriBuilder
@@ -36,7 +39,7 @@ namespace UniNetty.Examples.WebSockets.Client
 
             Uri uri = builder.Uri;
 
-            Console.WriteLine("Transport type : Socket");
+            Logger.Info("Transport type : Socket");
 
             IEventLoopGroup group = new MultithreadEventLoopGroup();
 
@@ -74,8 +77,8 @@ namespace UniNetty.Examples.WebSockets.Client
                 IChannel ch = await bootstrap.ConnectAsync(new IPEndPoint(host, port));
                 await handler.HandshakeCompletion;
 
-                Console.WriteLine("WebSocket handshake completed.\n");
-                Console.WriteLine("\t[bye]:Quit \n\t [ping]:Send ping frame\n\t Enter any text and Enter: Send text frame");
+                Logger.Info("WebSocket handshake completed.\n");
+                Logger.Info("\t[bye]:Quit \n\t [ping]:Send ping frame\n\t Enter any text and Enter: Send text frame");
                 while (true)
                 {
                     string msg = Console.ReadLine();

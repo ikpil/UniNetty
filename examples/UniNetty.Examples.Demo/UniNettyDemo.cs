@@ -14,6 +14,7 @@ using Silk.NET.OpenGL;
 using Silk.NET.OpenGL.Extensions.ImGui;
 using Silk.NET.Windowing;
 using UniNetty.Common;
+using UniNetty.Common.Internal.Logging;
 using UniNetty.Examples.Demo.UI;
 using UniNetty.Examples.DemoSupports;
 
@@ -21,7 +22,7 @@ namespace UniNetty.Examples.Demo;
 
 public class UniNettyDemo
 {
-    private static readonly ILogger Logger = Log.ForContext<UniNettyDemo>();
+    private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<UniNettyDemo>();
 
     private ExampleContext _context;
     private IWindow _window;
@@ -144,21 +145,21 @@ public class UniNettyDemo
         var workingDirectory = Directory.GetCurrentDirectory();
 
 
-        Logger.Information($"{RuntimeInformation.OSArchitecture} {RuntimeInformation.OSDescription}");
-        Logger.Information($"{RuntimeInformation.ProcessArchitecture} {RuntimeInformation.FrameworkDescription}");
-        Logger.Information($"Processor Count : {Environment.ProcessorCount}");
-        Logger.Information("Transport type : Socket");
+        Logger.Info($"{RuntimeInformation.OSArchitecture} {RuntimeInformation.OSDescription}");
+        Logger.Info($"{RuntimeInformation.ProcessArchitecture} {RuntimeInformation.FrameworkDescription}");
+        Logger.Info($"Processor Count : {Environment.ProcessorCount}");
+        Logger.Info("Transport type : Socket");
 
-        Logger.Information($"Server garbage collection : {(GCSettings.IsServerGC ? "Enabled" : "Disabled")}");
-        Logger.Information($"Current latency mode for garbage collection: {GCSettings.LatencyMode}");
-        Logger.Information("");
+        Logger.Info($"Server garbage collection : {(GCSettings.IsServerGC ? "Enabled" : "Disabled")}");
+        Logger.Info($"Current latency mode for garbage collection: {GCSettings.LatencyMode}");
+        Logger.Info("");
 
-        Logger.Information($"Working directory - {workingDirectory}");
-        Logger.Information($"ImGui.Net - version({ImGui.GetVersion()}) UI scale({scale}) fontSize({fontSize})");
-        Logger.Information($"Dotnet - {Environment.Version.ToString()} culture({currentCulture.Name})");
-        Logger.Information($"OS Version - {Environment.OSVersion} {bitness}");
-        Logger.Information($"{vendor} {rendererGl}");
-        Logger.Information($"gl version({version}) lang version({glslString})");
+        Logger.Info($"Working directory - {workingDirectory}");
+        Logger.Info($"ImGui.Net - version({ImGui.GetVersion()}) UI scale({scale}) fontSize({fontSize})");
+        Logger.Info($"Dotnet - {Environment.Version.ToString()} culture({currentCulture.Name})");
+        Logger.Info($"OS Version - {Environment.OSVersion} {bitness}");
+        Logger.Info($"{vendor} {rendererGl}");
+        Logger.Info($"gl version({version}) lang version({glslString})");
     }
 
     private void OnWindowUpdate(double dt)

@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using UniNetty.Common.Internal.Logging;
+
 namespace UniNetty.Examples.SecureChat.Server
 {
     using System;
@@ -11,6 +13,8 @@ namespace UniNetty.Examples.SecureChat.Server
 
     public class SecureChatServerHandler : SimpleChannelInboundHandler<string>
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<SecureChatServerHandler>();
+
         static volatile IChannelGroup group;
 
         public override void ChannelActive(IChannelHandlerContext contex)
@@ -61,7 +65,7 @@ namespace UniNetty.Examples.SecureChat.Server
 
         public override void ExceptionCaught(IChannelHandlerContext ctx, Exception e)
         {
-            Console.WriteLine("{0}", e.StackTrace);
+            Logger.Info("{0}", e.StackTrace);
             ctx.CloseAsync();
         }
 

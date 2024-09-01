@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using UniNetty.Common.Internal.Logging;
+
 namespace UniNetty.Examples.Echo.Client
 {
     using System;
@@ -11,6 +13,8 @@ namespace UniNetty.Examples.Echo.Client
 
     public class EchoClientHandler : ChannelHandlerAdapter
     {
+        private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<EchoClientHandler>();
+
         private readonly IByteBuffer initialMessage;
         private int _size;
 
@@ -29,7 +33,7 @@ namespace UniNetty.Examples.Echo.Client
             var byteBuffer = message as IByteBuffer;
             if (byteBuffer != null)
             {
-                Console.WriteLine("Received from server: " + byteBuffer.ToString(Encoding.UTF8));
+                Logger.Info("Received from server: " + byteBuffer.ToString(Encoding.UTF8));
             }
 
             context.WriteAsync(message);
@@ -39,7 +43,7 @@ namespace UniNetty.Examples.Echo.Client
 
         public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
         {
-            Console.WriteLine("Exception: " + exception);
+            Logger.Info("Exception: " + exception);
             context.CloseAsync();
         }
     }
