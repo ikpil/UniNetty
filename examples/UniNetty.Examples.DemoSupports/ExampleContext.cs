@@ -113,7 +113,7 @@ namespace UniNetty.Examples.DemoSupports
         {
             var client = new QuoteOfTheMomentClient();
             _ = client.StartAsync(setting.Port);
-            
+
             return AnonymousDisposer.Create(() =>
             {
                 _ = client.StopAsync();
@@ -124,15 +124,21 @@ namespace UniNetty.Examples.DemoSupports
         public IDisposable RunSecureChatServer(ExampleSetting setting)
         {
             var server = new SecureChatServer();
-            server.RunServerAsync(Cert, setting.Port).Wait();
-            return null;
+            _ = server.StartAsync(Cert, setting.Port);
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = server.StopAsync();
+            });
         }
 
         public IDisposable RunSecureChatClient(ExampleSetting setting)
         {
             var client = new SecureChatClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port).Wait();
-            return null;
+            _ = client.StartAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port);
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = client.StopAsync();
+            });
         }
 
         // 
@@ -172,13 +178,18 @@ namespace UniNetty.Examples.DemoSupports
         public IDisposable RunHelloHttpServer(ExampleSetting setting)
         {
             var server = new HelloHttpServer();
-            server.RunServerAsync(Cert, setting.Port).Wait();
-            return null;
+            _ = server.StartAsync(Cert, setting.Port);
+
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = server.StopAsync();
+            });
         }
 
         public IDisposable RunHelloHttpClient(ExampleSetting setting)
         {
             ExampleSupport.Shared.OpenUrl($"https://{setting.Ip}:{setting.Port}/json");
+            
             return null;
         }
     }

@@ -18,46 +18,45 @@ namespace UniNetty.Examples.HttpServer
     {
         private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<HelloHttpServer>();
 
-        public async Task RunServerAsync(X509Certificate2 cert, int port)
+        private MultithreadEventLoopGroup _group;
+        private MultithreadEventLoopGroup _workGroup;
+        private IChannel _channel;
+
+        public async Task StartAsync(X509Certificate2 cert, int port)
         {
-            var group = new MultithreadEventLoopGroup(1);
-            var workGroup = new MultithreadEventLoopGroup();
+            _group = new MultithreadEventLoopGroup(1);
+            _workGroup = new MultithreadEventLoopGroup();
 
-            try
-            {
-                var bootstrap = new ServerBootstrap();
-                bootstrap.Group(group, workGroup);
-                bootstrap.Channel<TcpServerSocketChannel>();
+            var bootstrap = new ServerBootstrap();
+            bootstrap.Group(_group, _workGroup);
+            bootstrap.Channel<TcpServerSocketChannel>();
 
-                bootstrap
-                    .Option(ChannelOption.SoBacklog, 8192)
-                    .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
+            bootstrap
+                .Option(ChannelOption.SoBacklog, 8192)
+                .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
+                {
+                    IChannelPipeline pipeline = channel.Pipeline;
+                    if (cert != null)
                     {
-                        IChannelPipeline pipeline = channel.Pipeline;
-                        if (cert != null)
-                        {
-                            pipeline.AddLast(TlsHandler.Server(cert));
-                        }
+                        pipeline.AddLast(TlsHandler.Server(cert));
+                    }
 
-                        pipeline.AddLast("encoder", new HttpResponseEncoder());
-                        pipeline.AddLast("decoder", new HttpRequestDecoder(4096, 8192, 8192, false));
-                        pipeline.AddLast("handler", new HelloHttpServerHandler());
-                    }));
+                    pipeline.AddLast("encoder", new HttpResponseEncoder());
+                    pipeline.AddLast("decoder", new HttpRequestDecoder(4096, 8192, 8192, false));
+                    pipeline.AddLast("handler", new HelloHttpServerHandler());
+                }));
 
-                IChannel bootstrapChannel = await bootstrap.BindAsync(port);
+            _channel = await bootstrap.BindAsync(port);
 
-                Logger.Info($"Open your web browser and navigate to ");
-                Logger.Info($"{(null != cert ? "https" : "http")}://127.0.0.1:{port}/plaintext");
-                Logger.Info($"{(null != cert ? "https" : "http")}://127.0.0.1:{port}/json");
+            Logger.Info($"Open your web browser and navigate to ");
+            Logger.Info($"{(null != cert ? "https" : "http")}://127.0.0.1:{port}/plaintext");
+            Logger.Info($"{(null != cert ? "https" : "http")}://127.0.0.1:{port}/json");
+        }
 
-                Console.ReadLine();
-
-                await bootstrapChannel.CloseAsync();
-            }
-            finally
-            {
-                group.ShutdownGracefullyAsync().Wait();
-            }
+        public async Task StopAsync()
+        {
+            await _channel.CloseAsync();
+            await _group.ShutdownGracefullyAsync();
         }
     }
 }
