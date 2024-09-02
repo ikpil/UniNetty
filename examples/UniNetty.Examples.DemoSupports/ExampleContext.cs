@@ -145,16 +145,23 @@ namespace UniNetty.Examples.DemoSupports
         public IDisposable RunTelnetServer(ExampleSetting setting)
         {
             var server = new TelnetServer();
-            server.RunServerAsync(Cert, setting.Port).Wait();
-            return null;
+            _ = server.StartAsync(Cert, setting.Port);
+
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = server.StopAsync();
+            });
         }
 
 
         public IDisposable RunTelnetClient(ExampleSetting setting)
         {
             var client = new TelnetClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port).Wait();
-            return null;
+            _ = client.StartAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port);
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = client.StopAsync();
+            });
         }
 
 
@@ -162,17 +169,23 @@ namespace UniNetty.Examples.DemoSupports
         public IDisposable RunWebSocketServer(ExampleSetting setting)
         {
             var server = new WebSocketServer();
-            server.RunServerAsync(Cert, setting.Port).Wait();
-            return null;
+            _ = server.StartAsync(Cert, setting.Port);
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = server.StopAsync();
+            });
         }
 
         public IDisposable RunWebSocketClient(ExampleSetting setting)
         {
             var client = new WebSocketClient();
-            client.RunClientAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Path).Wait();
-            return null;
-        }
+            _ = client.StartAsync(Cert, IPAddress.Parse(setting.Ip), setting.Port, setting.Path);
 
+            return AnonymousDisposer.Create(() =>
+            {
+                _ = client.StopAsync();
+            });
+        }
 
         // http
         public IDisposable RunHelloHttpServer(ExampleSetting setting)
@@ -189,7 +202,7 @@ namespace UniNetty.Examples.DemoSupports
         public IDisposable RunHelloHttpClient(ExampleSetting setting)
         {
             ExampleSupport.Shared.OpenUrl($"https://{setting.Ip}:{setting.Port}/json");
-            
+
             return null;
         }
     }

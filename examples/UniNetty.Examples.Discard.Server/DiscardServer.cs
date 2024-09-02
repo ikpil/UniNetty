@@ -74,7 +74,7 @@ namespace UniNetty.Examples.Discard.Server
             }
             finally
             {
-                Task.WaitAll(_bossGroup.ShutdownGracefullyAsync(), _workerGroup.ShutdownGracefullyAsync());
+                await Task.WhenAll(_bossGroup.ShutdownGracefullyAsync(), _workerGroup.ShutdownGracefullyAsync());
                 _bossGroup = null;
                 _workerGroup = null;
 

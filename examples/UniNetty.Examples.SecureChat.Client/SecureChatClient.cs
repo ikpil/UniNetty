@@ -74,7 +74,7 @@ namespace UniNetty.Examples.SecureChat.Client
         public async Task StopAsync()
         {
             await _channel.CloseAsync();
-            _group.ShutdownGracefullyAsync().Wait(1000);
+            await _group.ShutdownGracefullyAsync();
         }
     }
 }

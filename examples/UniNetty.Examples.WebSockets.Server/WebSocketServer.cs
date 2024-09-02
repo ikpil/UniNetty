@@ -19,49 +19,49 @@ namespace UniNetty.Examples.WebSockets.Server
     {
         private static readonly IInternalLogger Logger = InternalLoggerFactory.GetInstance<WebSocketServer>();
 
-        public async Task RunServerAsync(X509Certificate2 cert, int port)
+        private MultithreadEventLoopGroup _bossGroup;
+        private MultithreadEventLoopGroup _workGroup;
+        private IChannel _channel;
+
+        public async Task StartAsync(X509Certificate2 cert, int port)
         {
-            var bossGroup = new MultithreadEventLoopGroup(1);
-            var workGroup = new MultithreadEventLoopGroup();
+            _bossGroup = new MultithreadEventLoopGroup(1);
+            _workGroup = new MultithreadEventLoopGroup();
 
-            try
-            {
-                var bootstrap = new ServerBootstrap();
-                bootstrap.Group(bossGroup, workGroup);
-                bootstrap.Channel<TcpServerSocketChannel>();
+            var bootstrap = new ServerBootstrap();
+            bootstrap.Group(_bossGroup, _workGroup);
+            bootstrap.Channel<TcpServerSocketChannel>();
 
-                bootstrap
-                    .Option(ChannelOption.SoBacklog, 8192)
-                    .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
+            bootstrap
+                .Option(ChannelOption.SoBacklog, 8192)
+                .ChildHandler(new ActionChannelInitializer<IChannel>(channel =>
+                {
+                    IChannelPipeline pipeline = channel.Pipeline;
+                    if (cert != null)
                     {
-                        IChannelPipeline pipeline = channel.Pipeline;
-                        if (cert != null)
-                        {
-                            pipeline.AddLast(TlsHandler.Server(cert));
-                        }
+                        pipeline.AddLast(TlsHandler.Server(cert));
+                    }
 
-                        pipeline.AddLast(new HttpServerCodec());
-                        pipeline.AddLast(new HttpObjectAggregator(65536));
-                        pipeline.AddLast(new WebSocketServerHandler(null != cert));
-                    }));
+                    pipeline.AddLast(new HttpServerCodec());
+                    pipeline.AddLast(new HttpObjectAggregator(65536));
+                    pipeline.AddLast(new WebSocketServerHandler(null != cert));
+                }));
 
-                IChannel bootstrapChannel = await bootstrap.BindAsync(port);
+            _channel = await bootstrap.BindAsync(port);
 
-                Logger.Info("Open your web browser and navigate to "
-                                  + $"{(null != cert ? "https" : "http")}"
-                                  + $"://127.0.0.1:{port}/");
-                Logger.Info("Listening on "
-                                  + $"{(null != cert ? "wss" : "ws")}"
-                                  + $"://127.0.0.1:{port}/websocket");
-                Console.ReadLine();
+            Logger.Info("Open your web browser and navigate to "
+                        + $"{(null != cert ? "https" : "http")}"
+                        + $"://127.0.0.1:{port}/");
+            Logger.Info("Listening on "
+                        + $"{(null != cert ? "wss" : "ws")}"
+                        + $"://127.0.0.1:{port}/websocket");
+        }
 
-                await bootstrapChannel.CloseAsync();
-            }
-            finally
-            {
-                workGroup.ShutdownGracefullyAsync().Wait();
-                bossGroup.ShutdownGracefullyAsync().Wait();
-            }
+        public async Task StopAsync()
+        {
+            await _channel.CloseAsync();
+            await _workGroup.ShutdownGracefullyAsync();
+            await _bossGroup.ShutdownGracefullyAsync();
         }
     }
 }

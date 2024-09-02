@@ -17,45 +17,44 @@ namespace UniNetty.Examples.Telnet.Server
 {
     public class TelnetServer
     {
-        public async Task RunServerAsync(X509Certificate2 cert, int port)
+        private MultithreadEventLoopGroup _bossGroup;
+        private MultithreadEventLoopGroup _workerGroup;
+        private IChannel _channel;
+
+        public async Task StartAsync(X509Certificate2 cert, int port)
         {
-            var bossGroup = new MultithreadEventLoopGroup(1);
-            var workerGroup = new MultithreadEventLoopGroup();
+            _bossGroup = new MultithreadEventLoopGroup(1);
+            _workerGroup = new MultithreadEventLoopGroup();
 
             var STRING_ENCODER = new StringEncoder();
             var STRING_DECODER = new StringDecoder();
             var SERVER_HANDLER = new TelnetServerHandler();
 
-            try
-            {
-                var bootstrap = new ServerBootstrap();
-                bootstrap
-                    .Group(bossGroup, workerGroup)
-                    .Channel<TcpServerSocketChannel>()
-                    .Option(ChannelOption.SoBacklog, 100)
-                    .Handler(new LoggingHandler(LogLevel.INFO))
-                    .ChildHandler(new ActionChannelInitializer<ISocketChannel>(channel =>
+            var bootstrap = new ServerBootstrap();
+            bootstrap
+                .Group(_bossGroup, _workerGroup)
+                .Channel<TcpServerSocketChannel>()
+                .Option(ChannelOption.SoBacklog, 100)
+                .Handler(new LoggingHandler(LogLevel.INFO))
+                .ChildHandler(new ActionChannelInitializer<ISocketChannel>(channel =>
+                {
+                    IChannelPipeline pipeline = channel.Pipeline;
+                    if (cert != null)
                     {
-                        IChannelPipeline pipeline = channel.Pipeline;
-                        if (cert != null)
-                        {
-                            pipeline.AddLast(TlsHandler.Server(cert));
-                        }
+                        pipeline.AddLast(TlsHandler.Server(cert));
+                    }
 
-                        pipeline.AddLast(new DelimiterBasedFrameDecoder(8192, Delimiters.LineDelimiter()));
-                        pipeline.AddLast(STRING_ENCODER, STRING_DECODER, SERVER_HANDLER);
-                    }));
+                    pipeline.AddLast(new DelimiterBasedFrameDecoder(8192, Delimiters.LineDelimiter()));
+                    pipeline.AddLast(STRING_ENCODER, STRING_DECODER, SERVER_HANDLER);
+                }));
 
-                IChannel bootstrapChannel = await bootstrap.BindAsync(port);
+            _channel = await bootstrap.BindAsync(port);
+        }
 
-                Console.ReadLine();
-
-                await bootstrapChannel.CloseAsync();
-            }
-            finally
-            {
-                Task.WaitAll(bossGroup.ShutdownGracefullyAsync(), workerGroup.ShutdownGracefullyAsync());
-            }
+        public async Task StopAsync()
+        {
+            await _channel.CloseAsync();
+            await Task.WhenAll(_bossGroup.ShutdownGracefullyAsync(), _workerGroup.ShutdownGracefullyAsync());
         }
     }
 }

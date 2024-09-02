@@ -18,62 +18,63 @@ namespace UniNetty.Examples.Telnet.Client
 {
     public class TelnetClient
     {
-        public async Task RunClientAsync(X509Certificate2 cert, IPAddress host, int port)
+        private MultithreadEventLoopGroup _group;
+        private IChannel _channel;
+
+        public async Task StartAsync(X509Certificate2 cert, IPAddress host, int port)
         {
-            var group = new MultithreadEventLoopGroup();
+            _group = new MultithreadEventLoopGroup();
 
-            try
-            {
-                var bootstrap = new Bootstrap();
-                bootstrap
-                    .Group(group)
-                    .Channel<TcpSocketChannel>()
-                    .Option(ChannelOption.TcpNodelay, true)
-                    .Handler(new ActionChannelInitializer<ISocketChannel>(channel =>
-                    {
-                        IChannelPipeline pipeline = channel.Pipeline;
 
-                        if (cert != null)
-                        {
-                            var targetHost = cert.GetNameInfo(X509NameType.DnsName, false);
-                            pipeline.AddLast(new TlsHandler(stream => new SslStream(stream, true, (sender, certificate, chain, errors) => true), new ClientTlsSettings(targetHost)));
-                        }
-
-                        pipeline.AddLast(new DelimiterBasedFrameDecoder(8192, Delimiters.LineDelimiter()));
-                        pipeline.AddLast(new StringEncoder(), new StringDecoder(), new TelnetClientHandler());
-                    }));
-
-                IChannel bootstrapChannel = await bootstrap.ConnectAsync(new IPEndPoint(host, port));
-
-                for (;;)
+            var bootstrap = new Bootstrap();
+            bootstrap
+                .Group(_group)
+                .Channel<TcpSocketChannel>()
+                .Option(ChannelOption.TcpNodelay, true)
+                .Handler(new ActionChannelInitializer<ISocketChannel>(channel =>
                 {
-                    string line = Console.ReadLine();
-                    if (string.IsNullOrEmpty(line))
+                    IChannelPipeline pipeline = channel.Pipeline;
+
+                    if (cert != null)
                     {
-                        continue;
+                        var targetHost = cert.GetNameInfo(X509NameType.DnsName, false);
+                        pipeline.AddLast(new TlsHandler(stream => new SslStream(stream, true, (sender, certificate, chain, errors) => true), new ClientTlsSettings(targetHost)));
                     }
 
-                    try
-                    {
-                        await bootstrapChannel.WriteAndFlushAsync(line + "\r\n");
-                    }
-                    catch
-                    {
-                    }
+                    pipeline.AddLast(new DelimiterBasedFrameDecoder(8192, Delimiters.LineDelimiter()));
+                    pipeline.AddLast(new StringEncoder(), new StringDecoder(), new TelnetClientHandler());
+                }));
 
-                    if (string.Equals(line, "bye", StringComparison.OrdinalIgnoreCase))
-                    {
-                        await bootstrapChannel.CloseAsync();
-                        break;
-                    }
+            _channel = await bootstrap.ConnectAsync(new IPEndPoint(host, port));
+
+            for (;;)
+            {
+                string line = Console.ReadLine();
+                if (string.IsNullOrEmpty(line))
+                {
+                    continue;
                 }
 
-                await bootstrapChannel.CloseAsync();
+                try
+                {
+                    await _channel.WriteAndFlushAsync(line + "\r\n");
+                }
+                catch
+                {
+                }
+
+                if (string.Equals(line, "bye", StringComparison.OrdinalIgnoreCase))
+                {
+                    await _channel.CloseAsync();
+                    break;
+                }
             }
-            finally
-            {
-                group.ShutdownGracefullyAsync().Wait(1000);
-            }
+        }
+
+        public async Task StopAsync()
+        {
+            await _channel.CloseAsync();
+            await _group.ShutdownGracefullyAsync();
         }
     }
 }
