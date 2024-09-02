@@ -39,42 +39,44 @@ public class ExamplesView : IView
             if (null == example)
                 continue;
 
-            ImGui.Text(example.Example.Name);
-            ImGui.Separator();
-
-            var btnServer = example.IsRunningServer ? "Stop Server" : "Run Server";
-            if (ImGui.Button(example.Example.Name + " " + btnServer))
+            var showSettings = ImGui.TreeNode(example.Example.Name);
+            if (showSettings)
             {
-                example.ToggleServer();
-            }
+                ImGui.Text(example.Example.Name);
+                ImGui.Separator();
 
-            ImGui.SameLine();
-
-            var btnClient = example.IsRunningClient ? "Stop Client" : "Run Client";
-            if (ImGui.Button(example.Example.Name + " " + btnClient))
-            {
-                example.ToggleClient();
-            }
-
-            // var width = ImGui.GetContentRegionAvail().X;
-            // ImGui.SetNextItemWidth(width); // 입력 상자 너비 설정
-            int port = example.Port;
-            if (ImGui.InputInt(example.Example.Name + " Port", ref port)) ;
-            {
-                example.SetPort(port);
-            }
-
-            // use size
-            if (0 != example.Size)
-            {
-                int size = example.Size;
-                if (ImGui.InputInt(example.Example.Name + "Size", ref size))
+                var btnServer = example.IsRunningServer ? "Stop Server" : "Run Server";
+                if (ImGui.Button(example.Example.Name + " " + btnServer))
                 {
-                    example.SetSize(size);
+                    example.ToggleServer();
                 }
+
+                var btnClient = example.IsRunningClient ? "Stop Client" : "Run Client";
+                if (ImGui.Button(example.Example.Name + " " + btnClient))
+                {
+                    example.ToggleClient();
+                }
+
+                int port = example.Port;
+                if (ImGui.InputInt(example.Example.Name + " Port", ref port)) ;
+                {
+                    example.SetPort(port);
+                }
+
+                // use size
+                if (0 != example.Size)
+                {
+                    int size = example.Size;
+                    if (ImGui.InputInt(example.Example.Name + " Size", ref size))
+                    {
+                        example.SetSize(size);
+                    }
+                }
+
+                ImGui.TreePop();
             }
 
-            ImGui.NewLine();
+            ImGui.Separator(); // 구분선
         }
 
         ImGui.End();
