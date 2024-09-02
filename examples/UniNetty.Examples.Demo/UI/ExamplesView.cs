@@ -22,6 +22,8 @@ public class ExamplesView : IView
 
     public void Draw(double dt)
     {
+        //ImGui.ShowDemoWindow();
+
         ImGui.Begin("Examples");
 
         // size reset
@@ -39,11 +41,24 @@ public class ExamplesView : IView
             if (null == example)
                 continue;
 
-            var showSettings = ImGui.TreeNode(example.Example.Name);
+            var showSettings = ImGui.TreeNodeEx(example.Example.Name, ImGuiTreeNodeFlags.Bullet | ImGuiTreeNodeFlags.SpanFullWidth);
             if (showSettings)
             {
-                ImGui.Text(example.Example.Name);
-                ImGui.Separator();
+                int port = example.Port;
+                if (ImGui.InputInt(" " + example.Example.Name + " Port", ref port)) ;
+                {
+                    example.SetPort(port);
+                }
+
+                // use size
+                if (0 != example.Size)
+                {
+                    int size = example.Size;
+                    if (ImGui.InputInt(" " + example.Example.Name + " Size", ref size))
+                    {
+                        example.SetSize(size);
+                    }
+                }
 
                 var btnServer = example.IsRunningServer ? "Stop Server" : "Run Server";
                 if (ImGui.Button(example.Example.Name + " " + btnServer))
@@ -57,21 +72,6 @@ public class ExamplesView : IView
                     example.ToggleClient();
                 }
 
-                int port = example.Port;
-                if (ImGui.InputInt(example.Example.Name + " Port", ref port)) ;
-                {
-                    example.SetPort(port);
-                }
-
-                // use size
-                if (0 != example.Size)
-                {
-                    int size = example.Size;
-                    if (ImGui.InputInt(example.Example.Name + " Size", ref size))
-                    {
-                        example.SetSize(size);
-                    }
-                }
 
                 ImGui.TreePop();
             }

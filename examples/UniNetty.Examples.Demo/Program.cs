@@ -9,6 +9,7 @@ using System.Threading;
 using Serilog;
 using UniNetty.Common.Internal.Logging;
 using UniNetty.Examples.Demo.Logging;
+using UniNetty.Examples.Demo.Logging.Sinks;
 using UniNetty.Examples.DemoSupports;
 using UniNetty.Logging;
 using ILogger = UniNetty.Logging.ILogger;
@@ -25,7 +26,7 @@ public static class Program
             .MinimumLevel.Verbose()
             .Enrich.WithThreadId()
             .Enrich.WithThreadName()
-            //.WriteTo.Async(c => c.LogMessageBroker(outputTemplate: format))
+            .WriteTo.Async(c => c.LogMessageBroker(outputTemplate: format))
             .WriteTo.Async(c => c.Console(outputTemplate: format))
             .WriteTo.Async(c => c.File(
                 "logs/log.log",
