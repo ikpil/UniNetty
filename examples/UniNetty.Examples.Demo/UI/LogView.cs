@@ -34,7 +34,10 @@ public class LogView : IView
             .Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)
             .Select(x => new LogViewItem { Level = level, Message = x });
 
-        _lines.AddRange(lines);
+        foreach (var line in lines)
+        {
+            _queues.Enqueue(line);
+        }
     }
 
     public void Clear()
@@ -76,6 +79,8 @@ public class LogView : IView
         }
 
 
+        ImGui.PushStyleVar(ImGuiStyleVar.ScrollbarSize, 16.0f);
+        
         if (ImGui.BeginChild("scrolling", Vector2.Zero, false, ImGuiWindowFlags.HorizontalScrollbar))
         {
             //_isHovered = ImGui.IsWindowHovered(ImGuiHoveredFlags.RectOnly | ImGuiHoveredFlags.RootAndChildWindows);
@@ -100,13 +105,24 @@ public class LogView : IView
 
             ImGui.PopStyleVar();
 
-            if (ImGui.GetScrollY() >= ImGui.GetScrollMaxY())
+            // if (ImGui.GetScrollY() >= ImGui.GetScrollMaxY())
+            // {
+            //     ImGui.SetScrollHereY(1.0f);
+            // }
+            // 현재 스크롤 위치를 저장합니다.
+            float scrollY = ImGui.GetScrollY();
+            float scrollMaxY = ImGui.GetScrollMaxY();
+    
+            // 스크롤이 끝에 도달한 상태에서만 자동 스크롤을 수행하도록 합니다.
+            if (scrollY >= scrollMaxY - ImGui.GetWindowHeight() * 0.1f)
             {
                 ImGui.SetScrollHereY(1.0f);
             }
         }
 
         ImGui.EndChild();
+        ImGui.PopStyleVar();
+        
         ImGui.End();
     }
 }

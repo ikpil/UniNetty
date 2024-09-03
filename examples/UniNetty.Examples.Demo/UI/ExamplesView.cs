@@ -81,4 +81,9 @@ public class ExamplesView : IView
 
         ImGui.End();
     }
+
+    public void Update(double dt)
+    {
+        
+    }
 }

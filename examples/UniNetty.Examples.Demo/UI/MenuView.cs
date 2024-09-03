@@ -7,14 +7,14 @@ namespace UniNetty.Examples.Demo.UI;
 public class MenuView : IView
 {
     private static readonly ILogger Logger = Log.ForContext<UniNettyDemo>();
-    
+
     private readonly Canvas _canvas;
-    
+
     public MenuView(Canvas canvas)
     {
         _canvas = canvas;
     }
-    
+
     public void Draw(double dt)
     {
         if (ImGui.BeginMainMenuBar())
@@ -41,11 +41,15 @@ public class MenuView : IView
                 {
                     ExampleSupport.Shared.OpenUrl("https://github.com/ikpil/UniNetty/blob/main/CHANGELOG.md");
                 }
-                
+
                 ImGui.EndMenu();
             }
 
             ImGui.EndMainMenuBar();
         }
+    }
+
+    public void Update(double dt)
+    {
     }
 }

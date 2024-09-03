@@ -26,6 +26,15 @@ public class Canvas
     {
         _view = _view.Add(view);
     }
+    
+    public void Update(double dt)
+    {
+        foreach (var view in _view)
+        {
+            view.Update(dt);
+        }
+    }
+
 
     public void Draw(double dt)
     {

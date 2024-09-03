@@ -170,7 +170,7 @@ public class UniNettyDemo
         io.DisplayFramebufferScale = Vector2.One;
         io.DeltaTime = (float)dt;
 
-        //_canvas.Update(dt);
+        _canvas.Update(dt);
         _imgui.Update((float)dt);
     }
 
