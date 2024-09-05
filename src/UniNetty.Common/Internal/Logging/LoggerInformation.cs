@@ -1,4 +1,4 @@
-﻿using UniNetty.Logging;
+using UniNetty.Logging;
 
 namespace UniNetty.Common.Internal.Logging
 {

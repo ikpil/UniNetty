@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using UniNetty.Examples.DemoSupports;
 
 namespace UniNetty.Examples.Demo.UI;

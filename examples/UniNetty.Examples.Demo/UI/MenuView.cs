@@ -1,4 +1,4 @@
-﻿using ImGuiNET;
+using ImGuiNET;
 using Serilog;
 using UniNetty.Examples.DemoSupports;
 

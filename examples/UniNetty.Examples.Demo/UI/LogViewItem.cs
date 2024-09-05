@@ -1,4 +1,4 @@
-﻿namespace UniNetty.Examples.Demo.UI;
+namespace UniNetty.Examples.Demo.UI;
 
 public record LogViewItem
 {

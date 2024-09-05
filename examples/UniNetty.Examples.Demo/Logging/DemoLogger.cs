@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Serilog.Events;
 using UniNetty.Logging;
 

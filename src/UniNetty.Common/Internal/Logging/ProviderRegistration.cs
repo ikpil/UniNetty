@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UniNetty.Logging;
 
 namespace UniNetty.Common.Internal.Logging
