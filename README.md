@@ -1,6 +1,6 @@
 # UniNetty
 
-*UniNetty is netty, a port of [Azure/DotNetty](https://github.com/Azure/DotNetty) to the Unity3D C#*  
+*UniNetty is a port of [Azure/DotNetty](https://github.com/Azure/DotNetty) for use within Unity3D*  
 *If you'd like to support the project, we'd appreciate starring(⭐) our repos on Github for more visibility.*
 
 ---
@@ -18,7 +18,13 @@
 
 
 ## 🚀 Features
- 
+
+- **Unity Compatibility** : Integrate DotNetty's functionality into Unity projects, simplifying the implementation of networking features.
+- **Unified API for various transport types** : blocking and non-blocking socket
+- **Flexible Event Model** : Based on a flexible and extensible event model which allows clear separation of concerns
+- **Highly Customizable Thread Model** : single thread, one or more thread pools such as SEDA
+- **Datagram Socket** : True connectionless datagram socket support
+
 UniNetty is divided into multiple modules, each contained in its own folder:
 
 - [UniNetty.Logging](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Logging) : 
@@ -35,9 +41,12 @@ UniNetty is divided into multiple modules, each contained in its own folder:
 - [Examples](https://github.com/ikpil/UniNetty/tree/main/examples) : Examples of usage
 
 ## ⚡ Getting Started
- 
+
+... 
 
 ## ⚙ How it Works
+
+...
 
 ## 📚 Documentation & Links
 
@@ -53,4 +62,5 @@ UniNetty is licensed under MIT license, see [LICENSE.txt](https://github.com/ikp
 
 ## 📹 Demo Video
 
+...
 
