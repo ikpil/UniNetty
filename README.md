@@ -28,8 +28,8 @@
 
 UniNetty is divided into multiple modules, each contained in its own folder:
 
-- [UniNetty.Logging](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Logging) : 
-- [UniNetty.Common](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Common) : 
+- [UniNetty.Logging](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Logging) : Logging framework used internally by UniNetty
+- [UniNetty.Common](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Common) : Provides common utilities and functionality
 - [UniNetty.Buffers](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Buffers) : 
 - [UniNetty.Transport](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Transport) : 
 - [UniNetty.Codecs](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Codecs) : 
