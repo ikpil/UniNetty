@@ -29,15 +29,15 @@
 UniNetty is divided into multiple modules, each contained in its own folder:
 
 - [UniNetty.Logging](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Logging) : Logging framework used internally by UniNetty
-- [UniNetty.Common](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Common) : Provides common utilities and functionality
-- [UniNetty.Buffers](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Buffers) : 
-- [UniNetty.Transport](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Transport) : 
-- [UniNetty.Codecs](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Codecs) : 
-- [UniNetty.Codecs.Http](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Codecs.Http) : 
-- [UniNetty.Codecs.Mqtt](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Codecs.Mqtt) : 
-- [UniNetty.Codecs.Protobuf](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Codecs.Protobuf) : 
-- [UniNetty.Codecs.Redis](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Codecs.Redis) : 
-- [UniNetty.Handlers](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Handlers) : 
+- [UniNetty.Common](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Common) : Provides utility functions and common components for asynchronous and concurrent operations.
+- [UniNetty.Buffers](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Buffers) : Manages efficient memory allocation and deallocation for network data buffers.
+- [UniNetty.Transport](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Transport) : Implements core TCP and UDP transport functionalities with scalable event loop support.
+- [UniNetty.Codecs](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Codecs) : Handles encoding and decoding of data across network channels.
+- [UniNetty.Codecs.Http](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Codecs.Http) : Supports HTTP/1.1 and handles full HTTP request/response lifecycle.
+- [UniNetty.Codecs.Mqtt](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Codecs.Mqtt) : Implements MQTT protocol for IoT communication with efficient message handling.
+- [UniNetty.Codecs.Protobuf](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Codecs.Protobuf) : Facilitates Protocol Buffers serialization and deserialization for compact binary communication.
+- [UniNetty.Codecs.Redis](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Codecs.Redis) : Implements Redis protocol for building Redis-compatible servers or clients.
+- [UniNetty.Handlers](https://github.com/ikpil/UniNetty/tree/main/src/UniNetty.Handlers) : Includes handlers for SSL/TLS, WebSocket, and other essential network features.
 - [Tests](https://github.com/ikpil/UniNetty/tree/main/test) : Unit tests
 - [Examples](https://github.com/ikpil/UniNetty/tree/main/examples) : Examples of usage
 
