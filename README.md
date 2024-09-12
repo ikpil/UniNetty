@@ -1,7 +1,6 @@
-# UniNetty
+# UniNetty Project
 
-*UniNetty is a port of [Azure/DotNetty](https://github.com/Azure/DotNetty) for use within Unity3D*  
-  
+*UniNetty is a port of [Azure/DotNetty](https://github.com/Azure/DotNetty), an asynchronous event-driven network framework designed for developing high-performance, maintainable protocol servers and clients, fully compatible with Unity3D.*  
 *If you'd like to support the project, we'd appreciate starring(⭐) our repos on Github for more visibility.*
 
 ---
@@ -20,7 +19,7 @@
 
 ## 🚀 Features
 
-- **Unity Compatibility** : Integrate DotNetty's functionality into Unity projects, simplifying the implementation of networking features.
+- **Unity3D Compatibility** : Integrate DotNetty's functionality into Unity projects, simplifying the implementation of networking features.
 - **Unified API for various transport types** : blocking and non-blocking socket
 - **Flexible Event Model** : Based on a flexible and extensible event model which allows clear separation of concerns
 - **Highly Customizable Thread Model** : single thread, one or more thread pools such as SEDA
