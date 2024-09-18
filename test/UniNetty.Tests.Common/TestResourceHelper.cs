@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+
 namespace UniNetty.Tests.Common
 {
     using System.IO;
@@ -12,28 +14,16 @@ namespace UniNetty.Tests.Common
     {
         public static X509Certificate2 GetTestCertificate()
         {
-            byte[] certData;
-            using (Stream resStream = typeof(TestResourceHelper).GetTypeInfo().Assembly.GetManifestResourceStream(typeof(TestResourceHelper).Namespace + "." + "dotnetty.com.pfx"))
-            using (var memStream = new MemoryStream())
-            {
-                resStream.CopyTo(memStream);
-                certData = memStream.ToArray();
-            }
-
-            return new X509Certificate2(certData, "password");
+            var pfx = Path.Combine(AppContext.BaseDirectory, "resources", "dotnetty.com.pfx");
+            var cert = new X509Certificate2(pfx, "password");
+            return cert;
         }
 
         public static X509Certificate2 GetTestCertificate2()
         {
-            byte[] certData;
-            using (Stream resStream = typeof(TestResourceHelper).GetTypeInfo().Assembly.GetManifestResourceStream(typeof(TestResourceHelper).Namespace + "." + "contoso.com.pfx"))
-            using (var memStream = new MemoryStream())
-            {
-                resStream.CopyTo(memStream);
-                certData = memStream.ToArray();
-            }
-
-            return new X509Certificate2(certData, "password");
+            var pfx = Path.Combine(AppContext.BaseDirectory, "resources", "contoso.com.pfx");
+            var cert = new X509Certificate2(pfx, "password");
+            return cert;
         }
     }
 }

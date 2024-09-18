@@ -5,11 +5,13 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\..\shared\dotnetty.com.pfx"/>
-    <EmbeddedResource Include="..\..\shared\contoso.com.pfx"/>
+    <None Include="..\..\shared\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>resources\%(Filename)%(Extension)</Link>
+    </None>
   </ItemGroup>
+
   <ItemGroup>
-    
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="xunit" Version="2.9.0"/>
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
