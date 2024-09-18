@@ -7,23 +7,29 @@ using System;
 namespace UniNetty.Tests.Common
 {
     using System.IO;
-    using System.Reflection;
     using System.Security.Cryptography.X509Certificates;
 
     public static class TestResourceHelper
     {
+        public static X509Certificate2 GetCertificate(string pfxFileName, string password)
+        {
+            var pfx = Path.Combine(AppContext.BaseDirectory, "resources", pfxFileName);
+            using FileStream fs = new FileStream(pfx, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using MemoryStream ms = new MemoryStream();
+            fs.CopyTo(ms);
+            var raw = ms.ToArray();
+            var cert = new X509Certificate2(raw, password);
+            return cert;
+        }
+
         public static X509Certificate2 GetTestCertificate()
         {
-            var pfx = Path.Combine(AppContext.BaseDirectory, "resources", "dotnetty.com.pfx");
-            var cert = new X509Certificate2(pfx, "password");
-            return cert;
+            return GetCertificate("dotnetty.com.pfx", "password");
         }
 
         public static X509Certificate2 GetTestCertificate2()
         {
-            var pfx = Path.Combine(AppContext.BaseDirectory, "resources", "contoso.com.pfx");
-            var cert = new X509Certificate2(pfx, "password");
-            return cert;
+            return GetCertificate("contoso.com.pfx", "password");
         }
     }
 }
