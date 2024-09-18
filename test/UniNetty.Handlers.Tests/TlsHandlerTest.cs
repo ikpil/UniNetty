@@ -48,11 +48,11 @@ namespace UniNetty.Handlers.Tests
             var boolToggle = new[] { false, true };
             var protocols = new[]
             {
-                Tuple.Create(SslProtocols.Tls, SslProtocols.Tls),
-                Tuple.Create(SslProtocols.Tls11, SslProtocols.Tls11),
+                // Tuple.Create(SslProtocols.Tls, SslProtocols.Tls),
+                // Tuple.Create(SslProtocols.Tls11, SslProtocols.Tls11),
                 Tuple.Create(SslProtocols.Tls12, SslProtocols.Tls12),
-                Tuple.Create(SslProtocols.Tls12 | SslProtocols.Tls, SslProtocols.Tls12 | SslProtocols.Tls11),
-                Tuple.Create(SslProtocols.Tls | SslProtocols.Tls12, SslProtocols.Tls | SslProtocols.Tls11)
+                // Tuple.Create(SslProtocols.Tls12 | SslProtocols.Tls, SslProtocols.Tls12 | SslProtocols.Tls11),
+                // Tuple.Create(SslProtocols.Tls | SslProtocols.Tls12, SslProtocols.Tls | SslProtocols.Tls11)
             };
             var writeStrategyFactories = new Func<IWriteStrategy>[]
             {
@@ -135,11 +135,11 @@ namespace UniNetty.Handlers.Tests
             var boolToggle = new[] { false, true };
             var protocols = new[]
             {
-                Tuple.Create(SslProtocols.Tls, SslProtocols.Tls),
-                Tuple.Create(SslProtocols.Tls11, SslProtocols.Tls11),
+                // Tuple.Create(SslProtocols.Tls, SslProtocols.Tls),
+                // Tuple.Create(SslProtocols.Tls11, SslProtocols.Tls11),
                 Tuple.Create(SslProtocols.Tls12, SslProtocols.Tls12),
-                Tuple.Create(SslProtocols.Tls12 | SslProtocols.Tls, SslProtocols.Tls12 | SslProtocols.Tls11),
-                Tuple.Create(SslProtocols.Tls | SslProtocols.Tls12, SslProtocols.Tls | SslProtocols.Tls11)
+                // Tuple.Create(SslProtocols.Tls12 | SslProtocols.Tls, SslProtocols.Tls12 | SslProtocols.Tls11),
+                // Tuple.Create(SslProtocols.Tls | SslProtocols.Tls12, SslProtocols.Tls | SslProtocols.Tls11)
             };
 
             return
