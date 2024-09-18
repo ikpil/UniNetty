@@ -46,7 +46,7 @@ public static class Program
         InitializeLogger();
 
         // load pfx
-        var pfx = Path.Combine(AppContext.BaseDirectory, "resources", "dotnetty.com.pfx");
+        var pfx = Path.Combine(AppContext.BaseDirectory, "resources", "uninetty.com.pfx");
         var cert = new X509Certificate2(pfx, "password");
 
         var context = new ExampleContext();

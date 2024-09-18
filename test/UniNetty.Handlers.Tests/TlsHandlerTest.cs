@@ -333,7 +333,7 @@ namespace UniNetty.Handlers.Tests
             var readHandler = new ReadRegisterHandler();
             var ch = new EmbeddedChannel(EmbeddedChannelId.Instance, false, false,
                readHandler,
-               TlsHandler.Client("dotnetty.com"),
+               TlsHandler.Client("uninetty.com"),
                new ActivatingHandler(dropChannelActive)
            );
 

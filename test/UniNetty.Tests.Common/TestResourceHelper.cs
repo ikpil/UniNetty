@@ -24,7 +24,7 @@ namespace UniNetty.Tests.Common
 
         public static X509Certificate2 GetTestCertificate()
         {
-            return GetCertificate("dotnetty.com.pfx", "password");
+            return GetCertificate("uninetty.com.pfx", "password");
         }
 
         public static X509Certificate2 GetTestCertificate2()
