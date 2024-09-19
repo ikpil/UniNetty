@@ -46,6 +46,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                 {
                     this.fail = true;
                 }
+
                 try
                 {
                     this.done = msg.Content.ReadInt() == 1;
@@ -82,6 +83,9 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
         {
             foreach (AddressFamily addressFamily in NetUtil.AddressFamilyTypes)
             {
+                if (!NetUtil.IsSupport(addressFamily))
+                    continue;
+
                 foreach (IByteBufferAllocator allocator in NetUtil.Allocators)
                 {
                     yield return new object[]
@@ -118,8 +122,9 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                         channel.Pipeline.AddLast(nameof(SocketDatagramChannelMulticastTest), multicastHandler);
                     }));
 
-                IPAddress address = addressFamily == AddressFamily.InterNetwork 
-                    ? IPAddress.Loopback : IPAddress.IPv6Loopback;
+                IPAddress address = addressFamily == AddressFamily.InterNetwork
+                    ? IPAddress.Loopback
+                    : IPAddress.IPv6Loopback;
 
                 this.Output.WriteLine($"Multicast server binding to:({addressFamily}){address}");
                 Task<IChannel> task = serverBootstrap.BindAsync(address, IPEndPoint.MinPort);
@@ -149,8 +154,9 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
 
                 clientChannel = (SocketDatagramChannel)task.Result;
 
-                IPAddress multicastAddress = addressFamily == AddressFamily.InterNetwork 
-                    ? IPAddress.Parse("230.0.0.1") : IPAddress.Parse("ff12::1");
+                IPAddress multicastAddress = addressFamily == AddressFamily.InterNetwork
+                    ? IPAddress.Parse("230.0.0.1")
+                    : IPAddress.Parse("ff12::1");
                 var groupAddress = new IPEndPoint(multicastAddress, serverEndPoint.Port);
                 Task joinTask = serverChannel.JoinGroup(groupAddress, loopback);
                 Assert.True(joinTask.Wait(TimeSpan.FromMilliseconds(DefaultTimeOutInMilliseconds * 5)),

@@ -26,6 +26,28 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
             UnpooledByteBufferAllocator.Default
         };
 
+        public static bool IsSupport(AddressFamily addressFamily)
+        {
+            var nis = NetworkInterface.GetAllNetworkInterfaces();
+            foreach (var ni in nis)
+            {
+                if (ni.OperationalStatus != OperationalStatus.Up)
+                    continue;
+
+                var unicastAddresses = ni.GetIPProperties().UnicastAddresses;
+
+                foreach (var ip in unicastAddresses)
+                {
+                    if (ip.Address.AddressFamily == addressFamily)
+                    {
+                        return true; // 지원됨
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public static IPAddress GetLoopbackAddress(AddressFamily addressFamily)
         {
             if (addressFamily == AddressFamily.InterNetwork)

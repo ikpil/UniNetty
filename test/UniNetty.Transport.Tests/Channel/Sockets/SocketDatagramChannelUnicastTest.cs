@@ -95,50 +95,53 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
         {
             foreach (AddressFamily addressFamily in NetUtil.AddressFamilyTypes)
             {
+                if (!NetUtil.IsSupport(addressFamily))
+                    continue;
+
                 foreach (IByteBufferAllocator allocator in NetUtil.Allocators)
                 {
                     foreach (bool bindClient in BindClientOption)
                     {
                         yield return new object[]
                         {
-                                Unpooled.Buffer().WriteBytes(Data),
-                                bindClient,
-                                allocator,
-                                addressFamily,
-                                Data,
-                                1
+                            Unpooled.Buffer().WriteBytes(Data),
+                            bindClient,
+                            allocator,
+                            addressFamily,
+                            Data,
+                            1
                         };
 
                         yield return new object[]
                         {
-                                Unpooled.Buffer().WriteBytes(Data),
-                                bindClient,
-                                allocator,
-                                addressFamily,
-                                Data,
-                                4
+                            Unpooled.Buffer().WriteBytes(Data),
+                            bindClient,
+                            allocator,
+                            addressFamily,
+                            Data,
+                            4
                         };
 
                         yield return new object[]
                         {
-                               Unpooled.WrappedBuffer(
-                                   Unpooled.CopiedBuffer(Data, 0, 2), Unpooled.CopiedBuffer(Data, 2, 2)),
-                                bindClient,
-                                allocator,
-                                addressFamily,
-                                Data,
-                                1
+                            Unpooled.WrappedBuffer(
+                                Unpooled.CopiedBuffer(Data, 0, 2), Unpooled.CopiedBuffer(Data, 2, 2)),
+                            bindClient,
+                            allocator,
+                            addressFamily,
+                            Data,
+                            1
                         };
 
                         yield return new object[]
                         {
-                                Unpooled.WrappedBuffer(
-                                    Unpooled.CopiedBuffer(Data, 0, 2), Unpooled.CopiedBuffer(Data, 2, 2)),
-                                bindClient,
-                                allocator,
-                                addressFamily,
-                                Data,
-                                4
+                            Unpooled.WrappedBuffer(
+                                Unpooled.CopiedBuffer(Data, 0, 2), Unpooled.CopiedBuffer(Data, 2, 2)),
+                            bindClient,
+                            allocator,
+                            addressFamily,
+                            Data,
+                            4
                         };
                     }
                 }
