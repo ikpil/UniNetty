@@ -38,7 +38,7 @@ namespace UniNetty.Codecs.Http.Tests
                 gzipHeaderHex = "1f8b08000000000000ff";
             }
 
-            yield return new object[] { gzipHeaderHex }; // UNIX Gzip 헤더
+            yield return new object[] { gzipHeaderHex };
         }
 
         [Fact]
