@@ -108,7 +108,6 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
             var serverGroup = new MultithreadEventLoopGroup(1);
             var clientGroup = new MultithreadEventLoopGroup(1);
 
-            var supportsMulticast = NetUtil.SupportsMulticastInterface(addressFamily);
             try
             {
                 var multicastHandler = new MulticastTestHandler();
@@ -124,11 +123,9 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                         channel.Pipeline.AddLast(nameof(SocketDatagramChannelMulticastTest), multicastHandler);
                     }));
 
-                var address = supportsMulticast
-                    .GetIPProperties()
-                    .UnicastAddresses
-                    .First(x => x.Address.AddressFamily == addressFamily)
-                    .Address;
+                var address = addressFamily == AddressFamily.InterNetwork
+                    ? IPAddress.Any
+                    : IPAddress.IPv6Any;
 
                 this.Output.WriteLine($"Multicast server binding to:({addressFamily}){address}");
                 Task<IChannel> task = serverBootstrap.BindAsync(address, IPEndPoint.MinPort);
