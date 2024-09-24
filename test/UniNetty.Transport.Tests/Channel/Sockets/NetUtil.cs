@@ -14,8 +14,12 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
 
     public static class NetUtil
     {
+        /**
+         * See <a href="https://tools.ietf.org/html/rfc7346#section-2">RFC7346, IPv6 Multicast Address Scopes</a>
+         */
         public static readonly IPAddress MULTICAST_IPV4 = IPAddress.Parse("230.0.0.1");
-        public static readonly IPAddress MULTICAST_IPV6_INTERFACE_LOCAL = IPAddress.Parse("FF01::1");
+
+        public static readonly IPAddress MULTICAST_IPV6_SITE_LOCAL = IPAddress.Parse("FF05::1");
 
         internal static readonly AddressFamily[] AddressFamilyTypes =
         {
@@ -64,7 +68,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
 
             throw new NotSupportedException($"Address family {addressFamily} is not supported. Expecting InterNetwork/InterNetworkV6");
         }
-        
+
         public static NetworkInterface LoopbackInterface(AddressFamily addressFamily)
         {
             var nis = NetworkInterface.GetAllNetworkInterfaces();
@@ -75,7 +79,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
 
                 if (ni.NetworkInterfaceType != NetworkInterfaceType.Loopback)
                     continue;
-                
+
                 var ipProps = ni.GetIPProperties();
                 foreach (var multicast in ipProps.UnicastAddresses)
                 {
@@ -97,7 +101,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
             {
                 if (ni.NetworkInterfaceType == NetworkInterfaceType.Loopback)
                     continue;
-                
+
                 if (!ni.SupportsMulticast)
                     continue;
 

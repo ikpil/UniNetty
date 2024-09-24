@@ -157,7 +157,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
 
                 IPAddress multicastAddress = addressFamily == AddressFamily.InterNetwork
                     ? NetUtil.MULTICAST_IPV4
-                    : NetUtil.MULTICAST_IPV6_INTERFACE_LOCAL;
+                    : NetUtil.MULTICAST_IPV6_SITE_LOCAL;
 
                 var groupAddress = new IPEndPoint(multicastAddress, serverEndPoint.Port);
                 Task joinTask = serverChannel.JoinGroup(groupAddress);
