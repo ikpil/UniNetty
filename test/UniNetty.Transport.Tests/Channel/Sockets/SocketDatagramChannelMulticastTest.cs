@@ -2,6 +2,8 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System.Linq;
+
 namespace UniNetty.Transport.Tests.Channel.Sockets
 {
     using System;
@@ -106,6 +108,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
             var serverGroup = new MultithreadEventLoopGroup(1);
             var clientGroup = new MultithreadEventLoopGroup(1);
 
+            var supportsMulticast = NetUtil.SupportsMulticastInterface(addressFamily);
             try
             {
                 var multicastHandler = new MulticastTestHandler();
@@ -121,9 +124,11 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                         channel.Pipeline.AddLast(nameof(SocketDatagramChannelMulticastTest), multicastHandler);
                     }));
 
-                IPAddress address = addressFamily == AddressFamily.InterNetwork
-                    ? IPAddress.Any
-                    : IPAddress.IPv6Any;
+                var address = supportsMulticast
+                    .GetIPProperties()
+                    .UnicastAddresses
+                    .First(x => x.Address.AddressFamily == addressFamily)
+                    .Address;
 
                 this.Output.WriteLine($"Multicast server binding to:({addressFamily}){address}");
                 Task<IChannel> task = serverBootstrap.BindAsync(address, IPEndPoint.MinPort);
@@ -155,8 +160,8 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
 
                 IPAddress multicastAddress = addressFamily == AddressFamily.InterNetwork
                     ? NetUtil.MULTICAST_IPV4
-                    : NetUtil.MULTICAST_IPV6_SITELOCAL;
-                
+                    : NetUtil.MULTICAST_IPV6_INTERFACE_LOCAL;
+
                 var groupAddress = new IPEndPoint(multicastAddress, serverEndPoint.Port);
                 Task joinTask = serverChannel.JoinGroup(groupAddress);
                 Assert.True(joinTask.Wait(TimeSpan.FromMilliseconds(DefaultTimeOutInMilliseconds * 5)),

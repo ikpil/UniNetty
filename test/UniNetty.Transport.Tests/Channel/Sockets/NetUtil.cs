@@ -15,8 +15,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
     public static class NetUtil
     {
         public static readonly IPAddress MULTICAST_IPV4 = IPAddress.Parse("230.0.0.1");
-        public static readonly IPAddress MULTICAST_IPV6_LINKLOCAL = IPAddress.Parse("FF02::1");
-        public static readonly IPAddress MULTICAST_IPV6_SITELOCAL = IPAddress.Parse("FF05::1");
+        public static readonly IPAddress MULTICAST_IPV6_INTERFACE_LOCAL = IPAddress.Parse("FF01::1");
 
         internal static readonly AddressFamily[] AddressFamilyTypes =
         {
@@ -38,16 +37,9 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                 if (ni.OperationalStatus != OperationalStatus.Up)
                     continue;
 
-                var unicastAddresses = ni.GetIPProperties().UnicastAddresses;
-
-                foreach (var ip in unicastAddresses)
+                var ipProp = ni.GetIPProperties();
+                foreach (var ip in ipProp.UnicastAddresses)
                 {
-                    // pass link-local
-                    if (AddressFamily.InterNetworkV6 == addressFamily && ip.Address.IsIPv6LinkLocal)
-                    {
-                        continue;
-                    }
-
                     if (ip.Address.AddressFamily == addressFamily)
                     {
                         return true; // 지원됨
@@ -72,12 +64,40 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
 
             throw new NotSupportedException($"Address family {addressFamily} is not supported. Expecting InterNetwork/InterNetworkV6");
         }
-
-        public static NetworkInterface MulticastInterface(AddressFamily addressFamily)
+        
+        public static NetworkInterface LoopbackInterface(AddressFamily addressFamily)
         {
             var nis = NetworkInterface.GetAllNetworkInterfaces();
             foreach (var ni in nis)
             {
+                if (ni.OperationalStatus != OperationalStatus.Up)
+                    continue;
+
+                if (ni.NetworkInterfaceType != NetworkInterfaceType.Loopback)
+                    continue;
+                
+                var ipProps = ni.GetIPProperties();
+                foreach (var multicast in ipProps.UnicastAddresses)
+                {
+                    if (multicast.Address.AddressFamily == addressFamily)
+                    {
+                        return ni;
+                    }
+                }
+            }
+
+            throw new NotSupportedException($"Address family {addressFamily} is not supported. Expecting InterNetwork/InterNetworkV6");
+        }
+
+
+        public static NetworkInterface SupportsMulticastInterface(AddressFamily addressFamily)
+        {
+            var nis = NetworkInterface.GetAllNetworkInterfaces();
+            foreach (var ni in nis)
+            {
+                if (ni.NetworkInterfaceType == NetworkInterfaceType.Loopback)
+                    continue;
+                
                 if (!ni.SupportsMulticast)
                     continue;
 
@@ -85,10 +105,12 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                     continue;
 
                 var ipProps = ni.GetIPProperties();
+                if (0 >= ipProps.UnicastAddresses.Count)
+                    continue;
 
-                foreach (var unicast in ipProps.UnicastAddresses)
+                foreach (var multicast in ipProps.UnicastAddresses)
                 {
-                    if (unicast.Address.AddressFamily == addressFamily)
+                    if (multicast.Address.AddressFamily == addressFamily)
                     {
                         return ni;
                     }
