@@ -12,8 +12,12 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
     using UniNetty.Transport.Channels;
     using UniNetty.Transport.Channels.Sockets;
 
-    static class NetUtil
+    public static class NetUtil
     {
+        public static readonly IPAddress MULTICAST_IPV4 = IPAddress.Parse("230.0.0.1");
+        public static readonly IPAddress MULTICAST_IPV6_LINKLOCAL = IPAddress.Parse("FF02::1");
+        public static readonly IPAddress MULTICAST_IPV6_SITELOCAL = IPAddress.Parse("FF05::1");
+
         internal static readonly AddressFamily[] AddressFamilyTypes =
         {
             AddressFamily.InterNetwork,

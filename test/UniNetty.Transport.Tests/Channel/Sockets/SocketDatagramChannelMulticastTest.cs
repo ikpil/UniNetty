@@ -154,8 +154,9 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                 clientChannel = (SocketDatagramChannel)task.Result;
 
                 IPAddress multicastAddress = addressFamily == AddressFamily.InterNetwork
-                    ? IPAddress.Parse("230.0.0.1")
-                    : IPAddress.Parse("ff12::1");
+                    ? NetUtil.MULTICAST_IPV4
+                    : NetUtil.MULTICAST_IPV6_SITELOCAL;
+                
                 var groupAddress = new IPEndPoint(multicastAddress, serverEndPoint.Port);
                 Task joinTask = serverChannel.JoinGroup(groupAddress);
                 Assert.True(joinTask.Wait(TimeSpan.FromMilliseconds(DefaultTimeOutInMilliseconds * 5)),
