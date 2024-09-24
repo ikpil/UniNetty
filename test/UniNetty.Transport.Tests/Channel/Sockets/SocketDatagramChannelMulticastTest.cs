@@ -115,7 +115,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                     .ChannelFactory(() => new SocketDatagramChannel(addressFamily))
                     .Option(ChannelOption.Allocator, allocator)
                     .Option(ChannelOption.SoReuseaddr, true)
-                    //.Option(ChannelOption.IpMulticastLoopDisabled, false)
+                    .Option(ChannelOption.IpMulticastLoopDisabled, false)
                     .Handler(new ActionChannelInitializer<IChannel>(channel =>
                     {
                         channel.Pipeline.AddLast(nameof(SocketDatagramChannelMulticastTest), multicastHandler);
@@ -139,7 +139,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                     .ChannelFactory(() => new SocketDatagramChannel(addressFamily))
                     .Option(ChannelOption.Allocator, allocator)
                     .Option(ChannelOption.SoReuseaddr, true)
-                    //.Option(ChannelOption.IpMulticastLoopDisabled, false)
+                    .Option(ChannelOption.IpMulticastLoopDisabled, false)
                     .Handler(new ActionChannelInitializer<IChannel>(channel =>
                     {
                         channel.Pipeline.AddLast("Dummy", new NetUtil.DummyHandler());

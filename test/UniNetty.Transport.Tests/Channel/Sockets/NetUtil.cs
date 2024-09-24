@@ -38,6 +38,12 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
 
                 foreach (var ip in unicastAddresses)
                 {
+                    // pass link-local
+                    if (AddressFamily.InterNetworkV6 == addressFamily && ip.Address.IsIPv6LinkLocal)
+                    {
+                        continue;
+                    }
+
                     if (ip.Address.AddressFamily == addressFamily)
                     {
                         return true; // 지원됨
