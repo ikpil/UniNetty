@@ -63,17 +63,26 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
             throw new NotSupportedException($"Address family {addressFamily} is not supported. Expecting InterNetwork/InterNetworkV6");
         }
 
-        public static NetworkInterface LoopbackInterface(AddressFamily addressFamily)
+        public static NetworkInterface MulticastInterface(AddressFamily addressFamily)
         {
-            NetworkInterface[] networkInterfaces = NetworkInterface.GetAllNetworkInterfaces();
-            if (addressFamily == AddressFamily.InterNetwork)
+            var nis = NetworkInterface.GetAllNetworkInterfaces();
+            foreach (var ni in nis)
             {
-                return networkInterfaces[NetworkInterface.LoopbackInterfaceIndex];
-            }
+                if (!ni.SupportsMulticast)
+                    continue;
 
-            if (addressFamily == AddressFamily.InterNetworkV6)
-            {
-                return networkInterfaces[NetworkInterface.IPv6LoopbackInterfaceIndex];
+                if (ni.OperationalStatus != OperationalStatus.Up)
+                    continue;
+
+                var ipProps = ni.GetIPProperties();
+
+                foreach (var unicast in ipProps.UnicastAddresses)
+                {
+                    if (unicast.Address.AddressFamily == addressFamily)
+                    {
+                        return ni;
+                    }
+                }
             }
 
             throw new NotSupportedException($"Address family {addressFamily} is not supported. Expecting InterNetwork/InterNetworkV6");

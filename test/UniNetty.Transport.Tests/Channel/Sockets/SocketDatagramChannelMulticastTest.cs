@@ -105,7 +105,6 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
             IChannel clientChannel = null;
             var serverGroup = new MultithreadEventLoopGroup(1);
             var clientGroup = new MultithreadEventLoopGroup(1);
-            NetworkInterface loopback = NetUtil.LoopbackInterface(addressFamily);
 
             try
             {
@@ -123,8 +122,8 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                     }));
 
                 IPAddress address = addressFamily == AddressFamily.InterNetwork
-                    ? IPAddress.Loopback
-                    : IPAddress.IPv6Loopback;
+                    ? IPAddress.Any
+                    : IPAddress.IPv6Any;
 
                 this.Output.WriteLine($"Multicast server binding to:({addressFamily}){address}");
                 Task<IChannel> task = serverBootstrap.BindAsync(address, IPEndPoint.MinPort);
@@ -158,14 +157,14 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                     ? IPAddress.Parse("230.0.0.1")
                     : IPAddress.Parse("ff12::1");
                 var groupAddress = new IPEndPoint(multicastAddress, serverEndPoint.Port);
-                Task joinTask = serverChannel.JoinGroup(groupAddress, loopback);
+                Task joinTask = serverChannel.JoinGroup(groupAddress);
                 Assert.True(joinTask.Wait(TimeSpan.FromMilliseconds(DefaultTimeOutInMilliseconds * 5)),
                     $"Multicast server join group {groupAddress} timed out!");
 
                 clientChannel.WriteAndFlushAsync(new DatagramPacket(Unpooled.Buffer().WriteInt(1), groupAddress)).Wait();
                 Assert.True(multicastHandler.WaitForResult(), "Multicast server should have receivied the message.");
 
-                Task leaveTask = serverChannel.LeaveGroup(groupAddress, loopback);
+                Task leaveTask = serverChannel.LeaveGroup(groupAddress);
                 Assert.True(leaveTask.Wait(TimeSpan.FromMilliseconds(DefaultTimeOutInMilliseconds * 5)),
                     $"Multicast server leave group {groupAddress} timed out!");
 
