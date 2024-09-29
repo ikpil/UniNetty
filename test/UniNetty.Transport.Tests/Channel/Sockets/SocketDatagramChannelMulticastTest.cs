@@ -123,10 +123,10 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                         channel.Pipeline.AddLast(nameof(SocketDatagramChannelMulticastTest), multicastHandler);
                     }));
 
-                var address = addressFamily == AddressFamily.InterNetwork
-                    ? IPAddress.Any
+                var address = AddressFamily.InterNetwork == addressFamily 
+                    ? IPAddress.Any 
                     : IPAddress.IPv6Any;
-
+                
                 this.Output.WriteLine($"Multicast server binding to:({addressFamily}){address}");
                 Task<IChannel> task = serverBootstrap.BindAsync(address, IPEndPoint.MinPort);
                 Assert.True(task.Wait(TimeSpan.FromMilliseconds(DefaultTimeOutInMilliseconds * 5)),
@@ -155,6 +155,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
 
                 clientChannel = (SocketDatagramChannel)task.Result;
 
+                //multicastInterface.GetIPProperties().MulticastAddresses.
                 IPAddress multicastAddress = addressFamily == AddressFamily.InterNetwork
                     ? NetUtil.MULTICAST_IPV4
                     : NetUtil.MULTICAST_IPV6_SITE_LOCAL;

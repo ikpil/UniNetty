@@ -17,7 +17,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
         /**
          * See <a href="https://tools.ietf.org/html/rfc7346#section-2">RFC7346, IPv6 Multicast Address Scopes</a>
          */
-        public static readonly IPAddress MULTICAST_IPV4 = IPAddress.Parse("230.0.0.1");
+        public static readonly IPAddress MULTICAST_IPV4 = IPAddress.Parse("224.0.0.2");
 
         public static readonly IPAddress MULTICAST_IPV6_SITE_LOCAL = IPAddress.Parse("FF05::1");
 
@@ -94,14 +94,14 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
         }
 
 
-        public static NetworkInterface SupportsMulticastInterface(AddressFamily addressFamily)
+        public static NetworkInterface MulticastInterface(AddressFamily addressFamily)
         {
             var nis = NetworkInterface.GetAllNetworkInterfaces();
             foreach (var ni in nis)
             {
                 if (ni.NetworkInterfaceType == NetworkInterfaceType.Loopback)
                     continue;
-
+                
                 if (!ni.SupportsMulticast)
                     continue;
 
@@ -112,9 +112,9 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                 if (0 >= ipProps.UnicastAddresses.Count)
                     continue;
 
-                foreach (var multicast in ipProps.UnicastAddresses)
+                foreach (var unicast in ipProps.UnicastAddresses)
                 {
-                    if (multicast.Address.AddressFamily == addressFamily)
+                    if (unicast.Address.AddressFamily == addressFamily)
                     {
                         return ni;
                     }
