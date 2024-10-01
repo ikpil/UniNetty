@@ -2,14 +2,14 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-using System.Linq;
+
+using System.Runtime.InteropServices;
 
 namespace UniNetty.Transport.Tests.Channel.Sockets
 {
     using System;
     using System.Collections.Generic;
     using System.Net;
-    using System.Net.NetworkInformation;
     using System.Net.Sockets;
     using System.Threading;
     using System.Threading.Tasks;
@@ -85,8 +85,11 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
         {
             foreach (AddressFamily addressFamily in NetUtil.AddressFamilyTypes)
             {
-                if (!NetUtil.IsSupport(addressFamily))
+                // FIXME: IPv6 multicast isn't working on macOS
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && addressFamily != AddressFamily.InterNetworkV6)
+                {
                     continue;
+                }
 
                 foreach (IByteBufferAllocator allocator in NetUtil.Allocators)
                 {
@@ -123,10 +126,10 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
                         channel.Pipeline.AddLast(nameof(SocketDatagramChannelMulticastTest), multicastHandler);
                     }));
 
-                var address = AddressFamily.InterNetwork == addressFamily 
-                    ? IPAddress.Any 
+                var address = AddressFamily.InterNetwork == addressFamily
+                    ? IPAddress.Any
                     : IPAddress.IPv6Any;
-                
+
                 this.Output.WriteLine($"Multicast server binding to:({addressFamily}){address}");
                 Task<IChannel> task = serverBootstrap.BindAsync(address, IPEndPoint.MinPort);
                 Assert.True(task.Wait(TimeSpan.FromMilliseconds(DefaultTimeOutInMilliseconds * 5)),
@@ -155,12 +158,12 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
 
                 clientChannel = (SocketDatagramChannel)task.Result;
 
-                //multicastInterface.GetIPProperties().MulticastAddresses.
                 IPAddress multicastAddress = addressFamily == AddressFamily.InterNetwork
                     ? NetUtil.MULTICAST_IPV4
                     : NetUtil.MULTICAST_IPV6_SITE_LOCAL;
 
                 var groupAddress = new IPEndPoint(multicastAddress, serverEndPoint.Port);
+
                 Task joinTask = serverChannel.JoinGroup(groupAddress);
                 Assert.True(joinTask.Wait(TimeSpan.FromMilliseconds(DefaultTimeOutInMilliseconds * 5)),
                     $"Multicast server join group {groupAddress} timed out!");
