@@ -86,7 +86,7 @@ namespace UniNetty.Transport.Tests.Channel.Sockets
             foreach (AddressFamily addressFamily in NetUtil.AddressFamilyTypes)
             {
                 // FIXME: IPv6 multicast isn't working on macOS
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && addressFamily != AddressFamily.InterNetworkV6)
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && addressFamily == AddressFamily.InterNetworkV6)
                 {
                     continue;
                 }

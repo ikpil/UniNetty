@@ -11,6 +11,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/ikpil/UniNetty?style=for-the-badge)
 [![GitHub Repo stars](https://img.shields.io/github/stars/ikpil/UniNetty?style=for-the-badge&logo=github)](https://github.com/ikpil/UniNetty)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ikpil/UniNetty/dotnet.yml?style=for-the-badge&logo=github)](https://github.com/ikpil/UniNetty/actions/workflows/dotnet.yml)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/ikpil/UniNetty/codeql.yml?style=for-the-badge&logo=github&label=CODEQL)](https://github.com/ikpil/UniNetty/actions/workflows/codeql.yml)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ikpil/UniNetty?style=for-the-badge&logo=github)](https://github.com/ikpil/UniNetty/commits)
 [![GitHub issues](https://img.shields.io/github/issues-raw/ikpil/UniNetty?style=for-the-badge&logo=github&color=44cc11)](https://github.com/ikpil/UniNetty/issues)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/ikpil/UniNetty?style=for-the-badge&logo=github&color=a371f7)](https://github.com/ikpil/UniNetty/issues)
