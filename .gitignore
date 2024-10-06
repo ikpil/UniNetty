@@ -398,3 +398,12 @@ FodyWeavers.xsd
 *.sln.iml
 .idea/
 imgui.ini
+
+# Unity3D
+src/UniNetty.Unity/bin/*
+src/UniNetty.Unity/Library/*
+src/UniNetty.Unity/obj/*
+src/UniNetty.Unity/Temp/*
+src/UniNetty.Unity/UserSettings/*
+src/UniNetty.Unity/*.sln
+src/UniNetty.Unity/*.csproj
