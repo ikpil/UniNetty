@@ -11,9 +11,6 @@ using UniNetty.Common.Internal.Logging;
 using UniNetty.Examples.Demo.Logging;
 using UniNetty.Examples.Demo.Logging.Sinks;
 using UniNetty.Examples.DemoSupports;
-using UniNetty.Logging;
-using ILogger = UniNetty.Logging.ILogger;
-
 
 namespace UniNetty.Examples.Demo;
 
@@ -40,9 +37,21 @@ public static class Program
         InternalLoggerFactory.DefaultFactory = new DemoLoggerFactory();
     }
 
+    private static void InitializeWorkingDirectory()
+    {
+        var path = DirectoryUtils.SearchDirectory("LICENSE");
+        if (!string.IsNullOrEmpty(path))
+        {
+            var workingDirectory = Path.GetDirectoryName(path) ?? string.Empty;
+            workingDirectory = Path.GetFullPath(workingDirectory);
+            Directory.SetCurrentDirectory(workingDirectory);
+        }
+    }
+    
     public static void Main(string[] args)
     {
         Thread.CurrentThread.Name ??= "main";
+        InitializeWorkingDirectory();
         InitializeLogger();
 
         // load pfx
