@@ -39,7 +39,7 @@ public static class Program
 
     private static void InitializeWorkingDirectory()
     {
-        var path = DirectoryUtils.SearchDirectory("LICENSE");
+        var path = DirectoryUtils.SearchFile("LICENSE");
         if (!string.IsNullOrEmpty(path))
         {
             var workingDirectory = Path.GetDirectoryName(path) ?? string.Empty;
@@ -54,14 +54,8 @@ public static class Program
         InitializeWorkingDirectory();
         InitializeLogger();
 
-        // load pfx
-        var pfx = Path.Combine(AppContext.BaseDirectory, "resources", "uninetty.com.pfx");
-        var cert = new X509Certificate2(pfx, "password");
-
-        var context = new ExampleContext();
-        context.SetCertificate(cert);
-
         var demo = new UniNettyDemo();
-        demo.Start(context);
+        demo.Initialize();
+        demo.Start();
     }
 }

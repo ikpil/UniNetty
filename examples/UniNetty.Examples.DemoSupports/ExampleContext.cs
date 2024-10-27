@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using UniNetty.Common.Internal.Logging;
 using UniNetty.Examples.Discard.Client;
 using UniNetty.Examples.Discard.Server;
 using UniNetty.Examples.Echo.Client;

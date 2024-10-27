@@ -6,6 +6,7 @@ using System.Linq;
 using System.Numerics;
 using System.Runtime;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using ImGuiNET;
 using Serilog;
 using Silk.NET.Input;
@@ -37,9 +38,24 @@ public class UniNettyDemo
 
     private Canvas _canvas;
 
-    public void Start(ExampleContext context)
+    public void Initialize()
     {
+        Logger.Info("initializing...");
+        
+        // load pfx
+        var pfx = Path.Combine(AppContext.BaseDirectory, "resources", "uninetty.com.pfx");
+        var cert = new X509Certificate2(pfx, "password");
+
+        var context = new ExampleContext();
+        context.SetCertificate(cert);
+
         _context = context;
+    }
+
+    public void Start()
+    {
+        Logger.Info("starting...");
+        
         var monitor = Window.Platforms.First().GetMainMonitor();
         var resolution = monitor.VideoMode.Resolution.Value;
 
@@ -143,8 +159,8 @@ public class UniNettyDemo
         string bitness = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
 
         var workingDirectory = Directory.GetCurrentDirectory();
-
-
+        Logger.Info($"Working directory - {workingDirectory}");
+        
         Logger.Info($"{RuntimeInformation.OSArchitecture} {RuntimeInformation.OSDescription}");
         Logger.Info($"{RuntimeInformation.ProcessArchitecture} {RuntimeInformation.FrameworkDescription}");
         Logger.Info($"Processor Count : {Environment.ProcessorCount}");
@@ -154,7 +170,6 @@ public class UniNettyDemo
         Logger.Info($"Current latency mode for garbage collection: {GCSettings.LatencyMode}");
         Logger.Info("");
 
-        Logger.Info($"Working directory - {workingDirectory}");
         Logger.Info($"ImGui.Net - version({ImGui.GetVersion()}) UI scale({scale}) fontSize({fontSize})");
         Logger.Info($"Dotnet - {Environment.Version.ToString()} culture({currentCulture.Name})");
         Logger.Info($"OS Version - {Environment.OSVersion} {bitness}");

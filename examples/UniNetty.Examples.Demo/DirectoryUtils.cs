@@ -1,8 +1,11 @@
 // Copyright (c) Ikpil Choi ikpil@naver.com All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
+using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace UniNetty.Examples.Demo;
 
@@ -55,5 +58,40 @@ public static class DirectoryUtils
         }
 
         return string.Empty;
+    }
+    
+    public static void OpenDirectory(string path)
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "explorer.exe",
+                Arguments = path,
+                UseShellExecute = true
+            });
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "open",
+                Arguments = path,
+                UseShellExecute = true
+            });
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "xdg-open",
+                Arguments = path,
+                UseShellExecute = true
+            });
+        }
+        else
+        {
+            throw new NotSupportedException("Unsupported OS");
+        }
     }
 }

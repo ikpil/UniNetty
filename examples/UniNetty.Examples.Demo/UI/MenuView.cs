@@ -1,3 +1,4 @@
+using System.IO;
 using ImGuiNET;
 using Serilog;
 using UniNetty.Examples.DemoSupports;
@@ -19,6 +20,17 @@ public class MenuView : IView
     {
         if (ImGui.BeginMainMenuBar())
         {
+            if (ImGui.BeginMenu("File"))
+            {
+                if (ImGui.MenuItem("Open Working Directory"))
+                {
+                    var currentDirectory = Directory.GetCurrentDirectory();
+                    DirectoryUtils.OpenDirectory(currentDirectory);
+                }
+                
+                ImGui.EndMenu();
+            }
+            
             if (ImGui.BeginMenu("Help"))
             {
                 if (ImGui.MenuItem("Repository"))
