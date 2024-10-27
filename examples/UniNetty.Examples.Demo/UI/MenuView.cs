@@ -22,7 +22,7 @@ public class MenuView : IView
         {
             if (ImGui.BeginMenu("File"))
             {
-                if (ImGui.MenuItem("Open Working Directory"))
+                if (ImGui.MenuItem("Open In File Explorer"))
                 {
                     var currentDirectory = Directory.GetCurrentDirectory();
                     DirectoryUtils.OpenDirectory(currentDirectory);
