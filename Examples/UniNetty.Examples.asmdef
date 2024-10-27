@@ -1,6 +1,6 @@
 {
-    "name": "UniNetty.Editor",
-    "rootNamespace": "UniNetty.Editor",
+    "name": "UniNetty.Examples",
+    "rootNamespace": "UniNetty.Examples",
     "references": [
         "UniNetty.Logging",
         "UniNetty.Common",
@@ -10,8 +10,7 @@
         "UniNetty.Codecs",
         "UniNetty.Codecs.Http",
         "UniNetty.Codecs.Mqtt",
-        "UniNetty.Codecs.Redis",
-        "UniNetty.Examples"
+        "UniNetty.Codecs.Redis"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

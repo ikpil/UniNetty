@@ -1,6 +1,6 @@
 {
     "name": "UniNetty.Transport",
-    "rootNamespace": "UniNetty",
+    "rootNamespace": "UniNetty.Transport",
     "references": [
         "UniNetty.Common",
         "UniNetty.Buffers"

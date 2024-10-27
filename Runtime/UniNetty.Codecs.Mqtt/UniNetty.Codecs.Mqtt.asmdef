@@ -1,6 +1,6 @@
 {
     "name": "UniNetty.Codecs.Mqtt",
-    "rootNamespace": "UniNetty",
+    "rootNamespace": "UniNetty.Codecs.Mqtt",
     "references": [
         "UniNetty.Common",
         "UniNetty.Buffers",

@@ -1,6 +1,6 @@
 {
     "name": "UniNetty.Common",
-    "rootNamespace": "UniNetty",
+    "rootNamespace": "UniNetty.Common",
     "references": [
         "UniNetty.Logging"
     ],

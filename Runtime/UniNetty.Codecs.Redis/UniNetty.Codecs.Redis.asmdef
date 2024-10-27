@@ -1,6 +1,6 @@
 {
     "name": "UniNetty.Codecs.Redis",
-    "rootNamespace": "UniNetty",
+    "rootNamespace": "UniNetty.Codecs.Redis",
     "references": [
         "UniNetty.Common",
         "UniNetty.Buffers",

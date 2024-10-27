@@ -1,6 +1,6 @@
 {
     "name": "UniNetty.Logging",
-    "rootNamespace": "UniNetty",
+    "rootNamespace": "UniNetty.Logging",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
