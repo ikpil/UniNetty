@@ -1,0 +1,20 @@
+{
+    "name": "UniNetty.Codecs.Http",
+    "rootNamespace": "UniNetty",
+    "references": [
+        "UniNetty.Common",
+        "UniNetty.Buffers",
+        "UniNetty.Codecs",
+        "UniNetty.Handlers",
+        "UniNetty.Transport"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

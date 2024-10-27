@@ -1,0 +1,19 @@
+{
+    "name": "UniNetty.Codecs.Mqtt",
+    "rootNamespace": "UniNetty",
+    "references": [
+        "UniNetty.Common",
+        "UniNetty.Buffers",
+        "UniNetty.Codecs",
+        "UniNetty.Transport"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

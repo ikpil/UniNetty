@@ -1,0 +1,17 @@
+{
+    "name": "UniNetty.Transport",
+    "rootNamespace": "UniNetty",
+    "references": [
+        "UniNetty.Common",
+        "UniNetty.Buffers"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

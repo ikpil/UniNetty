@@ -1,0 +1,16 @@
+{
+    "name": "UniNetty.Common",
+    "rootNamespace": "UniNetty",
+    "references": [
+        "UniNetty.Logging"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

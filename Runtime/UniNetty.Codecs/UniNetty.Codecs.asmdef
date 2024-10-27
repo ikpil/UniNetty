@@ -1,0 +1,18 @@
+{
+    "name": "UniNetty.Codecs",
+    "rootNamespace": "UniNetty",
+    "references": [
+        "UniNetty.Common",
+        "UniNetty.Buffers",
+        "UniNetty.Transport"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

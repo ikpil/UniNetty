@@ -1,0 +1,16 @@
+{
+    "name": "UniNetty.Buffers",
+    "rootNamespace": "UniNetty",
+    "references": [
+        "UniNetty.Common"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
