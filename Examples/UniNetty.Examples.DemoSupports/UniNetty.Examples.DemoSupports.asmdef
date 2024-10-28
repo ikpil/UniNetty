@@ -1,6 +1,6 @@
 {
-    "name": "UniNetty.Editor",
-    "rootNamespace": "UniNetty.Editor",
+    "name": "UniNetty.Examples.DemoSupports",
+    "rootNamespace": "UniNetty.Examples.DemoSupports",
     "references": [
         "UniNetty.Logging",
         "UniNetty.Common",
@@ -26,8 +26,7 @@
         "UniNetty.Examples.Telnet.Client",
         "UniNetty.Examples.Telnet.Server",
         "UniNetty.Examples.WebSockets.Client",
-        "UniNetty.Examples.WebSockets.Server",
-        "UniNetty.Examples.DemoSupports"
+        "UniNetty.Examples.WebSockets.Server"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,5 +1,5 @@
 {
-    "name": "UniNetty.UniNetty.Examples.Echo.Server",
+    "name": "UniNetty.Examples.Echo.Server",
     "rootNamespace": "UniNetty.Examples.Echo.Server",
     "references": [
         "UniNetty.Logging",
