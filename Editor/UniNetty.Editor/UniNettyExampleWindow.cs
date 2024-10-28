@@ -1,5 +1,6 @@
-﻿using UniNetty.Examples.Discard.Client;
-using UniNetty.Examples.Discard.Server;
+﻿using System;
+using System.Collections.Generic;
+using UniNetty.Examples.DemoSupports;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,19 +8,38 @@ namespace UniNetty.Editor
 {
     public class UniNettyExampleWindow : EditorWindow
     {
-        public void ExampleDiscard()
+        private Dictionary<UniNettyExampleType, UniNettyExample> _examples;
+
+        private void OnDisable()
         {
-            var server = new DiscardServer();
-            var client = new DiscardClient();
+            foreach (var knv in _examples)
+            {
+                knv.Value?.Stop();
+            }
+
+            _examples.Clear();
+            _examples = null;
         }
-        
+
+        private void OnEnable()
+        {
+            var ip = UniNettyExampleSupports.GetPrivateIp();
+            _examples = UniNettyExampleSupports.CreateDefaultExamples(null, ip);
+        }
+
         // GUI 그리기
         private void OnGUI()
         {
-            if (GUILayout.Button("Discard"))
+            if (GUILayout.Button("Discard Server"))
             {
-                ExampleDiscard();
+                _examples[UniNettyExampleType.Discard].ToggleServer();
             }
+            
+            if (GUILayout.Button("Discard Client"))
+            {
+                _examples[UniNettyExampleType.Discard].ToggleClient();
+            }
+
         }
     }
 }

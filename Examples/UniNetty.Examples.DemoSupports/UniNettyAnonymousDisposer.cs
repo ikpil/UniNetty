@@ -2,7 +2,7 @@ using System;
 
 namespace UniNetty.Examples.DemoSupports
 {
-    internal class AnonymousDisposer : IDisposable
+    internal class UniNettyAnonymousDisposer : IDisposable
     {
         private Action _action;
         private bool _disposed;
@@ -10,15 +10,15 @@ namespace UniNetty.Examples.DemoSupports
 
         public static IDisposable Create(Action action)
         {
-            return new AnonymousDisposer(action);
+            return new UniNettyAnonymousDisposer(action);
         }
 
-        private AnonymousDisposer(Action action)
+        private UniNettyAnonymousDisposer(Action action)
         {
             _action = action ?? throw new ArgumentNullException(nameof(action));
         }
 
-        ~AnonymousDisposer()
+        ~UniNettyAnonymousDisposer()
         {
             Dispose(false);
         }
