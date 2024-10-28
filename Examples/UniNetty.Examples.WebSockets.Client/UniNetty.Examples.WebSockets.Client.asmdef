@@ -1,0 +1,24 @@
+{
+    "name": "UniNetty.Examples.WebSockets.Client",
+    "rootNamespace": "UniNetty.Examples.WebSockets.Client",
+    "references": [
+        "UniNetty.Logging",
+        "UniNetty.Common",
+        "UniNetty.Transport",
+        "UniNetty.Handlers",
+        "UniNetty.Buffers",
+        "UniNetty.Codecs",
+        "UniNetty.Codecs.Http",
+        "UniNetty.Codecs.Mqtt",
+        "UniNetty.Codecs.Redis"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

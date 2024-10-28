@@ -1,0 +1,25 @@
+{
+    "name": "UniNetty.Examples.Factorial.Client",
+    "rootNamespace": "UniNetty.Examples.Factorial.Client",
+    "references": [
+        "UniNetty.Logging",
+        "UniNetty.Common",
+        "UniNetty.Transport",
+        "UniNetty.Handlers",
+        "UniNetty.Buffers",
+        "UniNetty.Codecs",
+        "UniNetty.Codecs.Http",
+        "UniNetty.Codecs.Mqtt",
+        "UniNetty.Codecs.Redis",
+        "UniNetty.Examples.Factorial"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

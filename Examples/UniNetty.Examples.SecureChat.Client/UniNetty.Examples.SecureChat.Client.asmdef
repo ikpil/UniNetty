@@ -1,6 +1,6 @@
 {
-    "name": "UniNetty.Examples",
-    "rootNamespace": "UniNetty.Examples",
+    "name": "UniNetty.Examples.SecureChat.Client",
+    "rootNamespace": "UniNetty.Examples.SecureChat.Client",
     "references": [
         "UniNetty.Logging",
         "UniNetty.Common",
