@@ -4,6 +4,7 @@
 
 namespace UniNetty.Codecs.Protobuf
 {
+#if UNINETTY_CODECS_PROTOBUF_SUPPORT
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
@@ -30,6 +31,7 @@ namespace UniNetty.Codecs.Protobuf
                 {
                     return;
                 }
+
                 //todo: Implement ByteBufferStream to avoid allocations.
                 buffer = Unpooled.WrappedBuffer(message.ToByteArray());
                 output.Add(buffer);
@@ -45,4 +47,5 @@ namespace UniNetty.Codecs.Protobuf
             }
         }
     }
+#endif // UNINETTY_CODECS_PROTOBUF_SUPPORT
 }

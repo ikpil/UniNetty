@@ -4,6 +4,7 @@
 
 namespace UniNetty.Codecs.Protobuf
 {
+#if UNINETTY_CODECS_PROTOBUF_SUPPORT
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.Contracts;
@@ -76,4 +77,5 @@ namespace UniNetty.Codecs.Protobuf
             }
         }
     }
+#endif // UNINETTY_CODECS_PROTOBUF_SUPPORT
 }
