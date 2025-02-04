@@ -20,12 +20,5 @@
   "repository": {
     "url": "https://github.com/ikpil/UniNetty.git",
     "type": "git"    
-  },
-  "samples": [
-    {
-      "displayName": "UniNetty Demo",
-      "description": "This sample demonstrates how to use UniNetty",
-      "path": "Samples~/UniNettyDemo"
-    }
-  ]
+  }
 }
