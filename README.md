@@ -13,6 +13,7 @@
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/ikpil/UniNetty?style=for-the-badge&logo=github)](https://github.com/ikpil/UniNetty/commits)
 [![GitHub issues](https://img.shields.io/github/issues-raw/ikpil/UniNetty?style=for-the-badge&logo=github&color=44cc11)](https://github.com/ikpil/UniNetty/issues)
 [![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/ikpil/UniNetty?style=for-the-badge&logo=github&color=a371f7)](https://github.com/ikpil/UniNetty/issues)
+[![openupm](https://img.shields.io/npm/v/com.ikpil.uninetty?style=for-the-badge&label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.ikpil.uninetty/)
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/ikpil?style=for-the-badge&logo=GitHub-Sponsors&link=https%3A%2F%2Fgithub.com%2Fsponsors%2Fikpil)](https://github.com/sponsors/ikpil)
 
 ---
