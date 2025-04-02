@@ -29,7 +29,9 @@
         "UniNetty.Examples.WebSockets.Server",
         "UniNetty.Examples.DemoSupports"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
